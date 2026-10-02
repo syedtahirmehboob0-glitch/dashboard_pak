@@ -121,6 +121,10 @@ footer.site-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap
 @media(max-width:560px){.dashboard-toolbar{padding:14px}.pakistan-cover{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:12px}.pakistan-cover img{width:100%;height:74px;object-fit:cover;border-radius:10px;display:block}.pakistan-cover img:first-child{object-position:center 45%}.flag-mark{font-size:2.5rem}.attractions-grid{grid-template-columns:1fr}.dashboard-title{align-items:flex-start;flex-direction:column}.dashboard-title p{text-align:start}.dashboard-cards{grid-template-columns:1fr}.section-heading{align-items:flex-start;flex-direction:column}.section-heading p{text-align:start}}
 
 
+/* Built-in landmark artwork: no external image requests */
+.pakistan-cover .landmark-art{min-width:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#102019}
+.pakistan-cover .landmark-art svg{display:block;width:100%;height:74px}
+.pakistan-cover .landmark-art span{display:block;padding:3px 4px 4px;text-align:center;color:var(--mut);font-size:.56rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* v7 clean public dashboard */
 header,.quick-nav{display:none!important}
 

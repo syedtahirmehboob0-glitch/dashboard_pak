@@ -311,6 +311,25 @@ body{background:var(--pp-bg);color:var(--pp-ink)}
  .pakistan-cover .landmark-art img{height:70px!important}
  .section-heading h2,.section-shell h2{font-size:1.35rem!important}
 }
+
+/* v4 functional layout + IMF programme layer */
+.wrap{display:flex;flex-direction:column;align-items:stretch}
+.top-ad{order:1}.dashboard-toolbar{order:2}.hint{order:3}.snapshot-grid{order:4}.overview-charts{order:5}
+#imf{order:6}#tools{order:7}#markets{order:8}#services{order:9}#government-value{order:10}#scale{order:11}#rankings{order:12}
+.bottom-ad{order:98}.site-footer-wrap{order:99}
+.imf-grid{display:grid;grid-template-columns:1.1fr 1.1fr 1fr;gap:12px}
+.imf-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
+.imf-label{color:var(--mut);font-size:.72rem;text-transform:uppercase;letter-spacing:.07em}
+.imf-big{font-size:2rem;font-weight:800;letter-spacing:-.03em;margin:5px 0}
+.imf-sub{color:#a9c4b8;font-size:.76rem;line-height:1.45;min-height:44px}
+.imf-progress{height:7px;background:#18382b;border-radius:99px;overflow:hidden;margin:14px 0 8px}.imf-progress span{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:99px}
+.imf-progress.rsf span{background:linear-gradient(90deg,var(--blue),var(--acc))}
+.imf-meta,.imf-split{display:flex;justify-content:space-between;gap:10px;font-size:.76rem;color:var(--mut)}
+.imf-meta b{color:var(--tx)}.imf-split{display:grid;grid-template-columns:1fr;gap:7px;margin-top:12px}
+.imf-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:10px;padding:10px 2px;color:var(--mut);font-size:.72rem}
+.imf-foot b{color:#cfe6dc}
+@media(max-width:900px){.imf-grid{grid-template-columns:1fr 1fr}.imf-card:last-child{grid-column:1/-1}}
+@media(max-width:620px){.imf-grid{grid-template-columns:1fr}.imf-card:last-child{grid-column:auto}.imf-big{font-size:1.7rem}}
 </style>
 </head>
 <body>
@@ -357,18 +376,27 @@ body{background:var(--pp-bg);color:var(--pp-ink)}
 </section>
 
 
-<div class="dashboard-divider"></div><section id="tools"><div class="section-head"><div><div class="section-kicker">01 · Everyday Pakistan</div><h2>Everyday Pakistan Tools</h2><p>Simple calculators for household, worker and small-business decisions.</p></div></div><div class="tool-grid">
+<div class="dashboard-divider"></div><section id="imf" class="imf-section">
+ <div class="section-head"><div><div class="section-kicker">01 · IMF programme</div><h2>Pakistan's IMF arrangements</h2><p>Financing and programme status from the IMF's published records.</p></div><a class="source-pill" href="https://www.imf.org/en/Countries/PAK" target="_blank" rel="noopener">IMF Pakistan ↗</a></div>
+ <div class="imf-grid">
+  <article class="imf-card imf-main"><div class="imf-label">Extended Fund Facility · EFF</div><div class="imf-big">SDR 5.32B</div><div class="imf-sub">37-month arrangement · approved 25 Sep 2024 · expires 24 Oct 2027</div><div class="imf-progress"><span style="width:100%"></span></div><div class="imf-meta"><span>Agreed</span><b>5,320m SDR</b></div></article>
+  <article class="imf-card"><div class="imf-label">Resilience & Sustainability Facility · RSF</div><div class="imf-big">SDR 1.00B</div><div class="imf-sub">28-month arrangement · approved 9 May 2025 · expires 24 Oct 2027</div><div class="imf-progress rsf"><span style="width:100%"></span></div><div class="imf-meta"><span>Agreed</span><b>1,000m SDR</b></div></article>
+  <article class="imf-card"><div class="imf-label">Latest confirmed disbursements</div><div class="imf-big">≈ US$4.8B</div><div class="imf-sub">Cumulative disbursements under the EFF and RSF after the IMF Executive Board's 8 May 2026 reviews.</div><div class="imf-split"><span>EFF · ≈ US$1.1B latest</span><span>RSF · ≈ US$220M latest</span></div></article>
+ </div>
+ <div class="imf-foot"><span><b>Latest confirmed Board review:</b> 8 May 2026 · Third EFF review + second RSF review</span><span><b>Next scheduled review in the published programme:</b> September 2026</span></div>
+ <div class="section-note">Arrangement size is not the same as cash already disbursed. The dashboard labels the latest confirmed IMF Board information rather than assuming a later review occurred.</div>
+</section><div class="dashboard-divider"></div><section id="tools"><div class="section-head"><div class="section-kicker">02 · Everyday Pakistan</div></div><div class="section-head"><div><h2>Everyday Pakistan Tools</h2><p>Simple calculators for household, worker and small-business decisions.</p></div></div><div class="tool-grid">
 <div class="tool"><h3>💰 Salary take-home</h3><p>Estimate monthly take-home after a simple tax assumption.</p><label>Gross monthly PKR</label><input id="ctSalary" type="number" value="150000" min="0"><label>Tax %</label><input id="ctSalaryTax" type="number" value="5" min="0" step=".5"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctSalaryOut"></div></div>
 <div class="tool"><h3>🤲 Zakat calculator</h3><p>Simple 2.5% estimate on qualifying wealth above your entered threshold.</p><label>Qualifying wealth PKR</label><input id="ctWealth" type="number" value="500000" min="0"><label>Nisab threshold PKR</label><input id="ctNisab" type="number" value="250000" min="0"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctZakatOut"></div></div>
 <div class="tool"><h3>⛽ Fuel cost</h3><p>Estimate the cost of a daily commute or trip.</p><label>Distance per day (km)</label><input id="ctKm" type="number" value="40" min="0"><label>Vehicle efficiency (km/L)</label><input id="ctEff" type="number" value="14" min=".1"><label>Fuel price PKR/L</label><input id="ctFuel" type="number" value="390.66" min="0"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctFuelOut"></div></div>
 <div class="tool"><h3>📈 Investment growth</h3><p>Compound-growth scenario; not investment advice.</p><label>Starting PKR</label><input id="ctInv" type="number" value="100000" min="0"><label>Annual return %</label><input id="ctRate" type="number" value="10" step=".5"><label>Years</label><input id="ctYears" type="number" value="5" min="1"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctInvOut"></div></div>
 <div class="tool"><h3>🧾 Business break-even</h3><p>Find monthly sales needed to cover fixed costs.</p><label>Fixed costs PKR</label><input id="ctFixed" type="number" value="200000" min="0"><label>Gross margin %</label><input id="ctMargin" type="number" value="30" min="1" max="100"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctBreakOut"></div></div>
 <div class="tool"><h3>🌍 Remittance converter</h3><p>See what a foreign transfer means in PKR.</p><label>Amount in USD</label><input id="ctUsd" type="number" value="1000" min="0"><label>PKR / USD</label><input id="ctFx" type="number" value="280" min="1"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctRemitOut"></div></div>
-</section><div class="dashboard-divider"></div><section id="markets"><div class="section-head"><div><div class="section-kicker">02 · Economy layer</div><h2>Pakistan market & investment monitor</h2><p>Live public-market signals plus government-published investment statistics.</p></div><span class="badge">Official-source layer</span></div><div class="live-board">
+</section><div class="dashboard-divider"></div><section id="markets"><div class="section-head"><div><div class="section-kicker">03 · Economy layer</div><h2>Pakistan market & investment monitor</h2><p>Live public-market signals plus government-published investment statistics.</p></div><span class="badge">Official-source layer</span></div><div class="live-board">
 <div class="market-card"><div class="meta">PAKISTAN STOCK EXCHANGE · KSE-100</div><div class="big" id="kseValue">—</div><div id="kseChange" class="chg">Waiting for PSX…</div><div class="market-row"><span>Total trades</span><b id="psxTrades">—</b></div><div class="market-row"><span>Exchange volume</span><b id="psxVolume">—</b></div><div class="market-row"><span>Exchange value</span><b id="psxValue">—</b></div><a class="source-pill" href="https://dps.psx.com.pk/" target="_blank" rel="noopener">Source: PSX ↗</a></div>
 <div class="market-card"><div class="meta">FOREIGN DIRECT INVESTMENT · BOARD OF INVESTMENT</div><div class="big" id="fdiValue">—</div><div class="meta">USD million · FY2024-25 Jul–Jan publication</div><div id="fdiBars" class="fdi-bars"></div><a class="source-pill" href="https://invest.gov.pk/statistics" target="_blank" rel="noopener">Source: BOI ↗</a></div>
 </div></section>
-<div class="dashboard-divider"></div><section id="services"><div class="section-head"><div><div class="section-kicker">03 · Public-service layer</div><h2>Citizen services gateway</h2><p>Links users to official portals instead of pretending PakPulse is the government service itself.</p></div></div><div class="gov-grid">
+<div class="dashboard-divider"></div><section id="services"><div class="section-head"><div><div class="section-kicker">04 · Public-service layer</div><h2>Citizen services gateway</h2><p>Links users to official portals instead of pretending PakPulse is the government service itself.</p></div></div><div class="gov-grid">
 <a class="gov" href="https://www.nadra.gov.pk/aboutPakID" target="_blank" rel="noopener"><span class="ico">🪪</span><div><b>NADRA PakID</b><span>CNIC, NICOP, updates and application tracking.</span></div></a>
 <a class="gov" href="https://fbr.gov.pk/categ/file-income-tax-return/51147/80860/71159" target="_blank" rel="noopener"><span class="ico">🧾</span><div><b>FBR / IRIS</b><span>Income-tax filing and taxpayer guidance.</span></div></a>
 <a class="gov" href="https://www.secp.gov.pk/eservices/company-incorporation/" target="_blank" rel="noopener"><span class="ico">🏢</span><div><b>SECP eServices</b><span>Company name reservation and incorporation.</span></div></a>
@@ -379,7 +407,7 @@ body{background:var(--pp-bg);color:var(--pp-ink)}
 
 <div class="dashboard-divider"></div>
 <section class="section-shell" id="government-value">
-  <div class="section-heading"><div><div class="sh-kicker">04 · Public-sector capability</div><h2>Built for public-sector data modernization</h2></div><p>PakPulse can serve as a clear presentation layer around existing public and institutional data.</p></div>
+  <div class="section-heading"><div><div class="sh-kicker">05 · Public-sector capability</div><h2>Built for public-sector data modernization</h2></div><p>PakPulse can serve as a clear presentation layer around existing public and institutional data.</p></div>
   <div class="gov-value">
     <div class="gov-value-copy"><div class="badge">PUBLIC DATA PLATFORM</div><h2>One clear layer across Pakistan's data.</h2><p>PakPulse brings public indicators into a consistent experience — with source context, refresh status and room to expand across sectors, regions and departments.</p></div><div class="gov-value-grid">
       <div class="gov-cap"><b>Unified data presentation</b><span>Consistent indicators across agencies and programs.</span></div>
@@ -392,7 +420,7 @@ body{background:var(--pp-bg);color:var(--pp-ink)}
   </div>
 </section>
 <section class="section-shell" id="scale">
-  <div class="section-heading"><div><div class="sh-kicker">05 · Expansion model</div><h2>Designed to scale</h2></div><p>Start with national indicators and expand by geography or department when validated data is available.</p></div>
+  <div class="section-heading"><div><div class="sh-kicker">06 · Expansion model</div><h2>Designed to scale</h2></div><p>Start with national indicators and expand by geography or department when validated data is available.</p></div>
   <div class="scale-map">
     <div class="scale-step"><b>National</b><span>Pakistan-wide indicators</span></div>
     <div class="scale-step"><b>Provincial</b><span>Province dashboards</span></div>
@@ -622,17 +650,23 @@ function spark(d){
 function render(){
  const q=$("#q").value.trim().toLowerCase();
  VIEW=DATA.filter(d=>(CAT==="all"||d.cat===CAT)&&(!q||(d.en+d.ur+d.src).toLowerCase().includes(q)));
- $("#grid").innerHTML=VIEW.length?VIEW.map(d=>{const c=change(d);return`<div class="card" role="button" tabindex="0" data-id="${d.id}" aria-label="${esc(d[L])}">
-  <div class="k"><span>${esc(d[L])}</span>${d.live&&LIVE?`<span class="live">${t("live")}</span>`:""}</div>
-  <div class="v">${fmt(d.v)} <small>${esc(d.u)}</small></div>
-  <div class="row"><div><div class="chg ${tone(d,c?.v)}">${chgTxt(c)}</div><div class="src">${esc(d.src)} · ${esc(d.live&&LIVE?LIVE.latest.date:d.asof)}</div></div>${spark(d)}</div></div>`}).join(""):`<div class="empty">${t("none")}</div>`;
-  <div class="k"><span>${esc(d[L])}</span>${d.live&&LIVE?`<span class="live">${t("live")}</span>`:""}</div>
-  <div class="v">${fmt(d.v)} <small>${esc(d.u)}</small></div>
-  <div class="row"><div><div class="chg ${tone(d,c?.v)}">${chgTxt(c)}</div><div class="src">${esc(d.src)} · ${esc(d.live&&LIVE?LIVE.latest.date:d.asof)}</div></div>${spark(d)}</div></div>`}).join(""):`<div class="empty">${t("none")}</div>`;
+ $("#grid").innerHTML=VIEW.length?VIEW.map(d=>{
+  const c=change(d);
+  return `<div class="card" role="button" tabindex="0" data-id="${d.id}" aria-label="${esc(d[L])}">
+   <div class="k"><span>${esc(d[L])}</span>${d.live&&LIVE?`<span class="live">${t("live")}</span>`:""}</div>
+   <div class="v">${fmt(d.v)} <small>${esc(d.u)}</small></div>
+   <div class="row"><div><div class="chg ${tone(d,c?.v)}">${chgTxt(c)}</div><div class="src">${esc(d.src)} · ${esc(d.live&&LIVE?LIVE.latest.date:d.asof)}</div></div>${spark(d)}</div>
+  </div>`;
+ }).join(""):`<div class="empty">${t("none")}</div>`;
 
  const by=id=>DATA.find(x=>x.id===id)||{};
- const setP=(id,d,unitOverride)=>{const el=document.getElementById(id);if(!el)return;el.textContent=d.v==null?"—":fmt(d.v)+(unitOverride||d.u||"");const meta=document.getElementById(id+"Meta");if(meta)meta.textContent=(d.src||"Source")+" · "+(d.asof||"—");};
- setP("priorityCpi",by("cpi")); setP("priorityGdp",by("gdp")); setP("priorityKse",by("kse")); setP("priorityUsd",by("usdpkr")); setP("priorityReserves",by("reserves_sbp")); setP("priorityRemit",by("remit")); setP("priorityPetrol",by("petrol")); setP("priorityUnemp",by("unemp"));
+ const setP=(id,d,unitOverride)=>{
+  const el=document.getElementById(id);if(!el)return;
+  el.textContent=d.v==null?"—":fmt(d.v)+(unitOverride||d.u||"");
+  const meta=document.getElementById(id+"Meta");if(meta)meta.textContent=(d.src||"Source")+" · "+(d.asof||"—");
+ };
+ setP("priorityCpi",by("cpi"));setP("priorityGdp",by("gdp"));setP("priorityKse",by("kse"));setP("priorityUsd",by("usdpkr"));
+ setP("priorityReserves",by("reserves_sbp"));setP("priorityRemit",by("remit"));setP("priorityPetrol",by("petrol"));setP("priorityUnemp",by("unemp"));
 }
 $("#grid").addEventListener("click",e=>{const c=e.target.closest(".card");if(c)openMetric(c.dataset.id)});
 $("#grid").addEventListener("keydown",e=>{const c=e.target.closest(".card");if(c&&(e.key==="Enter"||e.key===" ")){e.preventDefault();openMetric(c.dataset.id)}});

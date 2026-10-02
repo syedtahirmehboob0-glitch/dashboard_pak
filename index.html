@@ -333,6 +333,18 @@ body{background:var(--pp-bg);color:var(--pp-ink)}
 
 /* Keep section separators from becoming misplaced flex children after page ordering. */
 .dashboard-divider{display:none!important}
+
+/* calculator reliability + white card treatment */
+#tools .tool{background:#fff!important;color:#10231b!important;border:1px solid #dfe6e1!important;box-shadow:0 6px 18px rgba(16,35,27,.06)!important}
+#tools .tool h3,#tools .tool label{color:#10231b!important;font-weight:800!important}
+#tools .tool p{color:#66786f!important;font-weight:600!important}
+#tools .tool input{background:#fff!important;color:#10231b!important;border:1px solid #cbd8d1!important;font-weight:700!important;min-height:44px}
+#tools .tool input:focus{outline:2px solid #0b6b45;outline-offset:1px}
+#tools .calc-btn{background:#0b6b45!important;color:#fff!important;border:0!important;font-weight:800!important;min-height:44px;box-shadow:0 4px 10px rgba(11,107,69,.16)}
+#tools .calc-btn:hover{background:#084f35!important;color:#fff!important;filter:none}
+#tools .tool .out{display:block!important;background:#f4f7f5!important;color:#10231b!important;border:1px solid #dfe6e1!important;border-radius:10px!important;padding:11px!important;margin-top:10px!important;min-height:44px!important;font-weight:700!important;line-height:1.45}
+#tools .tool .out b{color:#0b6b45!important;font-weight:900!important}
+#tools .section-head h2{font-weight:900!important}
 </style>
 </head>
 <body>
@@ -824,13 +836,15 @@ function citizenCalc(){
 function bindCitizenTools(){
   const tools=document.getElementById("tools");
   if(!tools)return;
-  tools.querySelectorAll("input").forEach(e=>e.addEventListener("input",citizenCalc));
-  tools.addEventListener("click",e=>{
-    const btn=e.target.closest(".calc-btn");
-    if(!btn)return;
-    e.preventDefault();
-    citizenCalc();
+  const inputs=tools.querySelectorAll("input");
+  inputs.forEach(e=>e.addEventListener("input",citizenCalc));
+  tools.querySelectorAll(".calc-btn").forEach(btn=>{
+    btn.addEventListener("click",function(e){
+      e.preventDefault();
+      citizenCalc();
+    });
   });
+  window.citizenCalc=citizenCalc;
   citizenCalc();
 }
 

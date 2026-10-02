@@ -255,6 +255,62 @@ footer.site-footer{margin-top:24px;padding-top:16px}
 .section-note{color:#718f83;font-size:.68rem;margin-top:9px}
 @media(max-width:900px){.priority-strip{grid-template-columns:repeat(2,1fr)}.gov-value{grid-template-columns:1fr}.scale-map{grid-template-columns:repeat(3,1fr)}.scale-step:not(:last-child)::after{display:none}}
 @media(max-width:560px){.priority-strip{grid-template-columns:1fr 1fr}.priority-card b{font-size:1.08rem}.gov-value-copy{padding:14px}.gov-value-grid{grid-template-columns:1fr}.scale-map{grid-template-columns:1fr 1fr}.scale-step{padding:10px 5px}}
+
+/* ===== PakPulse coherent redesign ===== */
+:root{
+ --pp-ink:#10231b;--pp-muted:#66786f;--pp-green:#0b6b45;--pp-green2:#084f35;--pp-gold:#c89b3c;
+ --pp-bg:#f5f7f4;--pp-card:#fff;--pp-line:#dfe6e1;--pp-soft:#edf3ef;
+}
+body{background:var(--pp-bg);color:var(--pp-ink)}
+.site-header{background:#fff!important;border-bottom:1px solid var(--pp-line)!important}
+.dashboard-toolbar{background:linear-gradient(135deg,#0b5b3d 0%,#0b6b45 62%,#0d7850 100%)!important;border:0!important;border-radius:18px!important;padding:22px!important;box-shadow:0 14px 35px rgba(13,72,48,.12)!important;color:#fff!important}
+.dashboard-toolbar .dashboard-eyebrow{color:#d8e8df!important;letter-spacing:.14em}
+.dashboard-toolbar h2{font-size:clamp(2rem,4vw,3.35rem)!important;letter-spacing:-.055em!important;color:#fff!important;margin:2px 0 6px!important}
+.dashboard-toolbar p{color:#d8e8df!important;max-width:680px;font-size:.92rem!important}
+.dashboard-controls button,.dashboard-controls #clock{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.22)!important;color:#fff!important}
+.dashboard-search input{background:#fff!important;border:0!important;box-shadow:0 5px 18px rgba(0,0,0,.09)!important}
+.dashboard-search .bar button{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.18)!important;color:#fff!important}
+.pakistan-cover{margin-top:15px!important}
+.pakistan-cover .landmark-art{background:#0a4f35!important;border-color:rgba(255,255,255,.16)!important}
+.pakistan-cover .landmark-art img{height:82px!important}
+.pakistan-cover .landmark-art figcaption{color:#dceae3!important}
+.priority-strip{grid-template-columns:repeat(8,minmax(120px,1fr))!important;gap:7px!important}
+.priority-card{background:rgba(0,0,0,.14)!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:9px!important;padding:9px 10px!important}
+.priority-card .pc-label{color:#b9d1c6!important;font-size:.58rem!important}
+.priority-card b{color:#fff!important;font-size:1.02rem!important}
+.priority-card small{color:#a5c1b5!important}
+.provenance-bar{border-top-color:rgba(255,255,255,.16)!important;color:#b8d0c5!important}
+.provenance-bar strong{color:#fff!important}
+.provenance-chip{border-color:rgba(255,255,255,.16)!important;background:rgba(0,0,0,.1)!important}
+.snapshot-grid,.overview-charts,.finance-calc,.section-shell,.rankings-section,#tools,#markets,#services{background:transparent!important}
+.snapshot-grid::before{font-size:.72rem!important;color:var(--pp-green)!important;letter-spacing:.1em!important}
+.card{background:#fff!important;border:1px solid var(--pp-line)!important;border-radius:13px!important;box-shadow:0 3px 12px rgba(16,35,27,.035)!important;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(16,35,27,.08)!important;border-color:#c9d9d0!important}
+.card .k{color:#5d7168!important}.card .v{color:var(--pp-ink)!important;font-size:1.55rem!important}
+.card .src{color:#819088!important}
+.section-heading{margin-top:30px!important;margin-bottom:12px!important}
+.section-heading h2,.section-shell h2{font-size:1.65rem!important;letter-spacing:-.035em!important;color:var(--pp-ink)!important}
+.sh-kicker,.section-kicker{color:var(--pp-green)!important;font-weight:800!important;letter-spacing:.1em!important}
+.box,.chartbox,.tool,.service-card,.ranking-card,.gov-value-copy,.gov-cap{background:#fff!important;border:1px solid var(--pp-line)!important;box-shadow:0 3px 12px rgba(16,35,27,.035)!important}
+.box,.chartbox{border-radius:14px!important}
+.gov-value{gap:12px!important}
+.gov-value-copy{border-radius:14px!important;padding:20px!important}
+.gov-value-copy h2{font-size:1.7rem!important}
+.gov-cap{border-radius:10px!important}
+.scale-step{background:#fff!important;border-color:var(--pp-line)!important}
+.module-list span{background:#fff!important;border-color:var(--pp-line)!important;color:#61756b!important}
+.site-footer{background:#10231b!important;color:#c7d8d0!important;border-top:0!important}
+.site-footer a{color:#e4c36d!important}
+.ad-slot{border:1px solid var(--pp-line)!important;background:#eef2ef!important;color:#84938c!important}
+@media(max-width:1100px){.priority-strip{grid-template-columns:repeat(4,1fr)!important}}
+@media(max-width:700px){
+ .dashboard-toolbar{padding:17px!important;border-radius:14px!important}
+ .priority-strip{grid-template-columns:repeat(2,1fr)!important}
+ .priority-card{min-width:0}
+ .dashboard-controls{margin-top:8px}
+ .pakistan-cover .landmark-art img{height:70px!important}
+ .section-heading h2,.section-shell h2{font-size:1.35rem!important}
+}
 </style>
 </head>
 <body>
@@ -300,7 +356,7 @@ footer.site-footer{margin-top:24px;padding-top:16px}
  </div>
 </section>
 
-<section class="hero" id="overview"><div class="hero-grid"><div><span class="badge">🇵🇰 National civic intelligence</span><h2>Pakistan, in one place.</h2><p>Citizen tools, market signals and investment intelligence built around public data — designed to be useful to people today and auditable for institutions tomorrow.</p></div><div class="hero-kpis"><div class="hero-kpi"><b id="heroKse">—</b><span>KSE-100 · live PSX</span></div><div class="hero-kpi"><b id="heroFdi">—</b><span>FDI · BOI published data</span></div><div class="hero-kpi"><b id="heroCpi">—</b><span>CPI · PBS</span></div><div class="hero-kpi"><b id="heroUpdated">—</b><span>Data refresh</span></div></div></div><div id="economyStatus" class="data-status">Connecting to official sources…</div></section>
+
 <div class="dashboard-divider"></div><section id="tools"><div class="section-head"><div><div class="section-kicker">01 · Everyday Pakistan</div><h2>Everyday Pakistan Tools</h2><p>Simple calculators for household, worker and small-business decisions.</p></div></div><div class="tool-grid">
 <div class="tool"><h3>💰 Salary take-home</h3><p>Estimate monthly take-home after a simple tax assumption.</p><label>Gross monthly PKR</label><input id="ctSalary" type="number" value="150000" min="0"><label>Tax %</label><input id="ctSalaryTax" type="number" value="5" min="0" step=".5"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctSalaryOut"></div></div>
 <div class="tool"><h3>🤲 Zakat calculator</h3><p>Simple 2.5% estimate on qualifying wealth above your entered threshold.</p><label>Qualifying wealth PKR</label><input id="ctWealth" type="number" value="500000" min="0"><label>Nisab threshold PKR</label><input id="ctNisab" type="number" value="250000" min="0"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctZakatOut"></div></div>
@@ -325,8 +381,7 @@ footer.site-footer{margin-top:24px;padding-top:16px}
 <section class="section-shell" id="government-value">
   <div class="section-heading"><div><div class="sh-kicker">04 · Public-sector capability</div><h2>Built for public-sector data modernization</h2></div><p>PakPulse can serve as a clear presentation layer around existing public and institutional data.</p></div>
   <div class="gov-value">
-    <div class="gov-value-copy"><div class="badge">Independent presentation layer</div><h2>From scattered statistics to usable intelligence.</h2><p>Bring indicators from multiple institutions into a consistent public experience with source attribution, refresh status, historical context and room for secure role-based dashboards.</p></div>
-    <div class="gov-value-grid">
+    <div class="gov-value-copy"><div class="badge">PUBLIC DATA PLATFORM</div><h2>One clear layer across Pakistan's data.</h2><p>PakPulse brings public indicators into a consistent experience — with source context, refresh status and room to expand across sectors, regions and departments.</p></div><div class="gov-value-grid">
       <div class="gov-cap"><b>Unified data presentation</b><span>Consistent indicators across agencies and programs.</span></div>
       <div class="gov-cap"><b>Automated refresh</b><span>Connect approved feeds and scheduled releases.</span></div>
       <div class="gov-cap"><b>Public transparency</b><span>Show sources, dates and definitions beside numbers.</span></div>

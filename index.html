@@ -439,7 +439,7 @@ body{background:#f3f6f4!important;color:#10231b!important}
 </section><div class="dashboard-divider"></div><section id="debt" class="debt-section">
  <div class="section-head"><div><div class="section-kicker">02 · Debt & liabilities</div><h2>Pakistan debt: what is actually included?</h2><p>The dashboard separates public debt from the broader stock of debt and liabilities so different official definitions are not mixed together.</p></div><a class="source-pill" href="https://www.sbp.org.pk/economic-data" target="_blank" rel="noopener">SBP debt data ↗</a></div>
  <div class="debt-headline">
-  <article class="debt-total"><span class="debt-label">Latest public-debt headline</span><b>Rs 83.285T</b><small>End-Mar 2026 · Ministry of Finance / Pakistan Economic Survey 2025-26</small></article>
+  <article class="debt-total"><span class="debt-label">Public-debt headline · End-Mar 2026</span><b>Rs 83.285T</b><small>End-Mar 2026 · Ministry of Finance / Pakistan Economic Survey 2025-26</small></article>
   <article class="debt-total"><span class="debt-label">Broader debt & liabilities</span><b>Rs 95.464T</b><small>End-Dec 2025 · SBP detailed debt-and-liabilities summary</small></article>
  </div>
  <div class="debt-grid">
@@ -556,13 +556,13 @@ body{background:#f3f6f4!important;color:#10231b!important}
    v = latest value, asof = date of the figure, h = [firstYear, [10 yearly values]] (null = no data that year),
    good = 1 if higher is better, -1 if lower is better, 0 neutral, live = key in /api/live feed (auto-updated). */
 const DATA=[
-{id:"policy",cat:"macro",v:10.5,u:"%",asof:"2026-Q3",src:"SBP",good:-1,h:[2017,[5.75,10,13.25,7,9.75,16,22,13,11,10.5]],en:"SBP Policy Rate",ur:"اسٹیٹ بینک پالیسی ریٹ",
+{id:"policy",cat:"macro",v:11.5,u:"%",asof:"2026-09-14",src:"SBP,good:-1,h:[2017,[5.75,10,13.25,7,9.75,16,22,13,11,10.5]],en:"SBP Policy Rate",ur:"اسٹیٹ بینک پالیسی ریٹ",
  xe:"The rate SBP charges banks. Bank loans (car lease, business loan) usually track KIBOR, which follows this. A 1% cut on a Rs 5M loan saves roughly Rs 2,500–3,000 a month.",
  xu:"یہ وہ شرح ہے جس پر اسٹیٹ بینک بینکوں کو قرض دیتا ہے۔ کار لیز اور کاروباری قرضے کبھی کبھار اسی کے ساتھ گھٹتے بڑھتے ہیں۔ 1٪ کمی سے 50 لاکھ کے قرض پر ماہانہ تقریباً 2,500–3,000 روپے بچتے ہیں۔"},
-{id:"kibor",cat:"macro",v:10.8,u:"%",asof:"2026-Q3",src:"SBP",good:-1,h:[2017,[6.15,10.6,13.3,7.3,11,17,21.4,12,11.2,10.8]],en:"KIBOR (6-month)",ur:"کائبور (6 ماہ)",
+{id:"kibor",cat:"macro",v:12.1,u:"%",asof:"2026-10-02",src:"SBP,good:-1,h:[2017,[6.15,10.6,13.3,7.3,11,17,21.4,12,11.2,10.8]],en:"KIBOR (6-month)",ur:"کائبور (6 ماہ)",
  xe:"The benchmark rate banks use to price most business and consumer loans. Your loan rate is usually KIBOR plus a margin.",
  xu:"بینک زیادہ تر قرضوں کی قیمت اسی شرح سے طے کرتے ہیں۔ آپ کے قرض کی شرح عموماً کائبور جمع کچھ مارجن ہوتی ہے۔"},
-{id:"cpi",cat:"macro",v:5.0,u:"% YoY",asof:"2026-Q3",src:"PBS",good:-1,h:[2017,[4.2,3.9,6.8,10.7,8.9,12.2,29.2,23.4,4.5,5]],en:"CPI Headline Inflation",ur:"مہنگائی (سی پی آئی)",
+{id:"cpi",cat:"macro",v:10.26,u:"% YoY",asof:"2026-09",src:"PBS,good:-1,h:[2017,[4.2,3.9,6.8,10.7,8.9,12.2,29.2,23.4,4.5,5]],en:"CPI Headline Inflation",ur:"مہنگائی (سی پی آئی)",
  xe:"How much average prices rose versus a year ago. At 5%, something that cost Rs 1,000 last year costs about Rs 1,050 now.",
  xu:"گزشتہ سال کے مقابلے میں قیمتوں میں اضافہ۔ 5٪ پر، پچھلے سال کی 1,000 روپے کی چیز اب تقریباً 1,050 کی ہے۔"},
 {id:"gdp",cat:"macro",v:3.0,u:"% real",asof:"FY25",src:"PBS / NAC",good:1,h:[2016,[4.6,4.6,6.1,3.1,-0.9,5.8,6.2,-0.2,2.5,3]],en:"GDP Growth",ur:"معاشی شرحِ نمو (جی ڈی پی)",
@@ -583,7 +583,7 @@ const DATA=[
 {id:"reserves_bank",cat:"external",v:5.0,u:"$Bn",asof:"2026-Q3",src:"SBP",good:1,h:[2017,[5.4,6.6,7.1,6.9,7,5.8,5.1,5.3,5,5]],en:"FX Reserves (Commercial Banks)",ur:"زرمبادلہ ذخائر (کمرشل بینک)",
  xe:"Dollars held by private banks. These are not available to the government, so SBP reserves are the number to watch.",
  xu:"نجی بینکوں کے ڈالر۔ یہ حکومت کے استعمال میں نہیں، اس لیے اسٹیٹ بینک کے ذخائر زیادہ اہم ہیں۔"},
-{id:"remit",cat:"external",v:3.5,u:"$Bn/mo",asof:"2026-Q3",src:"SBP",good:1,h:[2017,[1.62,1.64,1.81,1.93,2.45,2.61,2.27,2.53,3.19,3.5]],en:"Worker Remittances",ur:"ترسیلاتِ زر",
+{id:"remit",cat:"external",v:3.65633767,u:"$Bn/mo",asof:"2026-08",src:"SBP,good:1,h:[2017,[1.62,1.64,1.81,1.93,2.45,2.61,2.27,2.53,3.19,3.5]],en:"Worker Remittances",ur:"ترسیلاتِ زر",
  xe:"Money sent home by overseas Pakistanis (yearly figures shown as a monthly average). It is the country's biggest steady source of dollars.",
  xu:"بیرونِ ملک پاکستانیوں کی بھیجی گئی رقم (سالانہ اعداد ماہانہ اوسط میں)، ملک کے لیے ڈالر کا سب سے بڑا مستقل ذریعہ۔"},
 {id:"exports",cat:"external",v:32.1,u:"$Bn/yr",asof:"FY25",src:"PBS",good:1,h:[2016,[20.8,20.4,23.2,22.5,21.4,25.3,31.8,27.7,30.6,32.1]],en:"Goods Exports",ur:"اشیا کی برآمدات",
@@ -598,7 +598,7 @@ const DATA=[
 {id:"fdi",cat:"external",v:2.5,u:"$Bn/yr",asof:"FY25",src:"SBP",good:1,h:[2016,[2.4,2.75,3.47,1.36,2.6,1.82,1.87,1.46,1.9,2.5]],en:"Foreign Direct Investment",ur:"براہِ راست غیر ملکی سرمایہ کاری",
  xe:"Money foreign companies invest in Pakistani businesses and projects. It brings dollars, jobs and know-how without debt.",
  xu:"غیر ملکی کمپنیوں کی پاکستانی کاروبار اور منصوبوں میں سرمایہ کاری۔ یہ قرض کے بغیر ڈالر، نوکریاں اور مہارت لاتی ہے۔"},
-{id:"usdpkr",cat:"markets",v:277.6,u:"Rs per $",asof:"live",src:"Interbank ref.",good:-1,live:"usdpkr",h:[2017,[110.5,138.9,154.9,160,176.5,226.4,282,278.5,280.5,277.6]],en:"US Dollar Rate",ur:"ڈالر کا ریٹ",
+{id:"usdpkr",cat:"markets",v:277.0714,u:"Rs per $",asof:"2026-10-02",src:"SBP M2M ref.",good:-1,live:"usdpkr",h:[2017,[110.5,138.9,154.9,160,176.5,226.4,282,278.5,280.5,277.6]],en:"US Dollar Rate",ur:"ڈالر کا ریٹ",
  xe:"How many rupees one US dollar costs. A weaker rupee (higher number) makes imports, fuel and foreign fees more expensive, but lifts freelancer and remittance income.",
  xu:"ایک امریکی ڈالر کتنے روپے کا ہے۔ کمزور روپیہ (زیادہ عدد) درآمدات، تیل اور غیر ملکی فیسیں مہنگی کرتا ہے، مگر فری لانسرز اور ترسیلات کی آمدن بڑھاتا ہے۔"},
 {id:"sarpkr",cat:"markets",v:73.9,u:"Rs per SAR",asof:"live",src:"Interbank ref.",good:0,live:"sarpkr",h:[2017,[29.5,37,41.3,42.7,47.1,60.4,75.2,74.3,74.8,73.9]],en:"Saudi Riyal Rate",ur:"سعودی ریال کا ریٹ",
@@ -642,7 +642,7 @@ const DATA=[
  xu:"فری لانسرز کی تعداد کے لحاظ سے پاکستان دنیا کے سرِفہرست ممالک میں شامل ہے (کم نمبر بہتر ہے)۔"},
 {id:"shouses",cat:"it",v:null,u:"",asof:"—",src:"PSEB",good:1,en:"Registered Software Houses (add PSEB figure)",ur:"رجسٹرڈ سافٹ ویئر ہاؤسز (پی ایس ای بی کا عدد شامل کریں)",
  xe:"Fill in the latest count and yearly history from PSEB's register in the DATA array.",xu:"تازہ تعداد اور سالانہ تاریخ پی ایس ای بی سے لے کر DATA میں درج کریں۔"},
-{id:"spi",cat:"essentials",v:5.0,u:"% YoY",asof:"2026-Q3",src:"PBS",good:-1,h:[2017,[2.6,1.2,5.9,13.1,13,16.7,35,25,2,5]],en:"Sensitive Price Index (SPI)",ur:"حساس قیمتوں کا اشاریہ",
+{id:"spi",cat:"essentials",v:8.4,u:"% YoY",asof:"2026-09",src:"PBS",good:-1,h:[2017,[2.6,1.2,5.9,13.1,13,16.7,35,25,2,8.4]],en:"Sensitive Price Index (SPI)",ur:"حساس قیمتوں کا اشاریہ",
  xe:"Weekly price tracker for 51 everyday items (flour, sugar, milk, vegetables). It shows what households feel first.",
  xu:"آٹا، چینی، دودھ، سبزی جیسی 51 روزمرہ اشیا کی ہفتہ وار قیمتیں۔"},
 {id:"petrol",cat:"essentials",v:390.66,u:"Rs/L",asof:"2026-10-02",src:"OGRA · daily",good:-1,h:[2017,[81.5,95.2,116.6,105.7,144.8,214.8,267.3,252.1,263,390.66]],en:"Petrol Price",ur:"پیٹرول کی قیمت",
@@ -664,7 +664,7 @@ const DATA=[
  xe:"International silver spot price converted to rupees per tola. Used for jewellery and often for calculating zakat nisab.",
  xu:"عالمی چاندی کی قیمت روپے فی تولہ میں۔ زیورات اور اکثر زکوٰۃ کے نصاب کے حساب میں استعمال ہوتی ہے۔"}
 ];
-const SERIES={m:["M1","M2","M3","M4","M5","M6"],it:[0.31,0.33,0.32,0.35,0.34,0.36],rem:[3.2,3.4,3.3,3.6,3.5,3.5]};
+const SERIES={m:["M1","M2","M3","M4","M5","M6"],it:[0.31,0.33,0.32,0.35,0.34,0.36],rem:[3.2,3.4,3.3,3.6,3.5,3.656]};
 const RAILS=[{n:"Raast",v:38},{n:"1Link",v:30},{n:"Wallets",v:22},{n:"Cards",v:10}];
 const CPI_FACTOR={2021:1.95,2022:1.75,2023:1.35,2024:1.1,2025:1.04,2026:1};/* approx. cumulative price change to today */
 const CATS=["all","macro","external","fintech","it","markets","essentials"];

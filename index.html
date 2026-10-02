@@ -121,64 +121,69 @@ footer.site-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap
 @media(max-width:560px){.dashboard-toolbar{padding:14px}.dashboard-title{align-items:flex-start;flex-direction:column}.dashboard-title p{text-align:start}.dashboard-cards{grid-template-columns:1fr}.section-heading{align-items:flex-start;flex-direction:column}.section-heading p{text-align:start}}
 
 
-/* v5 visual polish: cleaner hierarchy, premium cards, friendlier scanning */
-:root{--bg:#06110d;--panel:#0c1d16;--panel2:#11271e;--line:#204234;--tx:#edf8f3;--mut:#91afa3;--acc:#35e3a0;--acc2:#f6c84a}
-body{background:
- radial-gradient(900px 520px at 88% -8%,rgba(40,190,130,.16),transparent 60%),
- radial-gradient(700px 420px at -8% 24%,rgba(35,110,180,.10),transparent 62%),
- linear-gradient(180deg,#06110d 0%,#07150f 48%,#06110d 100%);
- letter-spacing:-.01em}
-.wrap{max-width:1240px;padding:18px 20px 28px}
-header{position:sticky;top:0;z-index:20;margin:0 -20px;padding:11px 20px 12px;background:rgba(6,17,13,.82);border-bottom:1px solid rgba(78,130,105,.18);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-h1{font-size:1.45rem;letter-spacing:-.04em}h1 span{color:var(--acc)}
-.quick-nav{position:sticky;top:62px;z-index:19;margin:0 -2px 10px;padding:8px 2px 11px;background:linear-gradient(180deg,rgba(6,17,13,.94),rgba(6,17,13,.72),transparent);backdrop-filter:blur(8px)}
-.quick-nav a{padding:8px 13px;border-radius:12px;background:rgba(17,39,30,.78);font-weight:650}
-.dashboard-toolbar{margin-top:10px;padding:22px;border-radius:24px;border-color:rgba(53,227,160,.20);background:
- radial-gradient(500px 180px at 100% 0%,rgba(53,227,160,.11),transparent 70%),
- linear-gradient(135deg,rgba(17,48,36,.96),rgba(8,24,18,.92));box-shadow:0 20px 55px rgba(0,0,0,.22)}
-.dashboard-title h2{font-size:clamp(1.55rem,3vw,2.15rem);letter-spacing:-.04em}
+/* v6 common dashboard refresh */
+:root{--bg:#08120f;--panel:#102019;--panel2:#162a22;--line:#29463a;--tx:#edf5f1;--mut:#9bb2a8;--acc:#39d89b;--acc2:#f4c95d;--bad:#ff7474;--blue:#62b8f5}
+body{background:#08120f;letter-spacing:0}
+.wrap{max-width:1180px;padding:0 18px 28px}
+header{position:sticky;top:0;z-index:20;margin:0 -18px;padding:12px 18px;background:rgba(8,18,15,.96);border-bottom:1px solid var(--line)}
+h1{font-size:1.45rem;letter-spacing:-.025em}
+.bar{gap:7px}
+button,select,input{background:#12251e;border-color:#2a493c;border-radius:9px}
+button:hover,button.on{border-color:var(--acc);color:var(--acc)}
+#clock{background:#102019;border-color:var(--line)}
+.quick-nav{position:sticky;top:61px;z-index:19;display:flex;gap:6px;overflow:auto;margin:0 -2px;padding:10px 2px;background:#08120f}
+.quick-nav a{background:#102019;border:1px solid var(--line);border-radius:8px;padding:7px 11px;color:#b4c7bf;font-size:.76rem}
+.quick-nav a:hover{color:var(--acc);border-color:var(--acc)}
+.ad-slot{min-height:54px;margin:8px 0;border:1px dashed #345448;border-radius:10px;background:#0d1c16}
+.top-ad{min-height:54px}.top-ad .ad-inner span{display:none}.bottom-ad{min-height:80px}
+.dashboard-toolbar{order:3;margin:12px 0 0;padding:18px;border:1px solid var(--line);border-radius:14px;background:#102019;box-shadow:none}
+.dashboard-title{align-items:center;margin-bottom:14px}
+.dashboard-title h2{font-size:1.55rem;letter-spacing:-.025em}
 .dashboard-title p{max-width:650px}
-.dashboard-cards{gap:10px}
-.dashboard-card{min-height:66px;padding:12px 13px;border-radius:16px;background:rgba(7,20,15,.52)}
-.dashboard-card .dc-icon{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#1a4433,#102a20);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
-.dashboard-card b{font-size:.83rem}.dashboard-card span{font-size:.7rem}
-.snapshot-grid::before{font-size:.7rem;color:#a5beb4;margin-top:20px}
-.grid{gap:14px;grid-template-columns:repeat(auto-fill,minmax(265px,1fr))}
-.card{min-height:145px;padding:16px;border-radius:18px;background:linear-gradient(145deg,rgba(14,33,26,.98),rgba(9,25,19,.96));box-shadow:0 9px 28px rgba(0,0,0,.14);border-color:rgba(57,101,82,.7)}
-.card:hover{transform:translateY(-4px);box-shadow:0 15px 34px rgba(0,0,0,.24);border-color:rgba(53,227,160,.72)}
-.card .k{font-size:.82rem}.card .v{font-size:1.9rem;letter-spacing:-.035em}
-.card .src{font-size:.68rem}
-.spark{width:110px;height:34px}
-.section-heading{margin:34px 0 12px}.section-heading h2{font-size:1.3rem;letter-spacing:-.025em}.section-heading p{font-size:.78rem}
-.box,.tool,.market-card{border-radius:18px;background:linear-gradient(145deg,rgba(14,33,26,.96),rgba(9,24,18,.96));box-shadow:0 10px 30px rgba(0,0,0,.15);border-color:rgba(57,101,82,.65)}
-.box{padding:16px}.tool{padding:16px}.tool h3{font-size:1.03rem}
-.tool .out,.res,.stat{background:rgba(17,39,30,.9);border:1px solid rgba(57,101,82,.45)}
-.hero{margin-top:0;padding:28px;border-radius:24px;background:
- radial-gradient(420px 260px at 92% 20%,rgba(53,227,160,.12),transparent 70%),
- linear-gradient(135deg,#123d2b,#0b241b 62%,#102c21);box-shadow:0 22px 55px rgba(0,0,0,.24)}
-.hero h2{font-size:clamp(2rem,5vw,3.25rem);letter-spacing:-.055em;line-height:1.05}
-.hero p{font-size:.96rem;line-height:1.7;color:#bfd6cc}
-.hero-kpis{gap:10px}.hero-kpi{padding:14px;border-radius:16px;background:rgba(4,18,12,.42);border-color:rgba(70,128,104,.48)}
-.hero-kpi b{font-size:1.35rem}
-.badge{background:rgba(53,227,160,.08);border-color:rgba(53,227,160,.35)}
-.section-shell{border-radius:22px;background:rgba(7,19,15,.22);padding:18px}
-#tools,#markets,#services{padding-top:2px}
-.gov{border-radius:16px!important;transition:.16s}.gov:hover{transform:translateY(-3px)!important;box-shadow:0 12px 26px rgba(0,0,0,.2)}
-.market-card .big{letter-spacing:-.035em}
-.ad-slot{border-color:rgba(90,140,120,.38);background:linear-gradient(135deg,rgba(17,45,34,.6),rgba(8,23,17,.7));min-height:72px}
-.top-ad{min-height:58px;margin:2px 0 10px;opacity:.8}.top-ad .ad-inner span{display:none}
-.bottom-ad{min-height:90px}
-footer.site-footer{margin-top:28px;padding-top:20px}
+.dashboard-eyebrow,.section-kicker,.section-heading .sh-kicker{letter-spacing:.08em}
+.dashboard-cards{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.dashboard-card{min-height:58px;padding:10px;border-radius:9px;background:#0d1b16;border-color:#29463a}
+.dashboard-card:hover{background:#14291f;transform:none}
+.dashboard-card .dc-icon{width:34px;height:34px;border-radius:8px;background:#183329;box-shadow:none}
+.tools{margin:14px 0 6px}
+.grid{gap:10px;grid-template-columns:repeat(auto-fill,minmax(235px,1fr))}
+.card{min-height:132px;padding:14px;border-radius:12px;background:#102019;border-color:#29463a;box-shadow:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 5px 14px rgba(0,0,0,.18);border-color:var(--acc)}
+.card .v{font-size:1.72rem}
+.spark{width:100px;height:30px}
+.section-heading{margin:28px 0 10px}
+.section-heading h2{font-size:1.18rem}
+.section-heading p{font-size:.76rem}
+.box,.tool,.market-card{border-radius:12px;background:#102019;border-color:#29463a;box-shadow:none}
+.box{padding:14px}.tool{padding:14px}.tool h3{font-size:1rem}
+.tool .out,.res,.stat{background:#162a22;border:1px solid #29463a}
+.hero{margin-top:20px;padding:22px;border-radius:14px;background:#123126;border:1px solid #315548;box-shadow:none}
+.hero h2{font-size:clamp(1.9rem,4vw,2.8rem);letter-spacing:-.04em}
+.hero p{font-size:.92rem;line-height:1.6}
+.hero-kpis{gap:8px}.hero-kpi{padding:12px;border-radius:10px;background:#0d1d17;border-color:#29463a}
+.hero-kpi b{font-size:1.25rem}
+.badge{background:#10271e;border-color:#35624f}
+.section-shell{border-radius:14px;background:#0b1713;border:1px solid #223c32;padding:14px;box-shadow:none}
+#tools,#markets,#services{padding-top:0}
+.gov{border-radius:10px!important;background:#102019;box-shadow:none!important}
+.gov:hover{transform:none!important;border-color:var(--acc)}
+.market-card .big{font-size:1.9rem}
+.dashboard-divider{background:#29463a;margin:18px 0 2px}
+footer.site-footer{margin-top:24px;padding-top:16px}
+.overview-charts,.finance-calc{margin-top:0}
+@media(max-width:900px){.dashboard-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:720px){
- .wrap{padding:10px 12px 22px}header{margin:0 -12px;padding:10px 12px}.quick-nav{top:57px}
- .dashboard-toolbar{padding:16px;border-radius:20px}.hero{padding:21px;border-radius:20px}
- .hero h2{font-size:2.15rem}.grid{grid-template-columns:1fr 1fr;gap:9px}.card{min-height:135px;padding:13px}.card .v{font-size:1.55rem}
- .spark{width:78px}.section-shell{padding:12px}
+ .wrap{padding:0 12px 22px}header{margin:0 -12px;padding:10px 12px}.quick-nav{top:57px}
+ .dashboard-toolbar{padding:14px}.dashboard-title{align-items:flex-start}
+ .hero{padding:18px}.hero-grid,.live-board{grid-template-columns:1fr}
+ .grid{grid-template-columns:1fr 1fr;gap:8px}.card{min-height:126px;padding:12px}
+ .card .v{font-size:1.5rem}.spark{width:72px}
+ .section-shell{padding:10px}
 }
-@media(max-width:430px){
- .grid{grid-template-columns:1fr}.card{min-height:124px}.dashboard-toolbar{margin-top:5px}.hero h2{font-size:1.95rem}
+@media(max-width:560px){
+ .dashboard-cards{grid-template-columns:1fr}.dashboard-title{flex-direction:column;align-items:flex-start}
+ .grid{grid-template-columns:1fr}.hero h2{font-size:2rem}
 }
-
 </style>
 </head>
 <body>
@@ -190,9 +195,9 @@ footer.site-footer{margin-top:28px;padding-top:20px}
 </header>
 <nav class="quick-nav" aria-label="Dashboard sections"><a href="#overview">Overview</a><a href="#tools">Citizen tools</a><a href="#markets">Markets & investment</a><a href="#services">Government services</a></nav>
 
-<section class="dashboard-toolbar" aria-label="Dashboard command center">
+<section class="dashboard-toolbar" aria-label="Pakistan dashboard">
   <div class="dashboard-title">
-    <div><div class="dashboard-eyebrow">Pakistan intelligence dashboard</div><h2>National Command Center</h2><p>Jump between the major layers of the dashboard, then search the full indicator library below.</p></div>
+    <div><div class="dashboard-eyebrow">Pakistan national dashboard</div><h2>Pakistan Dashboard</h2><p>Jump between the major layers of the dashboard, then search the full indicator library below.</p></div>
     <div class="live">LIVE DATA LAYER</div>
   </div>
   <div class="dashboard-cards">

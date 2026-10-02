@@ -1,0 +1,11 @@
+{
+  "name": "pakpulse",
+  "version": "1.0.0",
+  "description": "PakPulse - bilingual (English/Urdu) national economic dashboard for Pakistan",
+  "private": true,
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'Static site - no build step required'"
+  },
+  "license": "MIT"
+}

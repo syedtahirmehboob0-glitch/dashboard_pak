@@ -330,6 +330,9 @@ body{background:var(--pp-bg);color:var(--pp-ink)}
 .imf-foot b{color:#cfe6dc}
 @media(max-width:900px){.imf-grid{grid-template-columns:1fr 1fr}.imf-card:last-child{grid-column:1/-1}}
 @media(max-width:620px){.imf-grid{grid-template-columns:1fr}.imf-card:last-child{grid-column:auto}.imf-big{font-size:1.7rem}}
+
+/* Keep section separators from becoming misplaced flex children after page ordering. */
+.dashboard-divider{display:none!important}
 </style>
 </head>
 <body>

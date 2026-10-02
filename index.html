@@ -886,14 +886,14 @@ function exportCSV(){
 function tick(){$("#clock").textContent="PKT "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"medium",hour12:false}).format(new Date())}
 $("#lang").onclick=()=>{L=L==="en"?"ur":"en";localStorage.setItem("pakmetric_lang",L);applyLang()};
 $("#csv").onclick=exportCSV;$("#q").oninput=render;
-tick();setInterval(tick,1000);applyLang();
+tick();setInterval(tick,1000);bindCitizenTools();applyLang();
 if(location.hash.length>1)openMetric(decodeURIComponent(location.hash.slice(1)));
 loadLive();setInterval(loadLive,5*60*1000);
 /* v2 citizen tools + official economy feed */
 const n=id=>{const el=document.getElementById(id);const v=el?Number(el.value):0;return Number.isFinite(v)?v:0};
 function citizenCalc(){
   const set=(id,html)=>{const el=document.getElementById(id);if(el)el.innerHTML=html};
-  const sal=n("ctSalary"),st=Math.max(0,n("ctSalaryTax"))/100;
+  const sal=Math.max(0,n("ctSalary")),st=Math.min(1,Math.max(0,n("ctSalaryTax"))/100);
   set("ctSalaryOut","Estimated take-home: <b>"+pkr(Math.max(0,sal*(1-st)))+"</b>");
   const w=n("ctWealth"),nis=n("ctNisab");
   set("ctZakatOut",w>=nis?"Estimated Zakat: <b>"+pkr(w*.025)+"</b>":"Below entered nisab: <b>Rs 0</b>");

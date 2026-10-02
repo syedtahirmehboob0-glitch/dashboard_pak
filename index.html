@@ -360,6 +360,17 @@ body{background:#f3f6f4!important;color:#10231b!important}
 .chartbox svg text{fill:#52675d!important;font-weight:700!important}
 .imf-grid{margin-top:0}
 .dashboard-divider{display:none!important}
+
+/* debt intelligence layer: factual breakdown without changing the rest of the dashboard */
+#debt{order:7!important}
+#tools{order:8!important}#markets{order:9!important}#services{order:10!important}#government-value{order:11!important}#scale{order:12!important}#rankings{order:13!important}
+.debt-headline{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.debt-total{background:#fff;border:1px solid #dfe6e1;border-radius:14px;padding:16px;box-shadow:0 4px 14px rgba(16,35,27,.04)}
+.debt-label{display:block;color:#52675d;font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.debt-total b{display:block;color:#10231b;font-size:2rem;font-weight:900;margin:3px 0}.debt-total small{color:#52675d;font-weight:700}
+.debt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}.debt-card{background:#fff;border:1px solid #dfe6e1;border-radius:14px;padding:15px;box-shadow:0 4px 14px rgba(16,35,27,.04)}
+.debt-card-title{font-size:.86rem;font-weight:900;color:#10231b;margin-bottom:9px}.debt-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:baseline;padding:8px 0;border-bottom:1px solid #edf1ee}.debt-row span{color:#52675d;font-weight:700;font-size:.78rem}.debt-row b{color:#10231b;font-weight:900;font-size:.82rem}.debt-row em{color:#0b6b45;font-style:normal;font-size:.72rem;font-weight:900}.debt-bar{height:9px;background:#edf3ef;border-radius:99px;overflow:hidden;margin-top:11px}.debt-bar span{display:block;height:100%;background:#0b6b45;border-radius:99px}.debt-note,.debt-foot{color:#52675d;font-size:.72rem;font-weight:700;line-height:1.5}.debt-note{margin:10px 0 0}.debt-foot{margin-top:12px;padding:11px 12px;background:#f4f7f5;border:1px solid #dfe6e1;border-radius:10px}.debt-foot b{color:#10231b}
+@media(max-width:900px){.debt-grid{grid-template-columns:1fr 1fr}.debt-grid .debt-card:last-child{grid-column:1/-1}}
+@media(max-width:620px){.debt-headline,.debt-grid{grid-template-columns:1fr}.debt-grid .debt-card:last-child{grid-column:auto}.debt-total b{font-size:1.65rem}.debt-row{grid-template-columns:1fr auto}.debt-row em{grid-column:2}}
 </style>
 </head>
 <body>
@@ -389,6 +400,7 @@ body{background:#f3f6f4!important;color:#10231b!important}
     <div class="priority-card"><div class="pc-label">KSE-100</div><b id="priorityKse">—</b><small id="priorityKseMeta">PSX · live</small></div>
     <div class="priority-card"><div class="pc-label">USD / PKR</div><b id="priorityUsd">—</b><small id="priorityUsdMeta">Reference feed · live</small></div>
     <div class="priority-card"><div class="pc-label">FX reserves</div><b id="priorityReserves">—</b><small id="priorityReservesMeta">SBP · —</small></div>
+    <div class="priority-card"><div class="pc-label">Public debt</div><b id="priorityDebt">Rs 83.285T</b><small id="priorityDebtMeta">Finance Ministry · Mar 2026</small></div>
     <div class="priority-card"><div class="pc-label">Remittances</div><b id="priorityRemit">—</b><small id="priorityRemitMeta">SBP · —</small></div>
     <div class="priority-card"><div class="pc-label">Petrol</div><b id="priorityPetrol">—</b><small id="priorityPetrolMeta">OGRA · —</small></div>
     <div class="priority-card"><div class="pc-label">Unemployment</div><b id="priorityUnemp">—</b><small id="priorityUnempMeta">PBS LFS · —</small></div>
@@ -415,6 +427,35 @@ body{background:#f3f6f4!important;color:#10231b!important}
  </div>
  <div class="imf-foot"><span><b>Latest confirmed Board review:</b> 8 May 2026 · Third EFF review + second RSF review</span><span><b>Next scheduled review in the published programme:</b> September 2026</span></div>
  <div class="section-note">Arrangement size is not the same as cash already disbursed. The dashboard labels the latest confirmed IMF Board information rather than assuming a later review occurred.</div>
+</section><div class="dashboard-divider"></div><section id="debt" class="debt-section">
+ <div class="section-head"><div><div class="section-kicker">02 · Debt & liabilities</div><h2>Pakistan debt: what is actually included?</h2><p>The dashboard separates public debt from the broader stock of debt and liabilities so different official definitions are not mixed together.</p></div><a class="source-pill" href="https://www.sbp.org.pk/economic-data" target="_blank" rel="noopener">SBP debt data ↗</a></div>
+ <div class="debt-headline">
+  <article class="debt-total"><span class="debt-label">Latest public-debt headline</span><b>Rs 83.285T</b><small>End-Mar 2026 · Ministry of Finance / Pakistan Economic Survey 2025-26</small></article>
+  <article class="debt-total"><span class="debt-label">Broader debt & liabilities</span><b>Rs 95.464T</b><small>End-Dec 2025 · SBP detailed debt-and-liabilities summary</small></article>
+ </div>
+ <div class="debt-grid">
+  <article class="debt-card"><div class="debt-card-title">Public debt · latest headline</div>
+   <div class="debt-row"><span>Domestic public debt</span><b>Rs 57.566T</b><em>69.1%</em></div>
+   <div class="debt-row"><span>External public debt</span><b>Rs 25.720T</b><em>30.9%</em></div>
+   <div class="debt-bar"><span style="width:69.1%"></span></div>
+   <p class="debt-note">Domestic + external public debt = Rs 83.285T at end-March 2026.</p>
+  </article>
+  <article class="debt-card"><div class="debt-card-title">Detailed stock by sector/entity · SBP</div>
+   <div class="debt-row"><span>Government domestic debt</span><b>Rs 55.363T</b><em>58.0%</em></div>
+   <div class="debt-row"><span>Government external debt</span><b>Rs 23.166T</b><em>24.3%</em></div>
+   <div class="debt-row"><span>IMF debt</span><b>Rs 2.845T</b><em>3.0%</em></div>
+   <div class="debt-row"><span>Private-sector external debt</span><b>Rs 5.520T</b><em>5.8%</em></div>
+   <div class="debt-row"><span>Public-sector enterprises · external</span><b>Rs 2.200T</b><em>2.3%</em></div>
+  </article>
+  <article class="debt-card"><div class="debt-card-title">Other liabilities / public-sector obligations</div>
+   <div class="debt-row"><span>PSE domestic debt</span><b>Rs 2.068T</b><em>2.2%</em></div>
+   <div class="debt-row"><span>External liabilities</span><b>Rs 3.383T</b><em>3.5%</em></div>
+   <div class="debt-row"><span>Commodity operations</span><b>Rs 1.086T</b><em>1.1%</em></div>
+   <div class="debt-row"><span>Intercompany external debt</span><b>Rs 1.538T</b><em>1.6%</em></div>
+   <p class="debt-note">These detailed components are the SBP end-Dec 2025 breakdown. They are not added blindly to the Rs 83.285T headline because the official broad measure uses a consolidation adjustment.</p>
+  </article>
+ </div>
+ <div class="debt-foot"><b>Important definition:</b> SBP's broader end-Dec 2025 “Total Debt and Liabilities” was Rs 95.464T. The gross public-debt measure was Rs 81.374T at that date. The Rs 83.285T figure is the newer end-Mar 2026 public-debt headline from the Finance Ministry's Economic Survey. Different dates and definitions are shown deliberately.</div>
 </section><div class="dashboard-divider"></div><section id="tools"><div class="section-head"><div class="section-kicker">02 · Everyday Pakistan</div></div><div class="section-head"><div><h2>Everyday Pakistan Tools</h2><p>Simple calculators for household, worker and small-business decisions.</p></div></div><div class="tool-grid">
 <div class="tool"><h3>💰 Salary take-home</h3><p>Estimate monthly take-home after a simple tax assumption.</p><label>Gross monthly PKR</label><input id="ctSalary" type="number" value="150000" min="0"><label>Tax %</label><input id="ctSalaryTax" type="number" value="5" min="0" step=".5"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctSalaryOut"></div></div>
 <div class="tool"><h3>🤲 Zakat calculator</h3><p>Simple 2.5% estimate on qualifying wealth above your entered threshold.</p><label>Qualifying wealth PKR</label><input id="ctWealth" type="number" value="500000" min="0"><label>Nisab threshold PKR</label><input id="ctNisab" type="number" value="250000" min="0"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctZakatOut"></div></div>

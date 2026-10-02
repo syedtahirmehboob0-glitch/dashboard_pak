@@ -4,6 +4,8 @@
 const PSX = "https://dps.psx.com.pk/"
 const BOI = "https://invest.gov.pk/statistics"
 const PBS = "https://www.pbs.gov.pk/"
+const OGRA_DAILY = "https://price.ogra.org.pk/?category=price-publications&section=daily-fuel"
+const OGRA_LEGACY = "https://ogra.org.pk/index.php/notified-petroleum-prices"
 
 const clean = (s: string) => s.replace(/\s+/g, " ").trim()
 const num = (s: string) => {
@@ -38,6 +40,25 @@ function parsePSX(html: string) {
   }
 }
 
+function parseFuel(html: string) {
+  const h = clean(html)
+  const find = (patterns: RegExp[]) => {
+    for (const re of patterns) {
+      const m = h.match(re)
+      if (m) {
+        const v = num(m[1])
+        if (v != null && v > 100 && v < 1000) return v
+      }
+    }
+    return null
+  }
+  return {
+    petrol: find([/Petrol[^\\d]{0,180}(\\d{2,3}(?:\\.\\d{1,2})?)/i, /Motor\\s+Spirit[^\\d]{0,180}(\\d{2,3}(?:\\.\\d{1,2})?)/i]),
+    diesel: find([/High\\s*Speed\\s*Diesel[^\\d]{0,180}(\\d{2,3}(?:\\.\\d{1,2})?)/i, /HSD[^\\d]{0,180}(\\d{2,3}(?:\\.\\d{1,2})?)/i]),
+    source: OGRA_DAILY
+  }
+}
+
 function parseBOI(html: string) {
   const h = clean(html)
   const totalMatch = h.match(/2024-25\s*\(Jul-Jan\).*?Total\s+([\d,.]+)/i)
@@ -68,10 +89,13 @@ function parseBOI(html: string) {
 
 export default async () => {
   const fetchedAt = new Date().toISOString()
-  const [psxR, boiR, pbsR] = await Promise.allSettled([get(PSX), get(BOI), get(PBS)])
+  const [psxR, boiR, pbsR, ograR, ograLegacyR] = await Promise.allSettled([get(PSX), get(BOI), get(PBS), get(OGRA_DAILY), get(OGRA_LEGACY)])
   const errors: string[] = []
   const psx = psxR.status === "fulfilled" ? parsePSX(psxR.value) : (errors.push("PSX unavailable"), null)
   const boi = boiR.status === "fulfilled" ? parseBOI(boiR.value) : (errors.push("BOI unavailable"), null)
+  const fuelHtml = ograR.status === "fulfilled" ? ograR.value : (ograLegacyR.status === "fulfilled" ? ograLegacyR.value : null)
+  const fuel = fuelHtml ? parseFuel(fuelHtml) : null
+  if (!fuel?.petrol) errors.push("OGRA petrol unavailable")
 
   let cpi = null
   if (pbsR.status === "fulfilled") {
@@ -85,6 +109,7 @@ export default async () => {
     errors,
     market: psx,
     investment: boi,
+    fuel,
     macro: { cpi, source: PBS },
     sources: { psx: PSX, boi: BOI, pbs: PBS }
   }, {

@@ -1,7 +1,7 @@
 [build]
   publish = "."
 
-# Deployment trigger: keep Netlify aligned with the main branch.
+# Deployment trigger: keep Netlify aligned with the active deployment branch.
 
 [[redirects]]
   from = "/*"

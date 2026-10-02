@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PakPulse | Pakistan Civic & Economic Intelligence</title>
 <meta name="description" content="Pakistan's national economic dashboard in plain English and Urdu.">
-<link rel="icon" href="data:image/svg+xml,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -106,7 +105,7 @@ footer.site-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap
 .section-heading h2{font-size:1.2rem;margin:2px 0 0}
 .section-heading p{margin:0;color:var(--mut);font-size:.76rem;max-width:560px;text-align:end}
 .snapshot-grid{position:relative}
-.snapshot-grid::before{content:"National snapshot";display:block;color:var(--mut);font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin:24px 0 8px}
+.snapshot-grid::before{content:"Pakistan at a glance";display:block;color:var(--mut);font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin:24px 0 8px}
 .snapshot-grid #grid{margin-top:0}
 .overview-charts,.finance-calc{margin-top:0}
 .overview-charts .two,.finance-calc .two{margin-top:0}
@@ -230,6 +229,32 @@ footer.site-footer{margin-top:24px;padding-top:16px}
  .grid{grid-template-columns:1fr}
  .hero h2{font-size:1.75rem}
 }
+
+/* v8 government-ready public data system */
+.priority-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0 0}
+.priority-card{padding:11px 12px;background:#0d1b16;border:1px solid #29463a;border-radius:10px;min-width:0}
+.priority-card .pc-label{font-size:.66rem;color:#9bb2a8;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.priority-card b{display:block;font-size:1.25rem;line-height:1.25;margin-top:3px;font-variant-numeric:tabular-nums}
+.priority-card small{display:block;color:#718f83;font-size:.62rem;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.provenance-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;padding-top:9px;border-top:1px solid #29463a;color:#8da99d;font-size:.68rem}
+.provenance-bar strong{color:#dcebe5;font-size:.68rem}
+.provenance-chip{padding:4px 7px;border:1px solid #29463a;border-radius:999px;background:#0d1b16}
+.gov-value{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;align-items:stretch}
+.gov-value-copy{padding:18px;border:1px solid #29463a;border-radius:14px;background:#102019}
+.gov-value-copy h2{font-size:1.45rem;margin:3px 0 7px;letter-spacing:-.02em}
+.gov-value-copy p{color:#9bb2a8;font-size:.84rem;margin:0;max-width:680px}
+.gov-value-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.gov-cap{padding:11px 12px;border:1px solid #29463a;border-radius:10px;background:#0d1b16}
+.gov-cap b{display:block;font-size:.78rem}.gov-cap span{display:block;color:#8da99d;font-size:.68rem;margin-top:2px}
+.scale-map{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
+.scale-step{position:relative;text-align:center;padding:12px 6px;border:1px solid #29463a;border-radius:10px;background:#102019}
+.scale-step b{display:block;font-size:.76rem}.scale-step span{display:block;color:#78978a;font-size:.62rem;margin-top:3px}
+.scale-step:not(:last-child)::after{content:"→";position:absolute;right:-11px;top:50%;transform:translateY(-50%);color:#4d7463;font-weight:700;z-index:2}
+.module-list{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.module-list span{padding:6px 9px;border:1px solid #29463a;border-radius:999px;background:#0d1b16;color:#9bb2a8;font-size:.68rem}
+.section-note{color:#718f83;font-size:.68rem;margin-top:9px}
+@media(max-width:900px){.priority-strip{grid-template-columns:repeat(2,1fr)}.gov-value{grid-template-columns:1fr}.scale-map{grid-template-columns:repeat(3,1fr)}.scale-step:not(:last-child)::after{display:none}}
+@media(max-width:560px){.priority-strip{grid-template-columns:1fr 1fr}.priority-card b{font-size:1.08rem}.gov-value-copy{padding:14px}.gov-value-grid{grid-template-columns:1fr}.scale-map{grid-template-columns:1fr 1fr}.scale-step{padding:10px 5px}}
 </style>
 </head>
 <body>
@@ -239,14 +264,13 @@ footer.site-footer{margin-top:24px;padding-top:16px}
 
 <section class="dashboard-toolbar" aria-label="Pakistan dashboard">
   <div class="dashboard-title">
-    <div><div class="dashboard-eyebrow">🇵🇰 Pakistan</div><h2>Pakistan Dashboard</h2><p>Pakistan's public data, everyday tools, markets, services and places to explore.</p></div>
+    <div><div class="dashboard-eyebrow">🇵🇰 Pakistan</div><h2>Pakistan Dashboard</h2><p>Pakistan's public data, economic signals and everyday indicators — brought together in one clear view.</p></div>
     <div class="dashboard-controls"><div id="clock"></div><button id="lang"></button><button id="csv" data-i="csv"></button></div>
   </div>
   <div class="dashboard-search">
-    <input id="q" type="search" data-ph="search" aria-label="Search metrics">
+    <input id="q" type="search" data-ph="search" aria-label="Search Pakistan metrics">
     <div class="bar" id="cats"></div>
   </div>
-
   <div class="pakistan-cover" aria-label="Pakistan landmarks">
     <figure class="landmark-art"><img src="/assets/landmarks/faisal-mosque.jpg" alt="Faisal Mosque"><figcaption>Faisal Mosque</figcaption></figure>
     <figure class="landmark-art"><img src="/assets/landmarks/minar-e-pakistan.jpg" alt="Minar-e-Pakistan"><figcaption>Minar-e-Pakistan</figcaption></figure>
@@ -254,20 +278,30 @@ footer.site-footer{margin-top:24px;padding-top:16px}
     <figure class="landmark-art"><img src="/assets/landmarks/badshahi-mosque.jpg" alt="Badshahi Mosque"><figcaption>Badshahi Mosque</figcaption></figure>
     <figure class="landmark-art"><img src="/assets/landmarks/parliament-house.jpg" alt="Parliament House"><figcaption>Parliament House</figcaption></figure>
   </div>
+  <div class="priority-strip" aria-label="Pakistan priority indicators">
+    <div class="priority-card"><div class="pc-label">CPI inflation</div><b id="priorityCpi">—</b><small id="priorityCpiMeta">PBS · —</small></div>
+    <div class="priority-card"><div class="pc-label">GDP growth</div><b id="priorityGdp">—</b><small id="priorityGdpMeta">PBS · —</small></div>
+    <div class="priority-card"><div class="pc-label">KSE-100</div><b id="priorityKse">—</b><small id="priorityKseMeta">PSX · live</small></div>
+    <div class="priority-card"><div class="pc-label">USD / PKR</div><b id="priorityUsd">—</b><small id="priorityUsdMeta">Reference feed · live</small></div>
+    <div class="priority-card"><div class="pc-label">FX reserves</div><b id="priorityReserves">—</b><small id="priorityReservesMeta">SBP · —</small></div>
+    <div class="priority-card"><div class="pc-label">Remittances</div><b id="priorityRemit">—</b><small id="priorityRemitMeta">SBP · —</small></div>
+    <div class="priority-card"><div class="pc-label">Petrol</div><b id="priorityPetrol">—</b><small id="priorityPetrolMeta">OGRA · —</small></div>
+    <div class="priority-card"><div class="pc-label">Unemployment</div><b id="priorityUnemp">—</b><small id="priorityUnempMeta">PBS LFS · —</small></div>
   </div>
+  <div class="provenance-bar"><strong>Data provenance</strong><span>Public institutional sources</span><span class="provenance-chip">PBS</span><span class="provenance-chip">SBP</span><span class="provenance-chip">PSX</span><span class="provenance-chip">OGRA</span><span class="provenance-chip">BOI</span><span class="provenance-chip">SECP</span></div>
 </section>
 <p class="hint" data-i="tap"></p>
 <div class="grid snapshot-grid" id="grid"></div>
 
 <section class="overview-charts"><div class="section-heading"><div><div class="sh-kicker">Trends & history</div><h2 data-i="charts"></h2></div><p>Historical indicators make the national picture easier to scan.</p></div>
  <div class="two">
-  <div class="box"><div class="k" data-i="c1"></div></div>
-  <div class="box"><div class="k" data-i="c2"></div></div>
+  <div class="box"><div class="k" data-i="c1"></div><svg id="ch1" viewBox="0 0 400 220" role="img" aria-label="IT exports and remittances trend"></svg></div>
+  <div class="box"><div class="k" data-i="c2"></div><svg id="ch2" viewBox="0 0 400 220" role="img" aria-label="Digital payment rails share"></svg></div>
  </div>
 </section>
 
 <section class="hero" id="overview"><div class="hero-grid"><div><span class="badge">🇵🇰 National civic intelligence</span><h2>Pakistan, in one place.</h2><p>Citizen tools, market signals and investment intelligence built around public data — designed to be useful to people today and auditable for institutions tomorrow.</p></div><div class="hero-kpis"><div class="hero-kpi"><b id="heroKse">—</b><span>KSE-100 · live PSX</span></div><div class="hero-kpi"><b id="heroFdi">—</b><span>FDI · BOI published data</span></div><div class="hero-kpi"><b id="heroCpi">—</b><span>CPI · PBS</span></div><div class="hero-kpi"><b id="heroUpdated">—</b><span>Data refresh</span></div></div></div><div id="economyStatus" class="data-status">Connecting to official sources…</div></section>
-<div class="dashboard-divider"></div><section id="tools"><div class="section-head"><div><div class="section-kicker">01 · Citizen layer</div><h2>Citizen tools</h2><p>Practical everyday calculators for household, worker and small-business decisions.</p></div></div><div class="tool-grid">
+<div class="dashboard-divider"></div><section id="tools"><div class="section-head"><div><div class="section-kicker">01 · Everyday Pakistan</div><h2>Everyday Pakistan Tools</h2><p>Simple calculators for household, worker and small-business decisions.</p></div></div><div class="tool-grid">
 <div class="tool"><h3>💰 Salary take-home</h3><p>Estimate monthly take-home after a simple tax assumption.</p><label>Gross monthly PKR</label><input id="ctSalary" type="number" value="150000" min="0"><label>Tax %</label><input id="ctSalaryTax" type="number" value="5" min="0" step=".5"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctSalaryOut"></div></div>
 <div class="tool"><h3>🤲 Zakat calculator</h3><p>Simple 2.5% estimate on qualifying wealth above your entered threshold.</p><label>Qualifying wealth PKR</label><input id="ctWealth" type="number" value="500000" min="0"><label>Nisab threshold PKR</label><input id="ctNisab" type="number" value="250000" min="0"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctZakatOut"></div></div>
 <div class="tool"><h3>⛽ Fuel cost</h3><p>Estimate the cost of a daily commute or trip.</p><label>Distance per day (km)</label><input id="ctKm" type="number" value="40" min="0"><label>Vehicle efficiency (km/L)</label><input id="ctEff" type="number" value="14" min=".1"><label>Fuel price PKR/L</label><input id="ctFuel" type="number" value="390.66" min="0"><button type="button" class="calc-btn">Calculate</button><div class="out" id="ctFuelOut"></div></div>
@@ -285,8 +319,35 @@ footer.site-footer{margin-top:24px;padding-top:16px}
 <a class="gov" href="https://data.gov.pk/" target="_blank" rel="noopener"><span class="ico">📊</span><div><b>Pakistan Open Data</b><span>Explore public datasets and government information.</span></div></a>
 <a class="gov" href="https://economic.data.gov.pk/" target="_blank" rel="noopener"><span class="ico">🗺️</span><div><b>Geo-Economic Observatory</b><span>Explore census and local economic infrastructure.</span></div></a>
 <a class="gov" href="https://easydata.sbp.org.pk/" target="_blank" rel="noopener"><span class="ico">🏦</span><div><b>SBP EasyData</b><span>Official FX, remittance, investment and financial datasets.</span></div></a>
-</div></section><section class="hero" id="overview"><div class="hero-grid"><div><span class="badge">🇵🇰 National civic intelligence</span><h2>Pakistan, in one place.</h2><p>Citizen tools, market signals and investment intelligence built around public data — designed to be useful to people today and auditable for institutions tomorrow.</p></div><div class="hero-kpis"><div class="hero-kpi"><b id="heroKse">—</b><span>KSE-100 · live PSX</span></div><div class="hero-kpi"><b id="heroFdi">—</b><span>FDI · BOI published data</span></div><div class="hero-kpi"><b id="heroCpi">—</b><span>CPI · PBS</span></div><div class="hero-kpi"><b id="heroUpdated">—</b><span>Data refresh</span></div></div></div><div id="economyStatus" class="data-status">Connecting to official sources…</div></section>
+</div></section>
 
+<div class="dashboard-divider"></div>
+<section class="section-shell" id="government-value">
+  <div class="section-heading"><div><div class="sh-kicker">04 · Public-sector capability</div><h2>Built for public-sector data modernization</h2></div><p>PakPulse can serve as a clear presentation layer around existing public and institutional data.</p></div>
+  <div class="gov-value">
+    <div class="gov-value-copy"><div class="badge">Independent presentation layer</div><h2>From scattered statistics to usable intelligence.</h2><p>Bring indicators from multiple institutions into a consistent public experience with source attribution, refresh status, historical context and room for secure role-based dashboards.</p></div>
+    <div class="gov-value-grid">
+      <div class="gov-cap"><b>Unified data presentation</b><span>Consistent indicators across agencies and programs.</span></div>
+      <div class="gov-cap"><b>Automated refresh</b><span>Connect approved feeds and scheduled releases.</span></div>
+      <div class="gov-cap"><b>Public transparency</b><span>Show sources, dates and definitions beside numbers.</span></div>
+      <div class="gov-cap"><b>Decision support</b><span>Historical trends and focused monitoring views.</span></div>
+      <div class="gov-cap"><b>API integration</b><span>Connect existing systems rather than replacing them.</span></div>
+      <div class="gov-cap"><b>Role-based dashboards</b><span>Expand from public views to department-specific workspaces.</span></div>
+    </div>
+  </div>
+</section>
+<section class="section-shell" id="scale">
+  <div class="section-heading"><div><div class="sh-kicker">05 · Expansion model</div><h2>Designed to scale</h2></div><p>Start with national indicators and expand by geography or department when validated data is available.</p></div>
+  <div class="scale-map">
+    <div class="scale-step"><b>National</b><span>Pakistan-wide indicators</span></div>
+    <div class="scale-step"><b>Provincial</b><span>Province dashboards</span></div>
+    <div class="scale-step"><b>District</b><span>Local indicators</span></div>
+    <div class="scale-step"><b>City</b><span>Urban services</span></div>
+    <div class="scale-step"><b>Department</b><span>Operational views</span></div>
+  </div>
+  <div class="module-list"><span>Economic intelligence</span><span>Population</span><span>Health</span><span>Education</span><span>Agriculture</span><span>Employment</span><span>Trade</span><span>Investment</span><span>Prices</span><span>Infrastructure</span><span>Public services</span></div>
+  <div class="section-note">Expansion modules are capability areas, not claims of currently available datasets.</div>
+</section>
 <section class="rankings-section" id="rankings"><div class="section-head"><div><div class="section-kicker">Global benchmarks</div><h2>Pakistan rankings</h2><p>Selected international rankings and benchmarks, with the reference year shown so the numbers are not mistaken for live economic data.</p></div></div><div class="ranking-grid">
 <div class="ranking-card"><span>👥 Population</span><b>#5</b><small>worldwide · 2026 estimate</small><em>One of the world's five most populous countries.</em></div>
 <div class="ranking-card"><span>🌍 South Asia population</span><b>#2</b><small>regional population · 2025/26</small><em>Second-largest population in South Asia.</em></div>
@@ -297,7 +358,7 @@ footer.site-footer{margin-top:24px;padding-top:16px}
 </div></section>
 
 <div class="ad-slot bottom-ad" id="adBottom" aria-label="Advertisement space"><div class="ad-inner"><strong>Advertisement space</strong><span>Reserved for a future sponsor or AdSense banner</span></div></div>
-<footer class="site-footer site-footer-wrap"><span>PakPulse · Pakistan civic & economic intelligence</span><span>Public-data dashboard · <a href="https://www.pbs.gov.pk/" target="_blank" rel="noopener">PBS</a> · <a href="https://dps.psx.com.pk/" target="_blank" rel="noopener">PSX</a> · <a href="https://invest.gov.pk/statistics" target="_blank" rel="noopener">BOI</a></span></footer>
+<footer class="site-footer site-footer-wrap"><span><strong>PakPulse</strong> · Pakistan Civic & Economic Intelligence · Independent public-data presentation layer</span><span>Built using publicly available data and institutional sources · <a href="https://www.pbs.gov.pk/" target="_blank" rel="noopener">PBS</a> · <a href="https://dps.psx.com.pk/" target="_blank" rel="noopener">PSX</a> · <a href="https://invest.gov.pk/statistics" target="_blank" rel="noopener">BOI</a></span></footer>
 </div>
 
 <dialog id="dlg" aria-labelledby="m_t">
@@ -309,8 +370,8 @@ footer.site-footer{margin-top:24px;padding-top:16px}
   <div class="m-val" id="m_v"></div><div id="m_chg" class="chg"></div>
   <div class="stats" id="m_stats"></div>
   <div class="two">
-   <div class="chartbox"><div class="k"><span data-i="hist"></span><span id="m_hr"></span></div></div>
-   <div class="chartbox"><div class="k"><span id="m_tt"></span><span id="m_upd"></span></div><div class="trend-msg" id="m_tm"></div></div>
+   <div class="chartbox"><div class="k"><span data-i="hist"></span><span id="m_hr"></span></div><svg id="m_h" viewBox="0 0 460 250" role="img" aria-label="Historical metric chart"></svg></div>
+   <div class="chartbox"><div class="k"><span id="m_tt"></span><span id="m_upd"></span></div><svg id="m_l" viewBox="0 0 460 250" role="img" aria-label="Recent metric trend chart"></svg><div class="trend-msg" id="m_tm"></div></div>
   </div>
   <div class="m-ex" id="m_ex"></div>
   <details><summary data-i="tbl"></summary><table class="tbl" id="m_tbl"></table></details>
@@ -510,6 +571,14 @@ function render(){
   <div class="k"><span>${esc(d[L])}</span>${d.live&&LIVE?`<span class="live">${t("live")}</span>`:""}</div>
   <div class="v">${fmt(d.v)} <small>${esc(d.u)}</small></div>
   <div class="row"><div><div class="chg ${tone(d,c?.v)}">${chgTxt(c)}</div><div class="src">${esc(d.src)} · ${esc(d.live&&LIVE?LIVE.latest.date:d.asof)}</div></div>${spark(d)}</div></div>`}).join(""):`<div class="empty">${t("none")}</div>`;
+$("#grid").innerHTML=VIEW.length?VIEW.map(d=>{const c=change(d);return`<div class="card" role="button" tabindex="0" data-id="${d.id}" aria-label="${esc(d[L])}">
+  <div class="k"><span>${esc(d[L])}</span>${d.live&&LIVE?`<span class="live">${t("live")}</span>`:""}</div>
+  <div class="v">${fmt(d.v)} <small>${esc(d.u)}</small></div>
+  <div class="row"><div><div class="chg ${tone(d,c?.v)}">${chgTxt(c)}</div><div class="src">${esc(d.src)} · ${esc(d.live&&LIVE?LIVE.latest.date:d.asof)}</div></div>${spark(d)}</div></div>`}).join(""):`<div class="empty">${t("none")}</div>`;
+
+ const by=id=>DATA.find(x=>x.id===id)||{};
+ const setP=(id,d,unitOverride)=>{const el=document.getElementById(id);if(!el)return;el.textContent=d.v==null?"—":fmt(d.v)+(unitOverride||d.u||"");const meta=document.getElementById(id+"Meta");if(meta)meta.textContent=(d.src||"Source")+" · "+(d.asof||"—");};
+ setP("priorityCpi",by("cpi")); setP("priorityGdp",by("gdp")); setP("priorityKse",by("kse")); setP("priorityUsd",by("usdpkr")); setP("priorityReserves",by("reserves_sbp")); setP("priorityRemit",by("remit")); setP("priorityPetrol",by("petrol")); setP("priorityUnemp",by("unemp"));
 }
 $("#grid").addEventListener("click",e=>{const c=e.target.closest(".card");if(c)openMetric(c.dataset.id)});
 $("#grid").addEventListener("keydown",e=>{const c=e.target.closest(".card");if(c&&(e.key==="Enter"||e.key===" ")){e.preventDefault();openMetric(c.dataset.id)}});
@@ -674,7 +743,7 @@ function bindCitizenTools(){
   citizenCalc();
 }
 
-async function loadEconomy(){try{const r=await fetch("/api/economy");if(!r.ok)throw new Error(r.status);const d=await r.json(),m=d.market||{},i=d.investment||{};if(m.kse100!=null){$("#heroKse").textContent=fmt(m.kse100);$("#kseValue").textContent=fmt(m.kse100);$("#kseChange").textContent=(m.change>=0?"▲ ":"▼ ")+fmt(Math.abs(m.change||0))+" ("+fmt(Math.abs(m.changePct||0))+"%)";$("#kseChange").className="chg "+(m.change>=0?"up":"dn")}if(m.totalTrades!=null)$("#psxTrades").textContent=fmtC(m.totalTrades);if(m.volume!=null)$("#psxVolume").textContent=fmtC(m.volume);if(m.value!=null)$("#psxValue").textContent="Rs "+fmtC(m.value);if(i.fdiFY25JulJan!=null){$("#heroFdi").textContent="$"+fmt(i.fdiFY25JulJan/1000)+"B";$("#fdiValue").textContent="$"+fmt(i.fdiFY25JulJan)+"M"}const sec=i.sectors||{},items=[["Power",sec.power],["Financial",sec.financial],["Oil & Gas",sec.oilGas],["Construction",sec.construction],["Trade",sec.trade],["IT / Telecom",sec.itTelecom]],vals=items.filter(x=>x[1]!=null),max=Math.max(...vals.map(x=>Math.abs(x[1])),1);$("#fdiBars").innerHTML=vals.map(x=>"<div class='fdi-bar'><span>"+x[0]+"</span><span class='fdi-track'><span class='fdi-fill' style='width:"+Math.min(100,Math.abs(x[1])/max*100)+"%'></span></span><b>"+fmt(x[1])+"</b></div>").join("");if(d.macro&&d.macro.cpi!=null)$("#heroCpi").textContent=fmt(d.macro.cpi)+"%";if(d.macro){if(d.macro.cpi!=null){const f=DATA.find(x=>x.id=="cpi");if(f){f.v=d.macro.cpi;f.asof=d.macro.cpiAsOf||d.fetchedAt;f.src="PBS live";}}if(d.macro.spi!=null){const f=DATA.find(x=>x.id=="spi");if(f){f.v=d.macro.spi;f.asof=d.macro.spiAsOf||d.fetchedAt;f.src="PBS live";}}}if(d.fuel&&d.fuel.petrol){const f=DATA.find(x=>x.id=="petrol");if(f){f.v=d.fuel.petrol;f.asof=d.fuel.asof||d.fetchedAt;f.src="OGRA live";}document.getElementById("ctFuel").value=d.fuel.petrol;}if(d.fuel&&d.fuel.diesel){const f=DATA.find(x=>x.id=="diesel");if(f){f.v=d.fuel.diesel;f.asof=d.fuel.asof||d.fetchedAt;f.src="OGRA live";}}$("#heroUpdated").textContent=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";const s=$("#economyStatus");s.className="data-status "+(d.status==="ok"?"ok":"warn");s.textContent=(d.status==="ok"?"● Official feeds connected":"● Partial feed — some official sources unavailable")+" · refreshed "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";if(LIVE?.latest?.usdpkr)$("#ctFx").value=LIVE.latest.usdpkr;render();}catch(e){$("#economyStatus").className="data-status warn";$("#economyStatus").textContent="● Official feed temporarily unavailable — showing saved dashboard data."}}
+async function loadEconomy(){try{const r=await fetch("/api/economy");if(!r.ok)throw new Error(r.status);const d=await r.json(),m=d.market||{},i=d.investment||{};if(m.kse100!=null){const kd=DATA.find(x=>x.id==="kse");if(kd){kd.v=m.kse100;kd.asof="live";kd.src="PSX live";}$("#heroKse").textContent=fmt(m.kse100);$("#kseValue").textContent=fmt(m.kse100);$("#kseChange").textContent=(m.change>=0?"▲ ":"▼ ")+fmt(Math.abs(m.change||0))+" ("+fmt(Math.abs(m.changePct||0))+"%)";$("#kseChange").className="chg "+(m.change>=0?"up":"dn")}if(m.totalTrades!=null)$("#psxTrades").textContent=fmtC(m.totalTrades);if(m.volume!=null)$("#psxVolume").textContent=fmtC(m.volume);if(m.value!=null)$("#psxValue").textContent="Rs "+fmtC(m.value);if(i.fdiFY25JulJan!=null){$("#heroFdi").textContent="$"+fmt(i.fdiFY25JulJan/1000)+"B";$("#fdiValue").textContent="$"+fmt(i.fdiFY25JulJan)+"M"}const sec=i.sectors||{},items=[["Power",sec.power],["Financial",sec.financial],["Oil & Gas",sec.oilGas],["Construction",sec.construction],["Trade",sec.trade],["IT / Telecom",sec.itTelecom]],vals=items.filter(x=>x[1]!=null),max=Math.max(...vals.map(x=>Math.abs(x[1])),1);$("#fdiBars").innerHTML=vals.map(x=>"<div class='fdi-bar'><span>"+x[0]+"</span><span class='fdi-track'><span class='fdi-fill' style='width:"+Math.min(100,Math.abs(x[1])/max*100)+"%'></span></span><b>"+fmt(x[1])+"</b></div>").join("");if(d.macro&&d.macro.cpi!=null)$("#heroCpi").textContent=fmt(d.macro.cpi)+"%";if(d.macro){if(d.macro.cpi!=null){const f=DATA.find(x=>x.id=="cpi");if(f){f.v=d.macro.cpi;f.asof=d.macro.cpiAsOf||d.fetchedAt;f.src="PBS live";}}if(d.macro.spi!=null){const f=DATA.find(x=>x.id=="spi");if(f){f.v=d.macro.spi;f.asof=d.macro.spiAsOf||d.fetchedAt;f.src="PBS live";}}}if(d.fuel&&d.fuel.petrol){const f=DATA.find(x=>x.id=="petrol");if(f){f.v=d.fuel.petrol;f.asof=d.fuel.asof||d.fetchedAt;f.src="OGRA live";}document.getElementById("ctFuel").value=d.fuel.petrol;}if(d.fuel&&d.fuel.diesel){const f=DATA.find(x=>x.id=="diesel");if(f){f.v=d.fuel.diesel;f.asof=d.fuel.asof||d.fetchedAt;f.src="OGRA live";}}$("#heroUpdated").textContent=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";const s=$("#economyStatus");s.className="data-status "+(d.status==="ok"?"ok":"warn");s.textContent=(d.status==="ok"?"● Institutional feeds connected":"● Partial feed — some institutional sources unavailable")+" · refreshed "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";if(LIVE?.latest?.usdpkr){$("#ctFx").value=LIVE.latest.usdpkr;const ud=DATA.find(x=>x.id==="usdpkr");if(ud){ud.v=LIVE.latest.usdpkr;ud.asof=LIVE.latest.date||"live";ud.src="Reference feed";}}render();}catch(e){$("#economyStatus").className="data-status warn";$("#economyStatus").textContent="● Institutional feed temporarily unavailable — showing saved dashboard data."}}
 bindCitizenTools();loadEconomy();setInterval(loadEconomy,10*60*1000);</script>
 </body>
 </html>

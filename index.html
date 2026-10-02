@@ -75,7 +75,7 @@ details summary{cursor:pointer;color:var(--mut);font-size:.85rem;margin-top:12px
 .calc-btn{width:100%;margin-top:10px;background:var(--acc);color:#062117;border-color:var(--acc);font-weight:700}.calc-btn:hover{color:#062117;filter:brightness(1.05)}.rankings-section{margin-top:22px}.ranking-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.ranking-card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:13px;display:flex;flex-direction:column;gap:3px}.ranking-card span{color:var(--mut);font-size:.78rem}.ranking-card b{font-size:1.8rem;line-height:1.2}.ranking-card small{color:var(--mut);font-size:.7rem}.ranking-card em{color:#b8d3c7;font-size:.72rem;font-style:normal;margin-top:4px}.flag-mark{font-size:3rem;line-height:1}.pakistan-identity h2{margin:0 0 3px;font-size:clamp(1.45rem,3vw,2rem)}.pakistan-identity p{margin:0;color:var(--mut);font-size:.82rem}.attractions-head{margin-top:18px}.attractions-head h3{margin:0 0 2px;font-size:1.05rem}.attractions-head p{margin:0;color:var(--mut);font-size:.75rem}.attractions-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}.attraction-card{overflow:hidden;background:rgba(8,24,18,.72);border:1px solid var(--line);border-radius:15px}.attraction-photo{height:150px;display:block;overflow:hidden;background:#0b1712}.attraction-photo img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .2s ease}.attraction-card:hover .attraction-photo img{transform:scale(1.03)}.photo-credit{display:block;margin:7px 11px 12px;color:#6f8f82;font-size:.62rem;line-height:1.3}.photo-credit a{color:inherit}.attraction-card h4{margin:10px 11px 2px;font-size:.92rem}.attraction-card span{display:block;margin:0 11px;color:var(--acc);font-size:.68rem}.attraction-card p{margin:6px 11px 12px;color:var(--mut);font-size:.72rem;line-height:1.4}.attraction-faisal{background:linear-gradient(135deg,#244d3d,#11261d)}.attraction-badshahi{background:linear-gradient(135deg,#6d4730,#2a211b)}.attraction-hunza{background:linear-gradient(135deg,#3e6472,#172e35)}.attraction-lahorefort{background:linear-gradient(135deg,#704d31,#292019)}.attraction-mohenjo{background:linear-gradient(135deg,#765f3d,#302719)}.top-ad{order:1}.dashboard-toolbar{order:2}.snapshot-grid{order:3}.overview-charts{order:4}.finance-calc{order:5}#overview{order:6}#tools{order:7}#markets{order:8}#services{order:9}.rankings-section{order:10!important}.dashboard-divider{order:11}.bottom-ad{order:98}.site-footer-wrap{order:99}/* v3 visual system + future advertising slots */
 /* production deploy marker: 2026-10-02 */
 /* deployment trigger: 2026-10-02-2 */
-/* deployment trigger: 2026-10-02-3 */
+/* PakMetric commercial readiness: 2026-10-02 */
 /* visual refresh: 2026-10-02-4 */
 .ad-slot{position:relative;display:flex;align-items:center;justify-content:center;min-height:86px;margin:8px 0 18px;padding:14px;border:1px dashed #355b4a;border-radius:16px;background:linear-gradient(135deg,rgba(16,48,36,.7),rgba(8,24,18,.8));overflow:hidden}
 .ad-slot::before{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 0%,rgba(46,229,157,.05) 48%,transparent 52%);pointer-events:none}
@@ -685,7 +685,7 @@ rising:"بڑھ رہا ہے",falling:"کم ہو رہا ہے",steady:"مستحکم
 tbl:"ڈیٹا ٹیبل دکھائیں",yr:"سال",val:"عدد",date:"تاریخ",nohist:"ابھی تاریخ درج نہیں۔ DATA میں سالانہ اعداد شامل کریں۔",
 disc:"اعداد و شمار ابتدائی اندازے ہیں؛ سرکاری ذرائع (SBP, PBS, PSX, PSEB, SECP, OGRA, PTA, FBR) سے تازہ کریں — index.html میں DATA ترمیم کریں۔ «لائیو» نشان والے (کرنسی اور سونا چاندی) روزانہ عالمی ریٹ سے خود تازہ ہوتے ہیں۔ کیلکولیٹر صرف اندازہ ہیں، مالی یا ٹیکس مشورہ نہیں۔"}
 };
-let L=localStorage.getItem("pp_lang")||"en",CAT="all",VIEW=[],CUR=null,LIVE=null,LIVE_ERR=false,LIVE_AT=null;
+let L=localStorage.getItem("pakmetric_lang")||"en",CAT="all",VIEW=[],CUR=null,LIVE=null,LIVE_ERR=false,LIVE_AT=null;
 const $=s=>document.querySelector(s),t=k=>T[L][k]||k;
 const loc=()=>L==="ur"?"ur-PK":"en-PK";
 const fmt=n=>n==null?"—":new Intl.NumberFormat(loc(),{maximumFractionDigits:2}).format(n);
@@ -873,10 +873,10 @@ function exportCSV(){
  const rows=[["id","category","metric_en","metric_ur","value","unit","as_of","source",...years],
   ...DATA.map(d=>{const h=Object.fromEntries(hist(d).map(p=>[p.x,p.y]));return[d.id,d.cat,d.en,d.ur,d.v,d.u,d.live&&LIVE?LIVE.latest.date:d.asof,d.src,...years.map(y=>h[y])]})];
  const blob=new Blob(["﻿"+rows.map(r=>r.map(q).join(",")).join("\n")],{type:"text/csv;charset=utf-8"});
- const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="pakpulse-national-metrics.csv";a.click();URL.revokeObjectURL(a.href);
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="pakmetric-national-metrics.csv";a.click();URL.revokeObjectURL(a.href);
 }
 function tick(){$("#clock").textContent="PKT "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"medium",hour12:false}).format(new Date())}
-$("#lang").onclick=()=>{L=L==="en"?"ur":"en";localStorage.setItem("pp_lang",L);applyLang()};
+$("#lang").onclick=()=>{L=L==="en"?"ur":"en";localStorage.setItem("pakmetric_lang",L);applyLang()};
 $("#csv").onclick=exportCSV;$("#q").oninput=render;
 tick();setInterval(tick,1000);applyLang();
 if(location.hash.length>1)openMetric(decodeURIComponent(location.hash.slice(1)));

@@ -1,0 +1,44 @@
+name: Download Pakistan landmark photos
+
+on:
+  push:
+    branches:
+      - agent-10-year-and-live-trends-a2d8
+    paths-ignore:
+      - "assets/landmarks/**"
+
+permissions:
+  contents: write
+
+jobs:
+  download-landmarks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout production branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent-10-year-and-live-trends-a2d8
+          fetch-depth: 0
+
+      - name: Download licensed Wikimedia Commons photos
+        run: |
+          set -e
+          mkdir -p assets/landmarks
+          curl -L --fail --retry 3 "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/Faisal_Mosque%2C_Islamabad%2C_Pakistan.jpg/3840px-Faisal_Mosque%2C_Islamabad%2C_Pakistan.jpg" -o assets/landmarks/faisal-mosque.jpg
+          curl -L --fail --retry 3 "https://upload.wikimedia.org/wikipedia/commons/6/6f/Ziarat_Residency.jpg" -o assets/landmarks/ziarat-residency.jpg
+          curl -L --fail --retry 3 "https://upload.wikimedia.org/wikipedia/commons/a/af/Minar-e-Pakistan_view_from_Badshahi_Mosque.jpg" -o assets/landmarks/minar-e-pakistan.jpg
+          curl -L --fail --retry 3 "https://upload.wikimedia.org/wikipedia/commons/c/ca/Badshahi_Mosque%21.jpg" -o assets/landmarks/badshahi-mosque.jpg
+          curl -L --fail --retry 3 "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Parliament_House_Islamabad.jpg/3840px-Parliament_House_Islamabad.jpg" -o assets/landmarks/parliament-house.jpg
+          file assets/landmarks/*.jpg
+
+      - name: Commit photos to repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/landmarks
+          if git diff --cached --quiet; then
+            echo "No landmark changes."
+            exit 0
+          fi
+          git commit -m "Add real Pakistan landmark photos"
+          git push origin HEAD:agent-10-year-and-live-trends-a2d8

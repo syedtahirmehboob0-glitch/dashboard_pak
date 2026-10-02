@@ -78,6 +78,47 @@ details summary{cursor:pointer;color:var(--mut);font-size:.85rem;margin-top:12px
 .section-kicker{color:var(--acc);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
 footer.site-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px;padding:16px 2px 4px;color:#688d7d;font-size:.72rem;border-top:1px solid var(--line)}footer.site-footer a{color:#8fb0a2;text-decoration:none}footer.site-footer a:hover{color:var(--acc)}
 @media(max-width:720px){.ad-slot{min-height:74px;margin-top:6px}.section-shell{padding:12px;border-radius:16px}.quick-nav{margin-inline:-4px;padding-inline:4px}}
+
+/* v4 dashboard redesign */
+.wrap{display:flex;flex-direction:column}
+.dashboard-toolbar{order:3}
+.snapshot-grid{order:4}
+.overview-charts{order:5}
+.finance-calc{order:6}
+#overview{order:7}
+#tools{order:8}
+#markets{order:9}
+#services{order:10}
+.site-footer-wrap{order:11}
+.dashboard-toolbar{margin:8px 0 4px;padding:18px;border:1px solid rgba(46,229,157,.16);border-radius:22px;background:linear-gradient(135deg,rgba(18,45,34,.88),rgba(9,25,19,.72));box-shadow:0 16px 45px rgba(0,0,0,.16)}
+.dashboard-title{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;margin-bottom:14px}
+.dashboard-title h2{font-size:clamp(1.35rem,3vw,1.9rem);margin:2px 0 3px}
+.dashboard-title p{margin:0;color:var(--mut);font-size:.82rem}
+.dashboard-eyebrow{color:var(--acc);font-size:.67rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.dashboard-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.dashboard-card{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:14px;background:rgba(14,33,26,.82);text-decoration:none;color:var(--tx);transition:.16s}
+.dashboard-card:hover{transform:translateY(-2px);border-color:var(--acc);background:rgba(18,48,36,.95)}
+.dashboard-card .dc-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#17382b;font-size:1rem}
+.dashboard-card b{display:block;font-size:.8rem}.dashboard-card span{display:block;color:var(--mut);font-size:.68rem;margin-top:1px}
+.section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:30px 0 10px}
+.section-heading .sh-kicker{color:var(--acc);font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.section-heading h2{font-size:1.2rem;margin:2px 0 0}
+.section-heading p{margin:0;color:var(--mut);font-size:.76rem;max-width:560px;text-align:end}
+.snapshot-grid{position:relative}
+.snapshot-grid::before{content:"National snapshot";display:block;color:var(--mut);font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin:24px 0 8px}
+.snapshot-grid #grid{margin-top:0}
+.overview-charts,.finance-calc{margin-top:0}
+.overview-charts .two,.finance-calc .two{margin-top:0}
+.overview-charts .box,.finance-calc .box{box-shadow:0 8px 24px rgba(0,0,0,.12)}
+#overview{margin-top:22px}
+#overview .hero{margin-top:0}
+#tools,#markets,#services{scroll-margin-top:16px}
+#tools .tool,#markets .market-card,#services .gov{box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.section-shell{box-shadow:0 8px 28px rgba(0,0,0,.10)}
+.dashboard-divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:22px 0 2px}
+@media(max-width:900px){.dashboard-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.dashboard-toolbar{padding:14px}.dashboard-title{align-items:flex-start;flex-direction:column}.dashboard-title p{text-align:start}.dashboard-cards{grid-template-columns:1fr}.section-heading{align-items:flex-start;flex-direction:column}.section-heading p{text-align:start}}
+
 </style>
 </head>
 <body>
@@ -89,21 +130,33 @@ footer.site-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap
 </header>
 <nav class="quick-nav" aria-label="Dashboard sections"><a href="#overview">Overview</a><a href="#tools">Citizen tools</a><a href="#markets">Markets & investment</a><a href="#services">Government services</a></nav>
 
-<div class="tools">
+<section class="dashboard-toolbar" aria-label="Dashboard command center">
+  <div class="dashboard-title">
+    <div><div class="dashboard-eyebrow">Pakistan intelligence dashboard</div><h2>National Command Center</h2><p>Jump between the major layers of the dashboard, then search the full indicator library below.</p></div>
+    <div class="live">LIVE DATA LAYER</div>
+  </div>
+  <div class="dashboard-cards">
+    <a class="dashboard-card" href="#overview"><span class="dc-icon">🇵🇰</span><div><b>Overview</b><span>National pulse & KPIs</span></div></a>
+    <a class="dashboard-card" href="#tools"><span class="dc-icon">🧮</span><div><b>Citizen tools</b><span>Money & household tools</span></div></a>
+    <a class="dashboard-card" href="#markets"><span class="dc-icon">📈</span><div><b>Markets</b><span>PSX & investment</span></div></a>
+    <a class="dashboard-card" href="#services"><span class="dc-icon">🏛️</span><div><b>Services</b><span>Official government links</span></div></a>
+  </div>
+</section>
+<div class="tools" style="margin-top:16px">
  <input id="q" type="search" data-ph="search">
  <div class="bar" id="cats"></div>
 </div>
 <p class="hint" data-i="tap"></p>
-<div class="grid" id="grid"></div>
+<div class="grid snapshot-grid" id="grid"></div>
 
-<section><h2 data-i="charts"></h2>
+<section class="overview-charts"><div class="section-heading"><div><div class="sh-kicker">Trends & history</div><h2 data-i="charts"></h2></div><p>Historical indicators make the national picture easier to scan.</p></div>
  <div class="two">
   <div class="box"><div class="k" data-i="c1"></div><svg id="ch1" viewBox="0 0 400 220" width="100%"></svg></div>
   <div class="box"><div class="k" data-i="c2"></div><svg id="ch2" viewBox="0 0 400 220" width="100%"></svg></div>
  </div>
 </section>
 
-<section><h2 data-i="calcs"></h2>
+<section class="finance-calc"><div class="section-heading"><div><div class="sh-kicker">Personal finance</div><h2 data-i="calcs"></h2></div><p>Quick scenarios for everyday financial decisions.</p></div>
  <div class="two">
   <div class="box"><b data-i="k1"></b>
    <label data-i="usd"></label><input id="r_usd" type="number" value="1000" min="0">
@@ -125,7 +178,7 @@ footer.site-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap
 </section>
 
 <section class="hero" id="overview"><div class="hero-grid"><div><span class="badge">🇵🇰 National civic intelligence</span><h2>Pakistan, in one place.</h2><p>Citizen tools, market signals and investment intelligence built around public data — designed to be useful to people today and auditable for institutions tomorrow.</p></div><div class="hero-kpis"><div class="hero-kpi"><b id="heroKse">—</b><span>KSE-100 · live PSX</span></div><div class="hero-kpi"><b id="heroFdi">—</b><span>FDI · BOI published data</span></div><div class="hero-kpi"><b id="heroCpi">—</b><span>CPI · PBS</span></div><div class="hero-kpi"><b id="heroUpdated">—</b><span>Data refresh</span></div></div></div><div id="economyStatus" class="data-status">Connecting to official sources…</div></section>
-<section id="tools"><div class="section-head"><div><div class="section-kicker">Everyday finance</div><h2>Citizen tools</h2><p>Practical calculators for household, worker and small-business decisions.</p></div></div><div class="tool-grid">
+<div class="dashboard-divider"></div><section id="tools"><div class="section-head"><div><div class="section-kicker">01 · Citizen layer</div><h2>Citizen tools</h2><p>Practical calculators for household, worker and small-business decisions.</p></div></div><div class="tool-grid">
 <div class="tool"><h3>💰 Salary take-home</h3><p>Estimate monthly take-home after a simple tax assumption.</p><label>Gross monthly PKR</label><input id="ctSalary" type="number" value="150000" min="0"><label>Tax %</label><input id="ctSalaryTax" type="number" value="5" min="0" step=".5"><div class="out" id="ctSalaryOut"></div></div>
 <div class="tool"><h3>🤲 Zakat calculator</h3><p>Simple 2.5% estimate on qualifying wealth above your entered threshold.</p><label>Qualifying wealth PKR</label><input id="ctWealth" type="number" value="500000" min="0"><label>Nisab threshold PKR</label><input id="ctNisab" type="number" value="250000" min="0"><div class="out" id="ctZakatOut"></div></div>
 <div class="tool"><h3>⛽ Fuel cost</h3><p>Estimate the cost of a daily commute or trip.</p><label>Distance per day (km)</label><input id="ctKm" type="number" value="40" min="0"><label>Vehicle efficiency (km/L)</label><input id="ctEff" type="number" value="14" min=".1"><label>Fuel price PKR/L</label><input id="ctFuel" type="number" value="255" min="0"><div class="out" id="ctFuelOut"></div></div>
@@ -133,11 +186,11 @@ footer.site-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap
 <div class="tool"><h3>🧾 Business break-even</h3><p>Find monthly sales needed to cover fixed costs.</p><label>Fixed costs PKR</label><input id="ctFixed" type="number" value="200000" min="0"><label>Gross margin %</label><input id="ctMargin" type="number" value="30" min="1" max="100"><div class="out" id="ctBreakOut"></div></div>
 <div class="tool"><h3>🌍 Remittance converter</h3><p>See what a foreign transfer means in PKR.</p><label>Amount in USD</label><input id="ctUsd" type="number" value="1000" min="0"><label>PKR / USD</label><input id="ctFx" type="number" value="280" min="1"><div class="out" id="ctRemitOut"></div></div>
 </div></section>
-<section id="markets"><div class="section-head"><div><div class="section-kicker">National economy</div><h2>Pakistan market & investment monitor</h2><p>Live public-market signals plus government-published investment statistics.</p></div><span class="badge">Official-source layer</span></div><div class="live-board">
+<div class="dashboard-divider"></div><section id="markets"><div class="section-head"><div><div class="section-kicker">02 · Economy layer</div><h2>Pakistan market & investment monitor</h2><p>Live public-market signals plus government-published investment statistics.</p></div><span class="badge">Official-source layer</span></div><div class="live-board">
 <div class="market-card"><div class="meta">PAKISTAN STOCK EXCHANGE · KSE-100</div><div class="big" id="kseValue">—</div><div id="kseChange" class="chg">Waiting for PSX…</div><div class="market-row"><span>Total trades</span><b id="psxTrades">—</b></div><div class="market-row"><span>Exchange volume</span><b id="psxVolume">—</b></div><div class="market-row"><span>Exchange value</span><b id="psxValue">—</b></div><a class="source-pill" href="https://dps.psx.com.pk/" target="_blank" rel="noopener">Source: PSX ↗</a></div>
 <div class="market-card"><div class="meta">FOREIGN DIRECT INVESTMENT · BOARD OF INVESTMENT</div><div class="big" id="fdiValue">—</div><div class="meta">USD million · FY2024-25 Jul–Jan publication</div><div id="fdiBars" class="fdi-bars"></div><a class="source-pill" href="https://invest.gov.pk/statistics" target="_blank" rel="noopener">Source: BOI ↗</a></div>
 </div></section>
-<section id="services"><div class="section-head"><div><div class="section-kicker">Official links</div><h2>Citizen services gateway</h2><p>Links users to official portals instead of pretending PakPulse is the government service itself.</p></div></div><div class="gov-grid">
+<div class="dashboard-divider"></div><section id="services"><div class="section-head"><div><div class="section-kicker">03 · Public-service layer</div><h2>Citizen services gateway</h2><p>Links users to official portals instead of pretending PakPulse is the government service itself.</p></div></div><div class="gov-grid">
 <a class="gov" href="https://www.nadra.gov.pk/aboutPakID" target="_blank" rel="noopener"><span class="ico">🪪</span><div><b>NADRA PakID</b><span>CNIC, NICOP, updates and application tracking.</span></div></a>
 <a class="gov" href="https://fbr.gov.pk/categ/file-income-tax-return/51147/80860/71159" target="_blank" rel="noopener"><span class="ico">🧾</span><div><b>FBR / IRIS</b><span>Income-tax filing and taxpayer guidance.</span></div></a>
 <a class="gov" href="https://www.secp.gov.pk/eservices/company-incorporation/" target="_blank" rel="noopener"><span class="ico">🏢</span><div><b>SECP eServices</b><span>Company name reservation and incorporation.</span></div></a>
@@ -146,7 +199,7 @@ footer.site-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap
 <a class="gov" href="https://easydata.sbp.org.pk/" target="_blank" rel="noopener"><span class="ico">🏦</span><div><b>SBP EasyData</b><span>Official FX, remittance, investment and financial datasets.</span></div></a>
 </div></section><p class="note" data-i="disc"></p>
 <div class="ad-slot bottom-ad" id="adBottom" aria-label="Advertisement space"><div class="ad-inner"><strong>Advertisement space</strong><span>Reserved for a future sponsor or AdSense banner</span></div></div>
-<footer class="site-footer"><span>PakPulse · Pakistan civic & economic intelligence</span><span>Public-data dashboard · <a href="https://www.pbs.gov.pk/" target="_blank" rel="noopener">PBS</a> · <a href="https://dps.psx.com.pk/" target="_blank" rel="noopener">PSX</a> · <a href="https://invest.gov.pk/statistics" target="_blank" rel="noopener">BOI</a></span></footer>
+<footer class="site-footer site-footer-wrap"><span>PakPulse · Pakistan civic & economic intelligence</span><span>Public-data dashboard · <a href="https://www.pbs.gov.pk/" target="_blank" rel="noopener">PBS</a> · <a href="https://dps.psx.com.pk/" target="_blank" rel="noopener">PSX</a> · <a href="https://invest.gov.pk/statistics" target="_blank" rel="noopener">BOI</a></span></footer>
 </div>
 
 <dialog id="dlg" aria-labelledby="m_t">

@@ -53,10 +53,30 @@ function parseFuel(html: string) {
     return null
   }
   return {
-    petrol: find([/Petrol[^\\d]{0,180}(\\d{2,3}(?:\\.\\d{1,2})?)/i, /Motor\\s+Spirit[^\\d]{0,180}(\\d{2,3}(?:\\.\\d{1,2})?)/i]),
-    diesel: find([/High\\s*Speed\\s*Diesel[^\\d]{0,180}(\\d{2,3}(?:\\.\\d{1,2})?)/i, /HSD[^\\d]{0,180}(\\d{2,3}(?:\\.\\d{1,2})?)/i]),
+    petrol: find([/Petrol[^\d]{0,180}(\d{2,3}(?:\.\d{1,2})?)/i, /Motor\s+Spirit[^\d]{0,180}(\d{2,3}(?:\.\d{1,2})?)/i]),
+    diesel: find([/High\s*Speed\s*Diesel[^\d]{0,180}(\d{2,3}(?:\.\d{1,2})?)/i, /HSD[^\d]{0,180}(\d{2,3}(?:\.\d{1,2})?)/i]),
     source: OGRA_DAILY
   }
+}
+
+function parsePBSHome(html: string) {
+  const h = clean(html)
+  const spi = h.match(/Weekly Sensitive Price Indicator.*?(?:Week Ended|week ended).*?(\d+(?:\.\d+)?)%/i)
+  return { spi: spi ? num(spi[1]) : null, source: PBS }
+}
+
+function findLatestPBSReport(html: string) {
+  const re = /href=["']([^"']*monthly-inflation-report[^"']*)["'][^>]*>([^<]*Monthly Inflation Report[^<]*)</ig
+  let m: RegExpExecArray | null = null, found = null
+  while ((m = re.exec(html))) found = m[1]
+  if (!found) return null
+  return found.startsWith("http") ? found : new URL(found, PBS).toString()
+}
+
+function parseCPIReport(html: string) {
+  const h = clean(html)
+  const m = h.match(/CPI inflation General.*?increased by\s+(\d+(?:\.\d+)?)%.*?year-on-year/i)
+  return m ? num(m[1]) : null
 }
 
 function parseBOI(html: string) {
@@ -97,10 +117,23 @@ export default async () => {
   const fuel = fuelHtml ? parseFuel(fuelHtml) : null
   if (!fuel?.petrol) errors.push("OGRA petrol unavailable")
 
-  let cpi = null
+  let cpi = null, spi = null, cpiAsOf = null, spiAsOf = null
   if (pbsR.status === "fulfilled") {
-    const m = clean(pbsR.value).match(/Monthly Consumer Price Index.*?(\d+(?:\.\d+)?)%/i)
-    cpi = m ? num(m[1]) : null
+    const home = parsePBSHome(pbsR.value)
+    spi = home.spi
+    const latestReport = findLatestPBSReport(pbsR.value)
+    if (latestReport) {
+      try {
+        const reportHtml = await get(latestReport)
+        cpi = parseCPIReport(reportHtml)
+        cpiAsOf = new Date().toISOString().slice(0,10)
+      } catch {
+        errors.push("PBS CPI report unavailable")
+      }
+    }
+    if (spi != null) spiAsOf = new Date().toISOString().slice(0,10)
+    if (cpi == null) errors.push("PBS CPI unavailable")
+    if (spi == null) errors.push("PBS SPI unavailable")
   } else errors.push("PBS unavailable")
 
   return Response.json({
@@ -109,8 +142,8 @@ export default async () => {
     errors,
     market: psx,
     investment: boi,
-    fuel,
-    macro: { cpi, source: PBS },
+    fuel: fuel ? { ...fuel, asof: new Date().toISOString().slice(0,10) } : null,
+    macro: { cpi, cpiAsOf, spi, spiAsOf, source: PBS },
     sources: { psx: PSX, boi: BOI, pbs: PBS }
   }, {
     headers: {

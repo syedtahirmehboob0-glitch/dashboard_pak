@@ -797,7 +797,68 @@ function bindCitizenTools(){
   citizenCalc();
 }
 
-async function loadEconomy(){try{const r=await fetch("/api/economy");if(!r.ok)throw new Error(r.status);const d=await r.json(),m=d.market||{},i=d.investment||{};const put=(sel,val)=>{const el=$(sel);if(el)el.textContent=val};const putHtml=(sel,val)=>{const el=$(sel);if(el)el.innerHTML=val};const putClass=(sel,cls)=>{const el=$(sel);if(el)el.className=cls};if(m.kse100!=null){const kd=DATA.find(x=>x.id==="kse");if(kd){kd.v=m.kse100;kd.asof="live";kd.src="PSX live";}put("#heroKse",fmt(m.kse100));put("#kseValue",fmt(m.kse100));put("#kseChange",(m.change>=0?"▲ ":"▼ ")+fmt(Math.abs(m.change||0))+" ("+fmt(Math.abs(m.changePct||0))+"%)";putClass("#kseChange","chg "+(m.change>=0?"up":"dn")}if(m.totalTrades!=null)put("#psxTrades",fmtC(m.totalTrades);if(m.volume!=null)put("#psxVolume",fmtC(m.volume);if(m.value!=null)put("#psxValue","Rs "+fmtC(m.value);if(i.fdiFY25JulJan!=null){put("#heroFdi","$"+fmt(i.fdiFY25JulJan/1000)+"B");put("#fdiValue","$"+fmt(i.fdiFY25JulJan)+"M"}const sec=i.sectors||{},items=[["Power",sec.power],["Financial",sec.financial],["Oil & Gas",sec.oilGas],["Construction",sec.construction],["Trade",sec.trade],["IT / Telecom",sec.itTelecom]],vals=items.filter(x=>x[1]!=null),max=Math.max(...vals.map(x=>Math.abs(x[1])),1);putHtml("#fdiBars",vals.map(x=>"<div class='fdi-bar'><span>"+x[0]+"</span><span class='fdi-track'><span class='fdi-fill' style='width:"+Math.min(100,Math.abs(x[1])/max*100)+"%'></span></span><b>"+fmt(x[1])+"</b></div>").join("");if(d.macro&&d.macro.cpi!=null)put("#heroCpi",fmt(d.macro.cpi)+"%";if(d.macro){if(d.macro.cpi!=null){const f=DATA.find(x=>x.id=="cpi");if(f){f.v=d.macro.cpi;f.asof=d.macro.cpiAsOf||d.fetchedAt;f.src="PBS live";}}if(d.macro.spi!=null){const f=DATA.find(x=>x.id=="spi");if(f){f.v=d.macro.spi;f.asof=d.macro.spiAsOf||d.fetchedAt;f.src="PBS live";}}}if(d.fuel&&d.fuel.petrol){const f=DATA.find(x=>x.id=="petrol");if(f){f.v=d.fuel.petrol;f.asof=d.fuel.asof||d.fetchedAt;f.src="OGRA live";}document.getElementById("ctFuel").value=d.fuel.petrol;}if(d.fuel&&d.fuel.diesel){const f=DATA.find(x=>x.id=="diesel");if(f){f.v=d.fuel.diesel;f.asof=d.fuel.asof||d.fetchedAt;f.src="OGRA live";}}put("#heroUpdated",new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";const s=$("#economyStatus");if(s)s.className="data-status "+(d.status==="ok"?"ok":"warn");if(s)s.textContent=(d.status==="ok"?"● Institutional feeds connected":"● Partial feed — some institutional sources unavailable")+" · refreshed "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";if(LIVE?.latest?.usdpkr){$("#ctFx").value=LIVE.latest.usdpkr;const ud=DATA.find(x=>x.id==="usdpkr");if(ud){ud.v=LIVE.latest.usdpkr;ud.asof=LIVE.latest.date||"live";ud.src="Reference feed";}}render();}catch(e){const s=$("#economyStatus");if(s){s.className="data-status warn";s.textContent="● Institutional feed temporarily unavailable — showing saved dashboard data."}}}
+async function loadEconomy(){
+ try{
+  const r=await fetch("/api/economy");
+  if(!r.ok)throw new Error(r.status);
+  const d=await r.json(),m=d.market||{},i=d.investment||{};
+  const put=(sel,val)=>{const el=$(sel);if(el)el.textContent=val};
+  const putHtml=(sel,val)=>{const el=$(sel);if(el)el.innerHTML=val};
+  const putClass=(sel,cls)=>{const el=$(sel);if(el)el.className=cls};
+
+  if(m.kse100!=null){
+   const kd=DATA.find(x=>x.id==="kse");
+   if(kd){kd.v=m.kse100;kd.asof="live";kd.src="PSX live";}
+   put("#heroKse",fmt(m.kse100));put("#kseValue",fmt(m.kse100));
+   put("#kseChange",(m.change>=0?"▲ ":"▼ ")+fmt(Math.abs(m.change||0))+" ("+fmt(Math.abs(m.changePct||0))+"%)");
+   putClass("#kseChange","chg "+(m.change>=0?"up":"dn"));
+  }
+  if(m.totalTrades!=null)put("#psxTrades",fmtC(m.totalTrades));
+  if(m.volume!=null)put("#psxVolume",fmtC(m.volume));
+  if(m.value!=null)put("#psxValue","Rs "+fmtC(m.value));
+
+  if(i.fdiFY25JulJan!=null){
+   put("#heroFdi","$"+fmt(i.fdiFY25JulJan/1000)+"B");
+   put("#fdiValue","$"+fmt(i.fdiFY25JulJan)+"M");
+  }
+  const sec=i.sectors||{};
+  const items=[["Power",sec.power],["Financial",sec.financial],["Oil & Gas",sec.oilGas],["Construction",sec.construction],["Trade",sec.trade],["IT / Telecom",sec.itTelecom]];
+  const vals=items.filter(x=>x[1]!=null);
+  const max=Math.max(...vals.map(x=>Math.abs(x[1])),1);
+  putHtml("#fdiBars",vals.map(x=>"<div class='fdi-bar'><span>"+x[0]+"</span><span class='fdi-track'><span class='fdi-fill' style='width:"+Math.min(100,Math.abs(x[1])/max*100)+"%'></span></span><b>"+fmt(x[1])+"</b></div>").join(""));
+
+  if(d.macro&&d.macro.cpi!=null)put("#heroCpi",fmt(d.macro.cpi)+"%");
+  if(d.macro){
+   if(d.macro.cpi!=null){const f=DATA.find(x=>x.id==="cpi");if(f){f.v=d.macro.cpi;f.asof=d.macro.cpiAsOf||d.fetchedAt;f.src="PBS live";}}
+   if(d.macro.spi!=null){const f=DATA.find(x=>x.id==="spi");if(f){f.v=d.macro.spi;f.asof=d.macro.spiAsOf||d.fetchedAt;f.src="PBS live";}}
+  }
+  if(d.fuel&&d.fuel.petrol){
+   const f=DATA.find(x=>x.id==="petrol");
+   if(f){f.v=d.fuel.petrol;f.asof=d.fuel.asof||d.fetchedAt;f.src="OGRA live";}
+   const fuelInput=document.getElementById("ctFuel");if(fuelInput)fuelInput.value=d.fuel.petrol;
+  }
+  if(d.fuel&&d.fuel.diesel){
+   const f=DATA.find(x=>x.id==="diesel");
+   if(f){f.v=d.fuel.diesel;f.asof=d.fuel.asof||d.fetchedAt;f.src="OGRA live";}
+  }
+
+  put("#heroUpdated",new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT");
+  const s=$("#economyStatus");
+  if(s){
+   putClass("#economyStatus","data-status "+(d.status==="ok"?"ok":"warn"));
+   s.textContent=(d.status==="ok"?"● Institutional feeds connected":"● Partial feed — some institutional sources unavailable")+" · refreshed "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";
+  }
+  if(LIVE?.latest?.usdpkr){
+   const fx=document.getElementById("ctFx");if(fx)fx.value=LIVE.latest.usdpkr;
+   const ud=DATA.find(x=>x.id==="usdpkr");
+   if(ud){ud.v=LIVE.latest.usdpkr;ud.asof=LIVE.latest.date||"live";ud.src="Reference feed";}
+  }
+  render();
+ }catch(e){
+  const s=$("#economyStatus");
+  if(s){s.className="data-status warn";s.textContent="● Institutional feed temporarily unavailable — showing saved dashboard data."}
+ }
+}
 bindCitizenTools();loadEconomy();setInterval(loadEconomy,10*60*1000);</script>
 </body>
 </html>

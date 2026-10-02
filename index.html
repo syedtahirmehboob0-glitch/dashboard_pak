@@ -571,7 +571,6 @@ function render(){
   <div class="k"><span>${esc(d[L])}</span>${d.live&&LIVE?`<span class="live">${t("live")}</span>`:""}</div>
   <div class="v">${fmt(d.v)} <small>${esc(d.u)}</small></div>
   <div class="row"><div><div class="chg ${tone(d,c?.v)}">${chgTxt(c)}</div><div class="src">${esc(d.src)} · ${esc(d.live&&LIVE?LIVE.latest.date:d.asof)}</div></div>${spark(d)}</div></div>`}).join(""):`<div class="empty">${t("none")}</div>`;
-$("#grid").innerHTML=VIEW.length?VIEW.map(d=>{const c=change(d);return`<div class="card" role="button" tabindex="0" data-id="${d.id}" aria-label="${esc(d[L])}">
   <div class="k"><span>${esc(d[L])}</span>${d.live&&LIVE?`<span class="live">${t("live")}</span>`:""}</div>
   <div class="v">${fmt(d.v)} <small>${esc(d.u)}</small></div>
   <div class="row"><div><div class="chg ${tone(d,c?.v)}">${chgTxt(c)}</div><div class="src">${esc(d.src)} · ${esc(d.live&&LIVE?LIVE.latest.date:d.asof)}</div></div>${spark(d)}</div></div>`}).join(""):`<div class="empty">${t("none")}</div>`;

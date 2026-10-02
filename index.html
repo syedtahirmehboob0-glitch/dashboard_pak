@@ -886,7 +886,7 @@ function exportCSV(){
 function tick(){$("#clock").textContent="PKT "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"medium",hour12:false}).format(new Date())}
 $("#lang").onclick=()=>{L=L==="en"?"ur":"en";localStorage.setItem("pakmetric_lang",L);applyLang()};
 $("#csv").onclick=exportCSV;$("#q").oninput=render;
-tick();setInterval(tick,1000);bindCitizenTools();applyLang();
+tick();setInterval(tick,1000);applyLang();
 if(location.hash.length>1)openMetric(decodeURIComponent(location.hash.slice(1)));
 loadLive();setInterval(loadLive,5*60*1000);
 /* v2 citizen tools + official economy feed */

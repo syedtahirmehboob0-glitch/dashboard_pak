@@ -188,9 +188,39 @@ footer.site-footer{margin-top:24px;padding-top:16px}
  .card .v{font-size:1.5rem}.spark{width:72px}
  .section-shell{padding:10px}
 }
+.dashboard-search{display:grid;grid-template-columns:minmax(220px,1fr) auto;gap:8px;align-items:center;margin-top:12px}
+.dashboard-search #q{width:100%;min-width:0}
+.dashboard-search .bar{overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}
+.dashboard-search .bar button{white-space:nowrap}
+.dashboard-toolbar{box-shadow:none}
+@media(max-width:720px){
+ .wrap{padding:0 10px 18px}
+ .dashboard-toolbar{padding:12px;border-radius:16px;margin-top:6px}
+ .dashboard-title{gap:8px;margin-bottom:0}
+ .dashboard-title h2{font-size:1.35rem}
+ .dashboard-title p{font-size:.76rem;line-height:1.45}
+ .dashboard-controls{width:100%}
+ .dashboard-controls #clock{flex:1}
+ .dashboard-search{grid-template-columns:1fr;margin-top:10px}
+ .dashboard-search .bar{width:100%;overflow-x:auto}
+ .grid{grid-template-columns:1fr;gap:8px}
+ .card{min-height:0;padding:12px}
+ .card .v{font-size:1.45rem}
+ .overview-charts .two,.finance-calc .two,.two{grid-template-columns:1fr;min-width:0}
+ .section-heading{margin:20px 0 8px;align-items:flex-start}
+ .section-heading p{text-align:left;font-size:.72rem}
+ .tool-grid{grid-template-columns:1fr!important}
+ .tool{padding:12px}
+ .hero{padding:14px;border-radius:16px}
+ .hero-grid,.live-board{grid-template-columns:1fr}
+ .section-shell{padding:8px;border-radius:14px}
+}
 @media(max-width:560px){
- .dashboard-cards{grid-template-columns:1fr}.dashboard-title{flex-direction:column;align-items:flex-start}
- .grid{grid-template-columns:1fr}.hero h2{font-size:2rem}
+ .dashboard-controls button{padding:7px 9px}
+ .dashboard-search .bar{gap:6px}
+ .dashboard-search .bar button{padding:7px 9px;font-size:.75rem}
+ .grid{grid-template-columns:1fr}
+ .hero h2{font-size:1.75rem}
 }
 </style>
 </head>
@@ -202,17 +232,11 @@ footer.site-footer{margin-top:24px;padding-top:16px}
     <div><div class="dashboard-eyebrow">PakPulse · Pakistan</div><h2>Pakistan Dashboard</h2><p>Simple national data, everyday money tools, markets and official services in one place.</p></div>
     <div class="dashboard-controls"><div id="clock"></div><button id="lang"></button><button id="csv" data-i="csv"></button></div>
   </div>
-  <div class="dashboard-cards">
-    <a class="dashboard-card" href="#overview"><span class="dc-icon">🇵🇰</span><div><b>Overview</b><span>National pulse & KPIs</span></div></a>
-    <a class="dashboard-card" href="#tools"><span class="dc-icon">🧮</span><div><b>Citizen tools</b><span>Money & household tools</span></div></a>
-    <a class="dashboard-card" href="#markets"><span class="dc-icon">📈</span><div><b>Markets</b><span>PSX & investment</span></div></a>
-    <a class="dashboard-card" href="#services"><span class="dc-icon">🏛️</span><div><b>Services</b><span>Official government links</span></div></a>
+  <div class="dashboard-search">
+    <input id="q" type="search" data-ph="search" aria-label="Search metrics">
+    <div class="bar" id="cats"></div>
   </div>
 </section>
-<div class="tools" style="margin-top:16px">
- <input id="q" type="search" data-ph="search">
- <div class="bar" id="cats"></div>
-</div>
 <p class="hint" data-i="tap"></p>
 <div class="grid snapshot-grid" id="grid"></div>
 
@@ -631,7 +655,7 @@ loadLive();setInterval(loadLive,5*60*1000);
 const n=id=>+document.getElementById(id).value||0;
 function citizenCalc(){const sal=n("ctSalary"),st=n("ctSalaryTax")/100;$("#ctSalaryOut").innerHTML="Estimated take-home: <b>"+pkr(sal*(1-st))+"</b>";const w=n("ctWealth"),nis=n("ctNisab");$("#ctZakatOut").innerHTML=w>nis?"Estimated Zakat: <b>"+pkr((w-nis)*.025)+"</b>":"Below entered nisab: <b>Rs 0</b>";const km=n("ctKm"),eff=n("ctEff"),fuel=n("ctFuel");$("#ctFuelOut").innerHTML="Daily: <b>"+pkr(km/eff*fuel)+"</b> · 30 days: <b>"+pkr(km/eff*fuel*30)+"</b>";const inv=n("ctInv"),rate=n("ctRate")/100,yrs=n("ctYears"),fv=inv*Math.pow(1+rate,yrs);$("#ctInvOut").innerHTML="Scenario value: <b>"+pkr(fv)+"</b> · gain "+pkr(fv-inv);const fixed=n("ctFixed"),margin=n("ctMargin")/100;$("#ctBreakOut").innerHTML="Break-even sales: <b>"+pkr(margin?fixed/margin:0)+" / month</b>";const usd=n("ctUsd"),fx=n("ctFx");$("#ctRemitOut").innerHTML="<b>"+pkr(usd*fx)+"</b> at entered rate"}
 document.querySelectorAll(".tool input").forEach(e=>e.addEventListener("input",citizenCalc));
-async function loadEconomy(){try{const r=await fetch("/api/economy");if(!r.ok)throw new Error(r.status);const d=await r.json(),m=d.market||{},i=d.investment||{};if(m.kse100!=null){$("#heroKse").textContent=fmt(m.kse100);$("#kseValue").textContent=fmt(m.kse100);$("#kseChange").textContent=(m.change>=0?"▲ ":"▼ ")+fmt(Math.abs(m.change||0))+" ("+fmt(Math.abs(m.changePct||0))+"%)";$("#kseChange").className="chg "+(m.change>=0?"up":"dn")}if(m.totalTrades!=null)$("#psxTrades").textContent=fmtC(m.totalTrades);if(m.volume!=null)$("#psxVolume").textContent=fmtC(m.volume);if(m.value!=null)$("#psxValue").textContent="Rs "+fmtC(m.value);if(i.fdiFY25JulJan!=null){$("#heroFdi").textContent="$"+fmt(i.fdiFY25JulJan/1000)+"B";$("#fdiValue").textContent="$"+fmt(i.fdiFY25JulJan)+"M"}const sec=i.sectors||{},items=[["Power",sec.power],["Financial",sec.financial],["Oil & Gas",sec.oilGas],["Construction",sec.construction],["Trade",sec.trade],["IT / Telecom",sec.itTelecom]],vals=items.filter(x=>x[1]!=null),max=Math.max(...vals.map(x=>Math.abs(x[1])),1);$("#fdiBars").innerHTML=vals.map(x=>"<div class='fdi-bar'><span>"+x[0]+"</span><span class='fdi-track'><span class='fdi-fill' style='width:"+Math.min(100,Math.abs(x[1])/max*100)+"%'></span></span><b>"+fmt(x[1])+"</b></div>").join("");if(d.macro&&d.macro.cpi!=null)$("#heroCpi").textContent=fmt(d.macro.cpi)+"%";if(d.fuel&&d.fuel.petrol){constf=DATA.find(x=>x.id=="petrol");if(f)f.v=d.fuel.petrol;document.getElementById("ctFuel").value=d.fuel.petrol;}if(d.fuel&&d.fuel.diesel){constfd=DATA.find(x=>x.id=="diesel");if(fd){fd.v=d.fuel.diesel;fd.asof=d.fetchedAt;fd.src="OGRA live";}}$("#heroUpdated").textContent=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";const s=$("#economyStatus");s.className="data-status "+(d.status==="ok"?"ok":"warn");s.textContent=(d.status==="ok"?"● Official feeds connected":"● Partial feed — some official sources unavailable")+" · refreshed "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";if(LIVE?.latest?.usdpkr)$("#ctFx").value=LIVE.latest.usdpkr}catch(e){$("#economyStatus").className="data-status warn";$("#economyStatus").textContent="● Official feed temporarily unavailable — showing saved dashboard data."}}
+async function loadEconomy(){try{const r=await fetch("/api/economy");if(!r.ok)throw new Error(r.status);const d=await r.json(),m=d.market||{},i=d.investment||{};if(m.kse100!=null){$("#heroKse").textContent=fmt(m.kse100);$("#kseValue").textContent=fmt(m.kse100);$("#kseChange").textContent=(m.change>=0?"▲ ":"▼ ")+fmt(Math.abs(m.change||0))+" ("+fmt(Math.abs(m.changePct||0))+"%)";$("#kseChange").className="chg "+(m.change>=0?"up":"dn")}if(m.totalTrades!=null)$("#psxTrades").textContent=fmtC(m.totalTrades);if(m.volume!=null)$("#psxVolume").textContent=fmtC(m.volume);if(m.value!=null)$("#psxValue").textContent="Rs "+fmtC(m.value);if(i.fdiFY25JulJan!=null){$("#heroFdi").textContent="$"+fmt(i.fdiFY25JulJan/1000)+"B";$("#fdiValue").textContent="$"+fmt(i.fdiFY25JulJan)+"M"}const sec=i.sectors||{},items=[["Power",sec.power],["Financial",sec.financial],["Oil & Gas",sec.oilGas],["Construction",sec.construction],["Trade",sec.trade],["IT / Telecom",sec.itTelecom]],vals=items.filter(x=>x[1]!=null),max=Math.max(...vals.map(x=>Math.abs(x[1])),1);$("#fdiBars").innerHTML=vals.map(x=>"<div class='fdi-bar'><span>"+x[0]+"</span><span class='fdi-track'><span class='fdi-fill' style='width:"+Math.min(100,Math.abs(x[1])/max*100)+"%'></span></span><b>"+fmt(x[1])+"</b></div>").join("");if(d.macro&&d.macro.cpi!=null)$("#heroCpi").textContent=fmt(d.macro.cpi)+"%";if(d.macro){if(d.macro.cpi!=null){const f=DATA.find(x=>x.id=="cpi");if(f){f.v=d.macro.cpi;f.asof=d.macro.cpiAsOf||d.fetchedAt;f.src="PBS live";}}if(d.macro.spi!=null){const f=DATA.find(x=>x.id=="spi");if(f){f.v=d.macro.spi;f.asof=d.macro.spiAsOf||d.fetchedAt;f.src="PBS live";}}}if(d.fuel&&d.fuel.petrol){const f=DATA.find(x=>x.id=="petrol");if(f){f.v=d.fuel.petrol;f.asof=d.fuel.asof||d.fetchedAt;f.src="OGRA live";}document.getElementById("ctFuel").value=d.fuel.petrol;}if(d.fuel&&d.fuel.diesel){const f=DATA.find(x=>x.id=="diesel");if(f){f.v=d.fuel.diesel;f.asof=d.fuel.asof||d.fetchedAt;f.src="OGRA live";}}$("#heroUpdated").textContent=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";const s=$("#economyStatus");s.className="data-status "+(d.status==="ok"?"ok":"warn");s.textContent=(d.status==="ok"?"● Official feeds connected":"● Partial feed — some official sources unavailable")+" · refreshed "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";if(LIVE?.latest?.usdpkr)$("#ctFx").value=LIVE.latest.usdpkr}catch(e){$("#economyStatus").className="data-status warn";$("#economyStatus").textContent="● Official feed temporarily unavailable — showing saved dashboard data."}}
 citizenCalc();loadEconomy();setInterval(loadEconomy,10*60*1000);</script>
 </body>
 </html>

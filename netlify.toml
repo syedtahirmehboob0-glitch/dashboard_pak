@@ -1,6 +1,8 @@
 [build]
   publish = "."
 
+# Deployment trigger: keep Netlify aligned with the main branch.
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

@@ -121,10 +121,14 @@ footer.site-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap
 @media(max-width:560px){.dashboard-toolbar{padding:14px}.pakistan-cover{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:12px}.pakistan-cover img{width:100%;height:74px;object-fit:cover;border-radius:10px;display:block}.pakistan-cover img:first-child{object-position:center 45%}.flag-mark{font-size:2.5rem}.attractions-grid{grid-template-columns:1fr}.dashboard-title{align-items:flex-start;flex-direction:column}.dashboard-title p{text-align:start}.dashboard-cards{grid-template-columns:1fr}.section-heading{align-items:flex-start;flex-direction:column}.section-heading p{text-align:start}}
 
 
-/* Built-in landmark artwork: no external image requests */
-.pakistan-cover .landmark-art{min-width:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#102019}
-.pakistan-cover .landmark-art svg{display:block;width:100%;height:74px}
-.pakistan-cover .landmark-art span{display:block;padding:3px 4px 4px;text-align:center;color:var(--mut);font-size:.56rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Local landmark photos */
+.pakistan-cover{display:flex;gap:6px;margin-top:12px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.pakistan-cover::-webkit-scrollbar{display:none}
+.pakistan-cover .landmark-art{flex:1 0 0;min-width:0;margin:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#102019}
+.pakistan-cover .landmark-art img{display:block;width:100%;height:74px;object-fit:cover}
+.pakistan-cover .landmark-art figcaption{padding:3px 4px 4px;text-align:center;color:var(--mut);font-size:.56rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:560px){.pakistan-cover .landmark-art{flex:0 0 118px}.pakistan-cover .landmark-art img{height:74px}}
+
 /* v7 clean public dashboard */
 header,.quick-nav{display:none!important}
 
@@ -244,7 +248,12 @@ footer.site-footer{margin-top:24px;padding-top:16px}
   </div>
 
   <div class="pakistan-cover" aria-label="Pakistan landmarks">
-    <div class="landmark-art" aria-label="Faisal Mosque"><svg viewBox="0 0 220 90" role="img" aria-hidden="true"><rect width="220" height="90" rx="10" fill="#12382a"/><circle cx="178" cy="22" r="12" fill="#f4c95d" opacity=".9"/><path d="M70 68L110 18 150 68M82 68L110 30 138 68M56 68H164" fill="none" stroke="#e9f4ee" stroke-width="5" stroke-linecap="round"/><path d="M48 68V35M172 68V35" stroke="#f4c95d" stroke-width="4"/><path d="M44 35L48 28 52 35M168 35L172 28 176 35" fill="none" stroke="#f4c95d" stroke-width="3"/></svg><span>Faisal Mosque</span></div>
+    <figure class="landmark-art"><img src="/assets/landmarks/faisal-mosque.jpg" alt="Faisal Mosque"><figcaption>Faisal Mosque</figcaption></figure>
+    <figure class="landmark-art"><img src="/assets/landmarks/minar-e-pakistan.jpg" alt="Minar-e-Pakistan"><figcaption>Minar-e-Pakistan</figcaption></figure>
+    <figure class="landmark-art"><img src="/assets/landmarks/ziarat-residency.jpg" alt="Quaid-e-Azam Residency"><figcaption>Quaid-e-Azam Residency</figcaption></figure>
+    <figure class="landmark-art"><img src="/assets/landmarks/badshahi-mosque.jpg" alt="Badshahi Mosque"><figcaption>Badshahi Mosque</figcaption></figure>
+    <figure class="landmark-art"><img src="/assets/landmarks/parliament-house.jpg" alt="Parliament House"><figcaption>Parliament House</figcaption></figure>
+  </div>
     <div class="landmark-art" aria-label="Minar-e-Pakistan"><svg viewBox="0 0 220 90" role="img" aria-hidden="true"><rect width="220" height="90" rx="10" fill="#173b2c"/><circle cx="178" cy="22" r="12" fill="#f4c95d" opacity=".9"/><path d="M92 68L101 31H119L128 68Z" fill="#e9f4ee"/><path d="M104 31L110 12 116 31" fill="#f4c95d"/><path d="M88 68H132M96 75H124" stroke="#e9f4ee" stroke-width="4" stroke-linecap="round"/><path d="M110 12V5" stroke="#f4c95d" stroke-width="2"/></svg><span>Minar-e-Pakistan</span></div>
     <div class="landmark-art" aria-label="Quaid-e-Azam Residency"><svg viewBox="0 0 220 90" role="img" aria-hidden="true"><rect width="220" height="90" rx="10" fill="#214637"/><circle cx="178" cy="22" r="12" fill="#f4c95d" opacity=".9"/><rect x="63" y="42" width="94" height="28" rx="2" fill="#e9f4ee"/><path d="M56 42H164L151 29H69Z" fill="#f4c95d"/><path d="M78 42V31M110 42V31M142 42V31" stroke="#214637" stroke-width="3"/><rect x="103" y="54" width="14" height="16" fill="#214637"/><path d="M50 70H170" stroke="#e9f4ee" stroke-width="4"/></svg><span>Quaid-e-Azam Residency</span></div>
     <div class="landmark-art" aria-label="Badshahi Mosque"><svg viewBox="0 0 220 90" role="img" aria-hidden="true"><rect width="220" height="90" rx="10" fill="#4a3328"/><circle cx="178" cy="22" r="12" fill="#f4c95d" opacity=".9"/><path d="M58 68V45Q58 30 73 30Q88 30 88 45V68M88 68V45Q88 30 103 30Q118 30 118 45V68M118 68V45Q118 30 133 30Q148 30 148 45V68" fill="#e9d7b8"/><path d="M51 68H155" stroke="#f4c95d" stroke-width="5"/><path d="M63 30V20M143 30V20" stroke="#f4c95d" stroke-width="4"/><path d="M59 20L63 14 67 20M139 20L143 14 147 20" fill="none" stroke="#f4c95d" stroke-width="3"/></svg><span>Badshahi Mosque</span></div>

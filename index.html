@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#07130f;--panel:#0e211a;--panel2:#13291f;--line:#1f3b30;--tx:#e8f3ee;--mut:#8fb0a2;--acc:#2ee59d;--acc2:#f5c542;--bad:#ff6b6b}
+:root{--bg:#07130f;--panel:#0e211a;--panel2:#13291f;--line:#1f3b30;--tx:#e8f3ee;--mut:#8fb0a2;--acc:#2ee59d;--acc2:#f5c542;--bad:#ff6b6b;--blue:#4fb3ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#0f3d2c 0,var(--bg) 60%);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
 [dir=rtl] body,[dir=rtl] button,[dir=rtl] input,[dir=rtl] select{font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq",serif;line-height:2}
 .wrap{max-width:1180px;margin:0 auto;padding:16px}
@@ -18,21 +18,45 @@ h1{margin:0;font-size:1.6rem}h1 span{color:var(--acc)}.sub{color:var(--mut);font
 .bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 button,select,input{background:var(--panel2);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font:inherit}
 button{cursor:pointer}button:hover,button.on{border-color:var(--acc);color:var(--acc)}
+button:focus-visible,.card:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 #clock{font-variant-numeric:tabular-nums;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
-.tools{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 16px}.tools input{flex:1;min-width:200px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 6px}.tools input{flex:1;min-width:200px}
+.hint{color:var(--mut);font-size:.82rem;margin:0 0 12px}
 .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;transition:.15s}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:2px}
 .card:hover{border-color:var(--acc);transform:translateY(-2px)}
-.card .k{color:var(--mut);font-size:.85rem}.card .v{font-size:1.7rem;font-weight:700;margin:2px 0}.card .v small{font-size:.9rem;color:var(--mut);font-weight:400}
-.up{color:var(--acc)}.dn{color:var(--bad)}.src{color:var(--mut);font-size:.72rem}
-.ex{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.88rem;color:#cfe6dc}.card.open .ex{display:block}
+.card .k{color:var(--mut);font-size:.85rem;display:flex;justify-content:space-between;gap:6px}
+.card .v{font-size:1.7rem;font-weight:700;margin:2px 0;font-variant-numeric:tabular-nums}.card .v small{font-size:.9rem;color:var(--mut);font-weight:400}
+.card .row{display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
+.spark{width:96px;height:30px;flex:none;direction:ltr}
+.up{color:var(--acc)}.dn{color:var(--bad)}.flat{color:var(--mut)}.src{color:var(--mut);font-size:.72rem}
+.chg{font-size:.8rem;font-variant-numeric:tabular-nums}
+.live{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;color:var(--acc);letter-spacing:.04em;font-weight:600;white-space:nowrap}
+.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(46,229,157,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 7px rgba(46,229,157,0)}100%{box-shadow:0 0 0 0 rgba(46,229,157,0)}}
+@media (prefers-reduced-motion:reduce){.live::before{animation:none}.card{transition:none}}
 section{margin-top:28px}h2{font-size:1.2rem;margin:0 0 10px}
 .two{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
 .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}
 label{display:block;font-size:.82rem;color:var(--mut);margin:8px 0 3px}.box input,.box select{width:100%}
 .res{margin-top:10px;background:var(--panel2);border-radius:12px;padding:10px;font-size:.95rem}.res b{color:var(--acc2)}
-svg text{fill:var(--mut);font-size:11px}.note{color:var(--mut);font-size:.78rem;margin-top:24px;border-top:1px solid var(--line);padding-top:12px}
+svg{direction:ltr}svg text{fill:var(--mut);font-size:11px;font-family:system-ui,sans-serif}.note{color:var(--mut);font-size:.78rem;margin-top:24px;border-top:1px solid var(--line);padding-top:12px}
 .empty{color:var(--mut);padding:20px}
+/* drill-down modal */
+dialog{background:var(--panel);color:var(--tx);border:1px solid var(--line);border-radius:20px;padding:0;width:min(1000px,96vw);max-height:94vh}
+dialog::backdrop{background:rgba(2,10,7,.75);backdrop-filter:blur(3px)}
+.m-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:18px 18px 8px;position:sticky;top:0;background:var(--panel);z-index:1}
+.m-hd h3{margin:0;font-size:1.25rem}.m-nav{display:flex;gap:6px}.m-nav button{padding:6px 11px}
+.m-bd{padding:0 18px 18px}
+.m-val{font-size:2.2rem;font-weight:700;font-variant-numeric:tabular-nums}.m-val small{font-size:1rem;color:var(--mut);font-weight:400}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:12px 0}
+.stat{background:var(--panel2);border-radius:12px;padding:8px 10px}.stat .s1{color:var(--mut);font-size:.74rem}.stat .s2{font-weight:600;font-variant-numeric:tabular-nums}
+.chartbox{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:12px}
+.chartbox .k{color:var(--mut);font-size:.85rem;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.chartbox svg{width:100%;height:auto;touch-action:pan-y}
+.trend-msg{font-size:.92rem;margin-top:6px}.m-ex{margin-top:14px;color:#cfe6dc;font-size:.93rem}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:12px;font-variant-numeric:tabular-nums}.tbl th,.tbl td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:start}.tbl th{color:var(--mut);font-weight:400}
+details summary{cursor:pointer;color:var(--mut);font-size:.85rem;margin-top:12px}
 </style>
 </head>
 <body>
@@ -46,6 +70,7 @@ svg text{fill:var(--mut);font-size:11px}.note{color:var(--mut);font-size:.78rem;
  <input id="q" type="search" data-ph="search">
  <div class="bar" id="cats"></div>
 </div>
+<p class="hint" data-i="tap"></p>
 <div class="grid" id="grid"></div>
 
 <section><h2 data-i="charts"></h2>
@@ -79,97 +104,330 @@ svg text{fill:var(--mut);font-size:11px}.note{color:var(--mut);font-size:.78rem;
 <p class="note" data-i="disc"></p>
 </div>
 
+<dialog id="dlg" aria-labelledby="m_t">
+ <div class="m-hd">
+  <div><h3 id="m_t"></h3><div class="src" id="m_src"></div></div>
+  <div class="m-nav"><button id="m_prev" aria-label="Previous">‹</button><button id="m_next" aria-label="Next">›</button><button id="m_x" aria-label="Close">✕</button></div>
+ </div>
+ <div class="m-bd">
+  <div class="m-val" id="m_v"></div><div id="m_chg" class="chg"></div>
+  <div class="stats" id="m_stats"></div>
+  <div class="two">
+   <div class="chartbox"><div class="k"><span data-i="hist"></span><span id="m_hr"></span></div><svg id="m_h" viewBox="0 0 460 250"></svg></div>
+   <div class="chartbox"><div class="k"><span id="m_tt"></span><span id="m_upd"></span></div><svg id="m_l" viewBox="0 0 460 250"></svg><div class="trend-msg" id="m_tm"></div></div>
+  </div>
+  <div class="m-ex" id="m_ex"></div>
+  <details><summary data-i="tbl"></summary><table class="tbl" id="m_tbl"></table></details>
+ </div>
+</dialog>
+
 <script>
 "use strict";
-/* ===== DATA ===== Edit values here (or wire to an API later). asof = date of the figure. */
+/* ===== DATA =====
+   Edit values here (or wire to an API later).
+   v = latest value, asof = date of the figure, h = [firstYear, [10 yearly values]] (null = no data that year),
+   good = 1 if higher is better, -1 if lower is better, 0 neutral, live = key in /api/live feed (auto-updated). */
 const DATA=[
-{id:"policy",cat:"macro",v:10.5,u:"%",d:0,asof:"2026-Q3",src:"SBP",en:"SBP Policy Rate",ur:"اسٹیٹ بینک پالیسی ریٹ",
+{id:"policy",cat:"macro",v:10.5,u:"%",asof:"2026-Q3",src:"SBP",good:-1,h:[2017,[5.75,10,13.25,7,9.75,16,22,13,11,10.5]],en:"SBP Policy Rate",ur:"اسٹیٹ بینک پالیسی ریٹ",
  xe:"The rate SBP charges banks. Bank loans (car lease, business loan) usually track KIBOR, which follows this. A 1% cut on a Rs 5M loan saves roughly Rs 2,500–3,000 a month.",
  xu:"یہ وہ شرح ہے جس پر اسٹیٹ بینک بینکوں کو قرض دیتا ہے۔ کار لیز اور کاروباری قرضے کبھی کبھار اسی کے ساتھ گھٹتے بڑھتے ہیں۔ 1٪ کمی سے 50 لاکھ کے قرض پر ماہانہ تقریباً 2,500–3,000 روپے بچتے ہیں۔"},
-{id:"reserves_sbp",cat:"macro",v:14.5,u:"$Bn",d:0,asof:"2026-Q3",src:"SBP",en:"FX Reserves (SBP)",ur:"زرمبادلہ ذخائر (اسٹیٹ بینک)",
- xe:"Dollars held by the central bank. More reserves = steadier rupee and enough to pay for imports (roughly 2–3 months' cover is healthy).",
- xu:"مرکزی بینک کے پاس ڈالر۔ زیادہ ذخائر کا مطلب مستحکم روپیہ اور درآمدات کی ادائیگی کی صلاحیت۔"},
-{id:"reserves_bank",cat:"macro",v:5.0,u:"$Bn",d:0,asof:"2026-Q3",src:"SBP",en:"FX Reserves (Commercial Banks)",ur:"زرمبادلہ ذخائر (کمرشل بینک)",
- xe:"Dollars held by private banks. These are not available to the government, so SBP reserves are the number to watch.",
- xu:"نجی بینکوں کے ڈالر۔ یہ حکومت کے استعمال میں نہیں، اس لیے اسٹیٹ بینک کے ذخائر زیادہ اہم ہیں۔"},
-{id:"remit",cat:"macro",v:3.5,u:"$Bn/mo",d:0,asof:"2026-Q3",src:"SBP",en:"Worker Remittances",ur:"ترسیلاتِ زر",
- xe:"Money sent home by overseas Pakistanis. It is the country's biggest steady source of dollars.",
- xu:"بیرونِ ملک پاکستانیوں کی بھیجی گئی رقم، ملک کے لیے ڈالر کا سب سے بڑا مستقل ذریعہ۔"},
-{id:"cpi",cat:"macro",v:5.0,u:"% YoY",d:0,asof:"2026-Q3",src:"PBS",en:"CPI Headline Inflation",ur:"مہنگائی (سی پی آئی)",
+{id:"kibor",cat:"macro",v:10.8,u:"%",asof:"2026-Q3",src:"SBP",good:-1,h:[2017,[6.15,10.6,13.3,7.3,11,17,21.4,12,11.2,10.8]],en:"KIBOR (6-month)",ur:"کائبور (6 ماہ)",
+ xe:"The benchmark rate banks use to price most business and consumer loans. Your loan rate is usually KIBOR plus a margin.",
+ xu:"بینک زیادہ تر قرضوں کی قیمت اسی شرح سے طے کرتے ہیں۔ آپ کے قرض کی شرح عموماً کائبور جمع کچھ مارجن ہوتی ہے۔"},
+{id:"cpi",cat:"macro",v:5.0,u:"% YoY",asof:"2026-Q3",src:"PBS",good:-1,h:[2017,[4.2,3.9,6.8,10.7,8.9,12.2,29.2,23.4,4.5,5]],en:"CPI Headline Inflation",ur:"مہنگائی (سی پی آئی)",
  xe:"How much average prices rose versus a year ago. At 5%, something that cost Rs 1,000 last year costs about Rs 1,050 now.",
  xu:"گزشتہ سال کے مقابلے میں قیمتوں میں اضافہ۔ 5٪ پر، پچھلے سال کی 1,000 روپے کی چیز اب تقریباً 1,050 کی ہے۔"},
-{id:"spi",cat:"essentials",v:5.0,u:"% YoY",d:0,asof:"2026-Q3",src:"PBS",en:"Sensitive Price Index (SPI)",ur:"حساس قیمتوں کا اشاریہ",
- xe:"Weekly price tracker for 51 everyday items (flour, sugar, milk, vegetables). It shows what households feel first.",
- xu:"آٹا، چینی، دودھ، سبزی جیسی 51 روزمرہ اشیا کی ہفتہ وار قیمتیں۔"},
-{id:"raast",cat:"fintech",v:8.0,u:"M txns/day",d:0,asof:"2026-Q3",src:"SBP PSR",en:"Raast Transactions (P2P+P2M)",ur:"راست روزانہ لین دین",
- xe:"Raast is Pakistan's free instant payment system. Send money to any bank or wallet 24/7 using just a mobile number.",
- xu:"راست پاکستان کا مفت فوری ادائیگی کا نظام ہے۔ صرف موبائل نمبر سے کسی بھی بینک یا والٹ میں 24/7 رقم بھیجیں۔"},
-{id:"wallets",cat:"fintech",v:90,u:"M accounts",d:0,asof:"2026-Q3",src:"SBP PSR",en:"Mobile Wallet Accounts",ur:"موبائل والٹ اکاؤنٹس",
- xe:"Easypaisa, JazzCash, SadaPay, NayaPay and others. Many people are banking for the first time through these.",
- xu:"ایزی پیسہ، جاز کیش، سادہ پے، نیا پے وغیرہ۔ بہت سے لوگ پہلی بار انہی کے ذریعے بینکنگ کرتے ہیں۔"},
-{id:"itexp",cat:"it",v:3.8,u:"$Bn/yr",d:0,asof:"FY25",src:"PSEB / SBP",en:"IT & IT-enabled Exports",ur:"آئی ٹی برآمدات",
- xe:"Dollars earned by selling software and IT services abroad. Remember: this is a yearly figure, roughly $0.3Bn+ each month.",
- xu:"سافٹ ویئر اور آئی ٹی خدمات بیچ کر کمائے گئے ڈالر۔ یہ سالانہ رقم ہے، یعنی ماہانہ تقریباً 0.3 ارب ڈالر سے زیادہ۔"},
-{id:"freelance",cat:"it",v:4,u:"global rank",d:0,asof:"2025",src:"Ministry of IT",en:"Freelancer Ranking",ur:"فری لانسر عالمی درجہ",
- xe:"Pakistan ranks among the top freelancing countries worldwide by number of freelancers.",
- xu:"فری لانسرز کی تعداد کے لحاظ سے پاکستان دنیا کے سرِفہرست ممالک میں شامل ہے۔"},
-{id:"shouses",cat:"it",v:null,u:"",d:0,asof:"—",src:"PSEB",en:"Registered Software Houses (add PSEB figure)",ur:"رجسٹرڈ سافٹ ویئر ہاؤسز (پی ایس ای بی کا عدد شامل کریں)",
- xe:"Fill in the latest count from PSEB's register in the DATA array.",xu:"تازہ تعداد پی ایس ای بی سے لے کر DATA میں درج کریں۔"},
-{id:"kse",cat:"markets",v:165000,u:"pts",d:0,asof:"2026-Q3",src:"PSX",en:"KSE-100 Index",ur:"کے ایس ای-100 انڈیکس",
+{id:"gdp",cat:"macro",v:3.0,u:"% real",asof:"FY25",src:"PBS / NAC",good:1,h:[2016,[4.6,4.6,6.1,3.1,-0.9,5.8,6.2,-0.2,2.5,3]],en:"GDP Growth",ur:"معاشی شرحِ نمو (جی ڈی پی)",
+ xe:"How much the whole economy grew after removing inflation. Around 5–6% is needed to create enough jobs for a young population.",
+ xu:"مہنگائی نکال کر پوری معیشت کتنی بڑھی۔ نوجوان آبادی کے لیے کافی نوکریاں پیدا کرنے کو تقریباً 5–6٪ نمو درکار ہے۔"},
+{id:"unemp",cat:"macro",v:7.1,u:"%",asof:"FY25",src:"PBS LFS",good:-1,h:[2016,[5.9,5.9,5.8,6.9,6.5,6.3,6.2,6.3,6.8,7.1]],en:"Unemployment Rate",ur:"بے روزگاری کی شرح",
+ xe:"Share of people who want work and are looking but cannot find a job.",
+ xu:"وہ لوگ جو کام چاہتے ہیں اور تلاش کر رہے ہیں مگر نوکری نہیں ملتی، ان کا تناسب۔"},
+{id:"tax",cat:"macro",v:11.74,u:"Rs Tn/yr",asof:"FY25",src:"FBR",good:1,h:[2016,[3.11,3.37,3.84,3.83,3.99,4.76,6.15,7.17,9.31,11.74]],en:"FBR Tax Collection",ur:"ایف بی آر ٹیکس وصولی",
+ xe:"Total federal taxes collected in a year. Part of the rise is inflation; the tax-to-GDP ratio (about 10%) is still low.",
+ xu:"سال بھر میں وفاقی ٹیکس وصولی۔ اضافے کا کچھ حصہ مہنگائی کی وجہ سے ہے؛ ٹیکس ٹو جی ڈی پی شرح (تقریباً 10٪) اب بھی کم ہے۔"},
+{id:"debt",cat:"macro",v:76.0,u:"Rs Tn",asof:"FY25",src:"SBP",good:-1,h:[2016,[19.7,21.4,24.9,32.7,36.4,39.9,49.2,62.9,68.9,76]],en:"Government Debt",ur:"حکومتی قرضہ",
+ xe:"Total domestic and foreign debt owed by the federal government. Interest on it is now the biggest item in the budget.",
+ xu:"وفاقی حکومت کا کل ملکی و غیر ملکی قرض۔ اس کا سود اب بجٹ کا سب سے بڑا خرچ ہے۔"},
+{id:"reserves_sbp",cat:"external",v:14.5,u:"$Bn",asof:"2026-Q3",src:"SBP",good:1,h:[2017,[16.1,9.8,7.3,12.1,17.3,9.8,4.4,9.4,14.5,14.5]],en:"FX Reserves (SBP)",ur:"زرمبادلہ ذخائر (اسٹیٹ بینک)",
+ xe:"Dollars held by the central bank. More reserves = steadier rupee and enough to pay for imports (roughly 2–3 months' cover is healthy).",
+ xu:"مرکزی بینک کے پاس ڈالر۔ زیادہ ذخائر کا مطلب مستحکم روپیہ اور درآمدات کی ادائیگی کی صلاحیت۔"},
+{id:"reserves_bank",cat:"external",v:5.0,u:"$Bn",asof:"2026-Q3",src:"SBP",good:1,h:[2017,[5.4,6.6,7.1,6.9,7,5.8,5.1,5.3,5,5]],en:"FX Reserves (Commercial Banks)",ur:"زرمبادلہ ذخائر (کمرشل بینک)",
+ xe:"Dollars held by private banks. These are not available to the government, so SBP reserves are the number to watch.",
+ xu:"نجی بینکوں کے ڈالر۔ یہ حکومت کے استعمال میں نہیں، اس لیے اسٹیٹ بینک کے ذخائر زیادہ اہم ہیں۔"},
+{id:"remit",cat:"external",v:3.5,u:"$Bn/mo",asof:"2026-Q3",src:"SBP",good:1,h:[2017,[1.62,1.64,1.81,1.93,2.45,2.61,2.27,2.53,3.19,3.5]],en:"Worker Remittances",ur:"ترسیلاتِ زر",
+ xe:"Money sent home by overseas Pakistanis (yearly figures shown as a monthly average). It is the country's biggest steady source of dollars.",
+ xu:"بیرونِ ملک پاکستانیوں کی بھیجی گئی رقم (سالانہ اعداد ماہانہ اوسط میں)، ملک کے لیے ڈالر کا سب سے بڑا مستقل ذریعہ۔"},
+{id:"exports",cat:"external",v:32.1,u:"$Bn/yr",asof:"FY25",src:"PBS",good:1,h:[2016,[20.8,20.4,23.2,22.5,21.4,25.3,31.8,27.7,30.6,32.1]],en:"Goods Exports",ur:"اشیا کی برآمدات",
+ xe:"Value of goods sold abroad — mostly textiles, rice and leather. Higher exports bring dollars without borrowing.",
+ xu:"بیرونِ ملک فروخت ہونے والی اشیا — زیادہ تر ٹیکسٹائل، چاول اور چمڑا۔ زیادہ برآمدات قرض کے بغیر ڈالر لاتی ہیں۔"},
+{id:"imports",cat:"external",v:58.4,u:"$Bn/yr",asof:"FY25",src:"PBS",good:0,h:[2016,[44.7,52.9,60.8,54.8,44.6,56.4,80,55.2,54.8,58.4]],en:"Goods Imports",ur:"اشیا کی درآمدات",
+ xe:"Value of goods bought from abroad — fuel, machinery, food and phones. Imports rising faster than exports puts pressure on the rupee.",
+ xu:"بیرونِ ملک سے خریدی گئی اشیا — تیل، مشینری، خوراک اور فون۔ برآمدات سے تیز بڑھتی درآمدات روپے پر دباؤ ڈالتی ہیں۔"},
+{id:"cab",cat:"external",v:2.1,u:"$Bn/yr",asof:"FY25",src:"SBP",good:1,h:[2016,[-4.9,-12.3,-19.2,-13.4,-4.4,-2.8,-17.5,-3.3,-0.7,2.1]],en:"Current Account Balance",ur:"کرنٹ اکاؤنٹ بیلنس",
+ xe:"All dollars coming in (exports, remittances) minus all going out (imports, profits, interest). Negative means the country must borrow or use reserves.",
+ xu:"آنے والے تمام ڈالر (برآمدات، ترسیلات) منہا جانے والے (درآمدات، منافع، سود)۔ منفی کا مطلب ہے ملک کو قرض یا ذخائر استعمال کرنے پڑتے ہیں۔"},
+{id:"fdi",cat:"external",v:2.5,u:"$Bn/yr",asof:"FY25",src:"SBP",good:1,h:[2016,[2.4,2.75,3.47,1.36,2.6,1.82,1.87,1.46,1.9,2.5]],en:"Foreign Direct Investment",ur:"براہِ راست غیر ملکی سرمایہ کاری",
+ xe:"Money foreign companies invest in Pakistani businesses and projects. It brings dollars, jobs and know-how without debt.",
+ xu:"غیر ملکی کمپنیوں کی پاکستانی کاروبار اور منصوبوں میں سرمایہ کاری۔ یہ قرض کے بغیر ڈالر، نوکریاں اور مہارت لاتی ہے۔"},
+{id:"usdpkr",cat:"markets",v:277.6,u:"Rs per $",asof:"live",src:"Interbank ref.",good:-1,live:"usdpkr",h:[2017,[110.5,138.9,154.9,160,176.5,226.4,282,278.5,280.5,277.6]],en:"US Dollar Rate",ur:"ڈالر کا ریٹ",
+ xe:"How many rupees one US dollar costs. A weaker rupee (higher number) makes imports, fuel and foreign fees more expensive, but lifts freelancer and remittance income.",
+ xu:"ایک امریکی ڈالر کتنے روپے کا ہے۔ کمزور روپیہ (زیادہ عدد) درآمدات، تیل اور غیر ملکی فیسیں مہنگی کرتا ہے، مگر فری لانسرز اور ترسیلات کی آمدن بڑھاتا ہے۔"},
+{id:"sarpkr",cat:"markets",v:73.9,u:"Rs per SAR",asof:"live",src:"Interbank ref.",good:0,live:"sarpkr",h:[2017,[29.5,37,41.3,42.7,47.1,60.4,75.2,74.3,74.8,73.9]],en:"Saudi Riyal Rate",ur:"سعودی ریال کا ریٹ",
+ xe:"Saudi Arabia is the largest source of remittances. Families receiving riyals get more rupees when this rises.",
+ xu:"سعودی عرب ترسیلات کا سب سے بڑا ذریعہ ہے۔ یہ ریٹ بڑھنے پر ریال وصول کرنے والے خاندانوں کو زیادہ روپے ملتے ہیں۔"},
+{id:"aedpkr",cat:"markets",v:75.4,u:"Rs per AED",asof:"live",src:"Interbank ref.",good:0,live:"aedpkr",h:[2017,[30.1,37.8,42.2,43.6,48.1,61.6,76.8,75.8,76.4,75.4]],en:"UAE Dirham Rate",ur:"اماراتی درہم کا ریٹ",
+ xe:"The UAE is the second-largest source of remittances and a key trading partner.",
+ xu:"متحدہ عرب امارات ترسیلات کا دوسرا بڑا ذریعہ اور اہم تجارتی شراکت دار ہے۔"},
+{id:"gbppkr",cat:"markets",v:366.9,u:"Rs per £",asof:"live",src:"Interbank ref.",good:0,live:"gbppkr",h:[2017,[149.3,177,203.8,218.8,238.4,273.3,359.7,349,377,366.9]],en:"British Pound Rate",ur:"برطانوی پاؤنڈ کا ریٹ",
+ xe:"Matters for students in the UK and families receiving money from the large British-Pakistani community.",
+ xu:"برطانیہ میں طلبہ اور برطانوی پاکستانی برادری سے رقم وصول کرنے والے خاندانوں کے لیے اہم۔"},
+{id:"eurpkr",cat:"markets",v:313.5,u:"Rs per €",asof:"live",src:"Interbank ref.",good:0,live:"eurpkr",h:[2017,[132.6,159.1,173.9,196,199.6,241.7,311.4,289.9,329,313.5]],en:"Euro Rate",ur:"یورو کا ریٹ",
+ xe:"The EU is Pakistan's biggest export market under GSP+, so the euro rate affects textile exporters.",
+ xu:"جی ایس پی پلس کے تحت یورپی یونین پاکستان کی سب سے بڑی برآمدی منڈی ہے، اس لیے یورو ریٹ ٹیکسٹائل برآمد کنندگان کو متاثر کرتا ہے۔"},
+{id:"kse",cat:"markets",v:165000,u:"pts",asof:"2026-Q3",src:"PSX",good:1,h:[2017,[40471,37067,40735,43755,44596,40420,62451,115127,168000,165000]],en:"KSE-100 Index",ur:"کے ایس ای-100 انڈیکس",
  xe:"The score of Pakistan's 100 biggest listed companies. Up means investors are more confident; it is not guaranteed income.",
  xu:"پاکستان کی 100 بڑی کمپنیوں کا اشاریہ۔ اوپر جانا سرمایہ کاروں کے اعتماد کی علامت ہے، منافع کی ضمانت نہیں۔"},
-{id:"secp",cat:"markets",v:2200,u:"cos/mo",d:0,asof:"2026-Q3",src:"SECP",en:"New Company Registrations",ur:"نئی کمپنیوں کی رجسٹریشن",
+{id:"secp",cat:"markets",v:2200,u:"cos/mo",asof:"2026-Q3",src:"SECP",good:1,h:[2017,[875,1025,1210,1480,2130,2370,2170,2420,2400,2200]],en:"New Company Registrations",ur:"نئی کمپنیوں کی رجسٹریشن",
  xe:"New private limited companies registered each month. A rough signal of how many people are starting businesses.",
  xu:"ہر ماہ رجسٹر ہونے والی نئی پرائیویٹ لمیٹڈ کمپنیاں، کاروبار شروع کرنے کے رجحان کا اشارہ۔"},
-{id:"petrol",cat:"essentials",v:255,u:"Rs/L",d:0,asof:"2026-Q3",src:"OGRA",en:"Petrol Price",ur:"پیٹرول کی قیمت",
+{id:"raast",cat:"fintech",v:8.0,u:"M txns/day",asof:"2026-Q3",src:"SBP PSR",good:1,h:[2017,[null,null,null,null,0.05,0.5,1.5,3.5,6,8]],en:"Raast Transactions (P2P+P2M)",ur:"راست روزانہ لین دین",
+ xe:"Raast is Pakistan's free instant payment system, launched in 2021. Send money to any bank or wallet 24/7 using just a mobile number.",
+ xu:"راست پاکستان کا مفت فوری ادائیگی کا نظام ہے (2021 سے)۔ صرف موبائل نمبر سے کسی بھی بینک یا والٹ میں 24/7 رقم بھیجیں۔"},
+{id:"wallets",cat:"fintech",v:90,u:"M accounts",asof:"2026-Q3",src:"SBP PSR",good:1,h:[2017,[28,35,40,50,60,70,80,85,88,90]],en:"Mobile Wallet Accounts",ur:"موبائل والٹ اکاؤنٹس",
+ xe:"Easypaisa, JazzCash, SadaPay, NayaPay and others. Many people are banking for the first time through these.",
+ xu:"ایزی پیسہ، جاز کیش، سادہ پے، نیا پے وغیرہ۔ بہت سے لوگ پہلی بار انہی کے ذریعے بینکنگ کرتے ہیں۔"},
+{id:"rda",cat:"fintech",v:11.5,u:"$Bn cumulative",asof:"2026-Q3",src:"SBP",good:1,h:[2017,[null,null,null,0.5,3,5,6.8,9,10.8,11.5]],en:"Roshan Digital Account Inflows",ur:"روشن ڈیجیٹل اکاؤنٹ آمد",
+ xe:"Total dollars overseas Pakistanis have deposited through Roshan Digital Accounts since the 2020 launch.",
+ xu:"2020 سے اب تک بیرونِ ملک پاکستانیوں کی روشن ڈیجیٹل اکاؤنٹس میں جمع کرائی گئی کل رقم۔"},
+{id:"broadband",cat:"it",v:150,u:"M subs",asof:"2026-Q3",src:"PTA",good:1,h:[2017,[58,65,78,94,107,121,129,141,147,150]],en:"Broadband Subscribers (3G/4G + fixed)",ur:"براڈ بینڈ صارفین",
+ xe:"People with an internet connection on mobile data or home broadband. The base for e-commerce, freelancing and digital banking.",
+ xu:"موبائل ڈیٹا یا گھریلو براڈ بینڈ کے صارفین۔ ای کامرس، فری لانسنگ اور ڈیجیٹل بینکنگ کی بنیاد۔"},
+{id:"mobile",cat:"it",v:200,u:"M subs",asof:"2026-Q3",src:"PTA",good:1,h:[2017,[145,159,165,175,189,194,191,196,199,200]],en:"Mobile Phone Subscribers",ur:"موبائل فون صارفین",
+ xe:"Active SIM connections across all operators.",
+ xu:"تمام کمپنیوں کے فعال سم کنکشن۔"},
+{id:"itexp",cat:"it",v:3.8,u:"$Bn/yr",asof:"FY25",src:"PSEB / SBP",good:1,h:[2016,[1,1.07,1.07,1.23,1.44,2.12,2.62,2.6,3.2,3.8]],en:"IT & IT-enabled Exports",ur:"آئی ٹی برآمدات",
+ xe:"Dollars earned by selling software and IT services abroad. Remember: this is a yearly figure, roughly $0.3Bn+ each month.",
+ xu:"سافٹ ویئر اور آئی ٹی خدمات بیچ کر کمائے گئے ڈالر۔ یہ سالانہ رقم ہے، یعنی ماہانہ تقریباً 0.3 ارب ڈالر سے زیادہ۔"},
+{id:"freelance",cat:"it",v:4,u:"global rank",asof:"2025",src:"Ministry of IT",good:-1,h:[2016,[null,null,null,4,4,4,4,4,4,4]],en:"Freelancer Ranking",ur:"فری لانسر عالمی درجہ",
+ xe:"Pakistan ranks among the top freelancing countries worldwide by number of freelancers (lower rank number is better).",
+ xu:"فری لانسرز کی تعداد کے لحاظ سے پاکستان دنیا کے سرِفہرست ممالک میں شامل ہے (کم نمبر بہتر ہے)۔"},
+{id:"shouses",cat:"it",v:null,u:"",asof:"—",src:"PSEB",good:1,en:"Registered Software Houses (add PSEB figure)",ur:"رجسٹرڈ سافٹ ویئر ہاؤسز (پی ایس ای بی کا عدد شامل کریں)",
+ xe:"Fill in the latest count and yearly history from PSEB's register in the DATA array.",xu:"تازہ تعداد اور سالانہ تاریخ پی ایس ای بی سے لے کر DATA میں درج کریں۔"},
+{id:"spi",cat:"essentials",v:5.0,u:"% YoY",asof:"2026-Q3",src:"PBS",good:-1,h:[2017,[2.6,1.2,5.9,13.1,13,16.7,35,25,2,5]],en:"Sensitive Price Index (SPI)",ur:"حساس قیمتوں کا اشاریہ",
+ xe:"Weekly price tracker for 51 everyday items (flour, sugar, milk, vegetables). It shows what households feel first.",
+ xu:"آٹا، چینی، دودھ، سبزی جیسی 51 روزمرہ اشیا کی ہفتہ وار قیمتیں۔"},
+{id:"petrol",cat:"essentials",v:255,u:"Rs/L",asof:"2026-Q3",src:"OGRA",good:-1,h:[2017,[81.5,95.2,116.6,105.7,144.8,214.8,267.3,252.1,263,255]],en:"Petrol Price",ur:"پیٹرول کی قیمت",
  xe:"Fortnightly government-set price. It feeds into transport and food costs.",
  xu:"پندرہ روزہ سرکاری قیمت۔ یہ ٹرانسپورٹ اور کھانے پینے کی قیمتوں پر اثر ڈالتی ہے۔"},
-{id:"gold",cat:"essentials",v:420000,u:"Rs/tola 24K",d:0,asof:"2026-Q3",src:"Sarafa Assoc.",en:"Gold (24K per tola)",ur:"سونا (24 قیراط فی تولہ)",
- xe:"1 tola ≈ 11.66 g. Follows international gold prices and the dollar rate.",
- xu:"ایک تولہ تقریباً 11.66 گرام۔ عالمی نرخ اور ڈالر ریٹ کے ساتھ بدلتا ہے۔"}
+{id:"diesel",cat:"essentials",v:258,u:"Rs/L",asof:"2026-Q3",src:"OGRA",good:-1,h:[2017,[88,106.6,127.4,116.1,141.6,227.8,276.2,255.1,265,258]],en:"High-Speed Diesel Price",ur:"ڈیزل کی قیمت",
+ xe:"Diesel runs trucks, tractors and tube-wells, so it moves freight and farm costs more than petrol does.",
+ xu:"ڈیزل سے ٹرک، ٹریکٹر اور ٹیوب ویل چلتے ہیں، اس لیے یہ مال برداری اور زرعی لاگت پر پیٹرول سے زیادہ اثر ڈالتا ہے۔"},
+{id:"flour",cat:"essentials",v:105,u:"Rs/kg",asof:"2026-Q3",src:"PBS SPI",good:-1,h:[2017,[40,40,45,55,65,100,150,110,100,105]],en:"Wheat Flour (Atta)",ur:"آٹا",
+ xe:"Average retail price of wheat flour per kg across major cities. The single most important food price for most families.",
+ xu:"بڑے شہروں میں آٹے کی فی کلو اوسط قیمت۔ زیادہ تر خاندانوں کے لیے سب سے اہم غذائی قیمت۔"},
+{id:"sugar",cat:"essentials",v:165,u:"Rs/kg",asof:"2026-Q3",src:"PBS SPI",good:-1,h:[2017,[55,56,75,90,95,92,145,140,175,165]],en:"Sugar",ur:"چینی",
+ xe:"Average retail price of sugar per kg across major cities.",
+ xu:"بڑے شہروں میں چینی کی فی کلو اوسط قیمت۔"},
+{id:"gold",cat:"essentials",v:434000,u:"Rs/tola 24K",asof:"live",src:"Intl. spot × PKR",good:0,live:"gold",h:[2017,[54000,64000,87000,113000,123000,187000,216000,278000,440000,434000]],en:"Gold (24K per tola)",ur:"سونا (24 قیراط فی تولہ)",
+ xe:"1 tola ≈ 11.66 g. Follows international gold prices and the dollar rate. Live figure is the international spot price converted to PKR; local Sarafa rates usually add a small premium.",
+ xu:"ایک تولہ تقریباً 11.66 گرام۔ عالمی نرخ اور ڈالر ریٹ کے ساتھ بدلتا ہے۔ لائیو عدد عالمی قیمت کو روپے میں بدل کر ہے؛ مقامی صرافہ ریٹ عموماً کچھ زیادہ ہوتا ہے۔"},
+{id:"silver",cat:"essentials",v:6360,u:"Rs/tola",asof:"live",src:"Intl. spot × PKR",good:0,live:"silver",h:[2017,[704,807,1040,1584,1542,2029,2516,3028,6900,6360]],en:"Silver (per tola)",ur:"چاندی (فی تولہ)",
+ xe:"International silver spot price converted to rupees per tola. Used for jewellery and often for calculating zakat nisab.",
+ xu:"عالمی چاندی کی قیمت روپے فی تولہ میں۔ زیورات اور اکثر زکوٰۃ کے نصاب کے حساب میں استعمال ہوتی ہے۔"}
 ];
 const SERIES={m:["M1","M2","M3","M4","M5","M6"],it:[0.31,0.33,0.32,0.35,0.34,0.36],rem:[3.2,3.4,3.3,3.6,3.5,3.5]};
 const RAILS=[{n:"Raast",v:38},{n:"1Link",v:30},{n:"Wallets",v:22},{n:"Cards",v:10}];
 const CPI_FACTOR={2021:1.95,2022:1.75,2023:1.35,2024:1.1,2025:1.04,2026:1};/* approx. cumulative price change to today */
+const CATS=["all","macro","external","fintech","it","markets","essentials"];
 
 const T={
-en:{tag:"Pakistan's economy in plain language",csv:"Export CSV",search:"Search metrics…",all:"All",macro:"Macroeconomy",fintech:"Fintech",it:"IT & Tech",markets:"Markets",essentials:"Daily Essentials",charts:"Trends",calcs:"Citizen Tools",
+en:{tag:"Pakistan's economy in plain language",csv:"Export CSV",search:"Search metrics…",all:"All",macro:"Macroeconomy",external:"Trade & External",fintech:"Fintech",it:"IT & Tech",markets:"Markets & FX",essentials:"Daily Essentials",charts:"Trends",calcs:"Citizen Tools",
 c1:"IT exports vs remittances ($Bn/month, indicative)",c2:"Digital payment rails, share of volume % (indicative)",
 k1:"Freelancer remittance → net PKR",usd:"Amount received (USD)",fx:"PKR per USD",tax:"PSEB tax % (default 0.25)",fee:"Bank/platform fee (USD)",
 k2:"What is my old money worth today?",amt:"Amount then (PKR)",from:"Year",k3:"Rate-cut loan savings",loan:"Loan amount (PKR)",ten:"Months left",old:"Current rate %",new:"New rate %",
-gets:"You get",aft:"after tax and fees",eq:"is about",tdy:"in today's prices",emi:"Monthly instalment",now:"now",save:"You save",pm:"per month",tot:"over the loan",none:"No data",tap:"Tap a card for a plain-language explanation",
-disc:"Figures are indicative baselines and must be refreshed from official releases (SBP, PBS, PSX, PSEB, SECP, OGRA, Sarafa) — edit the DATA array in index.html. Calculators are estimates, not financial or tax advice."},
-ur:{tag:"پاکستان کی معیشت، آسان زبان میں",csv:"سی ایس وی ڈاؤن لوڈ",search:"تلاش کریں…",all:"تمام",macro:"معیشت",fintech:"فن ٹیک",it:"آئی ٹی",markets:"مارکیٹس",essentials:"روزمرہ اشیا",charts:"رجحانات",calcs:"شہری کیلکولیٹر",
+gets:"You get",aft:"after tax and fees",eq:"is about",tdy:"in today's prices",emi:"Monthly instalment",now:"now",save:"You save",pm:"per month",tot:"over the loan",none:"No data",
+tap:"Tap any metric to open its 10-year history and latest trend.",live:"LIVE",hist:"10-year history",ltrend:"Latest trend",lv30:"Live · last 30 days",upd:"Updated",
+vsprev:"vs previous year",chg10:"10-year change",hi:"10-yr high",lo:"10-yr low",cagr:"Avg. yearly growth",d1:"1-day",d7:"7-day",d30:"30-day",
+recent:"Last 3 releases",nolive:"No live feed for this metric — it refreshes when the official source publishes. Showing the most recent releases.",
+rising:"Rising",falling:"Falling",steady:"Steady",liveerr:"Live feed is temporarily unavailable; showing the latest saved value.",loading:"Loading live data…",
+tbl:"Show data table",yr:"Year",val:"Value",date:"Date",nohist:"No history recorded yet. Add yearly values to this metric in the DATA array.",
+disc:"Figures are indicative baselines and must be refreshed from official releases (SBP, PBS, PSX, PSEB, SECP, OGRA, PTA, FBR) — edit the DATA array in index.html. Metrics marked LIVE (currency and precious-metal rates) update automatically from daily international reference rates. Calculators are estimates, not financial or tax advice."},
+ur:{tag:"پاکستان کی معیشت، آسان زبان میں",csv:"سی ایس وی ڈاؤن لوڈ",search:"تلاش کریں…",all:"تمام",macro:"معیشت",external:"تجارت و بیرونی",fintech:"فن ٹیک",it:"آئی ٹی",markets:"مارکیٹس و کرنسی",essentials:"روزمرہ اشیا",charts:"رجحانات",calcs:"شہری کیلکولیٹر",
 c1:"آئی ٹی برآمدات بمقابلہ ترسیلات (ارب ڈالر ماہانہ، اندازاً)",c2:"ڈیجیٹل ادائیگی کے نظام، حصہ ٪ (اندازاً)",
 k1:"فری لانسر رقم → خالص روپے",usd:"موصول رقم (ڈالر)",fx:"روپے فی ڈالر",tax:"پی ایس ای بی ٹیکس ٪ (عام 0.25)",fee:"بینک/پلیٹ فارم فیس (ڈالر)",
 k2:"پرانی رقم کی آج کیا قدر ہے؟",amt:"اس وقت کی رقم (روپے)",from:"سال",k3:"شرحِ سود میں کمی سے بچت",loan:"قرض کی رقم (روپے)",ten:"باقی مہینے",old:"موجودہ شرح ٪",new:"نئی شرح ٪",
-gets:"آپ کو ملیں گے",aft:"ٹیکس اور فیس کے بعد",eq:"تقریباً",tdy:"آج کی قیمتوں میں",emi:"ماہانہ قسط",now:"اب",save:"آپ کی بچت",pm:"ماہانہ",tot:"پورے قرض پر",none:"ڈیٹا نہیں",tap:"آسان وضاحت کے لیے کارڈ پر ٹیپ کریں",
-disc:"اعداد و شمار ابتدائی اندازے ہیں؛ سرکاری ذرائع (SBP, PBS, PSX, PSEB, SECP, OGRA) سے تازہ کریں — index.html میں DATA ترمیم کریں۔ کیلکولیٹر صرف اندازہ ہیں، مالی یا ٹیکس مشورہ نہیں۔"}
+gets:"آپ کو ملیں گے",aft:"ٹیکس اور فیس کے بعد",eq:"تقریباً",tdy:"آج کی قیمتوں میں",emi:"ماہانہ قسط",now:"اب",save:"آپ کی بچت",pm:"ماہانہ",tot:"پورے قرض پر",none:"ڈیٹا نہیں",
+tap:"10 سالہ تاریخ اور تازہ رجحان دیکھنے کے لیے کسی بھی کارڈ پر ٹیپ کریں۔",live:"لائیو",hist:"10 سالہ تاریخ",ltrend:"تازہ رجحان",lv30:"لائیو · گزشتہ 30 دن",upd:"تازہ کاری",
+vsprev:"پچھلے سال کے مقابلے",chg10:"10 سالہ تبدیلی",hi:"10 سالہ بلند ترین",lo:"10 سالہ کم ترین",cagr:"اوسط سالانہ اضافہ",d1:"1 دن",d7:"7 دن",d30:"30 دن",
+recent:"آخری 3 اعداد",nolive:"اس کا لائیو ذریعہ نہیں — سرکاری اعداد جاری ہونے پر تازہ ہوتا ہے۔ تازہ ترین اعداد دکھائے جا رہے ہیں۔",
+rising:"بڑھ رہا ہے",falling:"کم ہو رہا ہے",steady:"مستحکم",liveerr:"لائیو ڈیٹا عارضی طور پر دستیاب نہیں؛ محفوظ عدد دکھایا جا رہا ہے۔",loading:"لائیو ڈیٹا لوڈ ہو رہا ہے…",
+tbl:"ڈیٹا ٹیبل دکھائیں",yr:"سال",val:"عدد",date:"تاریخ",nohist:"ابھی تاریخ درج نہیں۔ DATA میں سالانہ اعداد شامل کریں۔",
+disc:"اعداد و شمار ابتدائی اندازے ہیں؛ سرکاری ذرائع (SBP, PBS, PSX, PSEB, SECP, OGRA, PTA, FBR) سے تازہ کریں — index.html میں DATA ترمیم کریں۔ «لائیو» نشان والے (کرنسی اور سونا چاندی) روزانہ عالمی ریٹ سے خود تازہ ہوتے ہیں۔ کیلکولیٹر صرف اندازہ ہیں، مالی یا ٹیکس مشورہ نہیں۔"}
 };
-let L=localStorage.getItem("pp_lang")||"en",CAT="all";
+let L=localStorage.getItem("pp_lang")||"en",CAT="all",VIEW=[],CUR=null,LIVE=null,LIVE_ERR=false,LIVE_AT=null;
 const $=s=>document.querySelector(s),t=k=>T[L][k]||k;
-const fmt=n=>n==null?"—":new Intl.NumberFormat(L==="ur"?"ur-PK":"en-PK",{maximumFractionDigits:2}).format(n);
+const loc=()=>L==="ur"?"ur-PK":"en-PK";
+const fmt=n=>n==null?"—":new Intl.NumberFormat(loc(),{maximumFractionDigits:2}).format(n);
+const fmtC=n=>n==null?"—":new Intl.NumberFormat("en",{notation:"compact",maximumFractionDigits:Math.abs(n)<10?2:1}).format(n);
 const pkr=n=>"Rs "+new Intl.NumberFormat("en-PK",{maximumFractionDigits:0}).format(n);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct=(a,b)=>a==null||b==null||b===0?null:(a-b)/Math.abs(b)*100;
+const isPctUnit=d=>/^%/.test(d.u);
+
+/* yearly history as [{x:"2017",y:..}], latest value kept in sync with v */
+function hist(d){
+ if(!d.h)return[];
+ const [y0,vals]=d.h;const pts=vals.map((y,i)=>({x:String(y0+i),y}));
+ if(d.v!=null&&pts.length)pts[pts.length-1].y=d.v;
+ return pts;
+}
+/* change between last two known values: % for levels, percentage points for rates */
+function change(d,pts){
+ const k=(pts||hist(d)).filter(p=>p.y!=null);if(k.length<2)return null;
+ const a=k[k.length-1].y,b=k[k.length-2].y;
+ return isPctUnit(d)?{v:a-b,pp:true}:{v:pct(a,b),pp:false};
+}
+function tone(d,v){if(v==null||Math.abs(v)<0.005||!d.good)return"flat";return(v>0)===(d.good>0)?"up":"dn"}
+function chgTxt(c){if(!c||c.v==null)return"—";const s=c.v>0?"▲":c.v<0?"▼":"■";return`${s} ${fmt(Math.abs(c.v))}${c.pp?" pp":"%"}`}
 
 function applyLang(){
  document.documentElement.lang=L;document.documentElement.dir=L==="ur"?"rtl":"ltr";
  document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t(e.dataset.i));
  document.querySelectorAll("[data-ph]").forEach(e=>e.placeholder=t(e.dataset.ph));
  $("#lang").textContent=L==="ur"?"English":"اردو";
- const cats=["all","macro","fintech","it","markets","essentials"];
- $("#cats").innerHTML=cats.map(c=>`<button class="${c===CAT?"on":""}" data-c="${c}">${t(c)}</button>`).join("");
+ $("#cats").innerHTML=CATS.map(c=>`<button class="${c===CAT?"on":""}" data-c="${c}">${t(c)}</button>`).join("");
  $("#cats").querySelectorAll("button").forEach(b=>b.onclick=()=>{CAT=b.dataset.c;applyLang()});
  const sel=$("#i_yr"),cur=sel.value||"2021";
  sel.innerHTML=Object.keys(CPI_FACTOR).slice(0,-1).map(y=>`<option ${y===cur?"selected":""}>${y}</option>`).join("");
- render();charts();calc();
+ render();charts();calc();if(CUR)openMetric(CUR.id,true);
+}
+function spark(d){
+ const k=hist(d).filter(p=>p.y!=null);if(k.length<2)return"";
+ const ys=k.map(p=>p.y),mn=Math.min(...ys),mx=Math.max(...ys),r=mx-mn||1;
+ const pts=k.map((p,i)=>`${(i/(k.length-1)*94+1).toFixed(1)},${(28-(p.y-mn)/r*26).toFixed(1)}`).join(" ");
+ const c=tone(d,change(d)?.v)==="dn"?"var(--bad)":"var(--acc)";
+ return`<svg class="spark" viewBox="0 0 96 30" aria-hidden="true"><polyline fill="none" stroke="${c}" stroke-width="1.8" stroke-linejoin="round" points="${pts}"/></svg>`;
 }
 function render(){
  const q=$("#q").value.trim().toLowerCase();
- const rows=DATA.filter(d=>(CAT==="all"||d.cat===CAT)&&(!q||(d.en+d.ur+d.src).toLowerCase().includes(q)));
- $("#grid").innerHTML=rows.length?rows.map(d=>`<div class="card" onclick="this.classList.toggle('open')">
-  <div class="k">${d[L]}</div><div class="v">${fmt(d.v)} <small>${d.u}</small></div>
-  <div class="src">${d.src} · ${d.asof}</div><div class="ex">${L==="ur"?d.xu:d.xe}</div></div>`).join(""):`<div class="empty">${t("none")}</div>`;
+ VIEW=DATA.filter(d=>(CAT==="all"||d.cat===CAT)&&(!q||(d.en+d.ur+d.src).toLowerCase().includes(q)));
+ $("#grid").innerHTML=VIEW.length?VIEW.map(d=>{const c=change(d);return`<div class="card" role="button" tabindex="0" data-id="${d.id}" aria-label="${esc(d[L])}">
+  <div class="k"><span>${esc(d[L])}</span>${d.live&&LIVE?`<span class="live">${t("live")}</span>`:""}</div>
+  <div class="v">${fmt(d.v)} <small>${esc(d.u)}</small></div>
+  <div class="row"><div><div class="chg ${tone(d,c?.v)}">${chgTxt(c)}</div><div class="src">${esc(d.src)} · ${esc(d.live&&LIVE?LIVE.latest.date:d.asof)}</div></div>${spark(d)}</div></div>`}).join(""):`<div class="empty">${t("none")}</div>`;
 }
+$("#grid").addEventListener("click",e=>{const c=e.target.closest(".card");if(c)openMetric(c.dataset.id)});
+$("#grid").addEventListener("keydown",e=>{const c=e.target.closest(".card");if(c&&(e.key==="Enter"||e.key===" ")){e.preventDefault();openMetric(c.dataset.id)}});
+
+/* ===== reusable line chart with hover readout ===== */
+function lineChart(svg,pts,o){
+ const W=460,H=250,pl=52,pr=16,pt=18,pb=34,c=o.color||"#2ee59d";
+ const k=pts.filter(p=>p.y!=null);
+ if(!k.length){svg.innerHTML=`<text x="${W/2}" y="${H/2}" text-anchor="middle">${t("none")}</text>`;svg.onpointermove=svg.onpointerleave=null;return}
+ let mn=Math.min(...k.map(p=>p.y)),mx=Math.max(...k.map(p=>p.y));
+ if(o.zero){mn=Math.min(0,mn);mx=Math.max(0,mx)}
+ if(mn===mx){mn-=Math.abs(mn)*.05||1;mx+=Math.abs(mx)*.05||1}
+ const padv=(mx-mn)*.08;if(!(o.zero&&mn===0))mn-=padv;mx+=padv;
+ const n=pts.length,x=i=>pl+(n===1?(W-pl-pr)/2:i*(W-pl-pr)/(n-1)),y=v=>pt+(mx-v)/(mx-mn)*(H-pt-pb);
+ let g="";
+ for(let i=0;i<=4;i++){const v=mn+(mx-mn)*i/4;g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="#1f3b30"/><text x="${pl-6}" y="${y(v)+4}" text-anchor="end">${fmtC(v)}</text>`}
+ if(mn<0&&mx>0)g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(0)}" y2="${y(0)}" stroke="#8fb0a2" stroke-dasharray="3 3"/>`;
+ const step=Math.ceil(n/(o.maxTicks||10));
+ pts.forEach((p,i)=>{if(i%step===0||i===n-1)g+=`<text x="${x(i)}" y="${H-12}" text-anchor="middle">${esc(o.tick?o.tick(p.x):p.x)}</text>`});
+ /* split into segments at nulls */
+ const segs=[];let s=[];pts.forEach((p,i)=>{if(p.y==null){if(s.length)segs.push(s);s=[]}else s.push(i)});if(s.length)segs.push(s);
+ const base=y(Math.max(mn,Math.min(0,mx)));
+ segs.forEach(sg=>{
+  const line=sg.map(i=>`${x(i).toFixed(1)},${y(pts[i].y).toFixed(1)}`).join(" ");
+  if(sg.length>1)g+=`<polygon fill="${c}" opacity=".12" points="${x(sg[0])},${base} ${line} ${x(sg[sg.length-1])},${base}"/>`;
+  g+=`<polyline fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round" points="${line}"/>`;
+ });
+ if(o.dots)k.forEach(p=>{const i=pts.indexOf(p);g+=`<circle cx="${x(i)}" cy="${y(p.y)}" r="3.5" fill="${c}"/>`});
+ const li=pts.length-1-[...pts].reverse().findIndex(p=>p.y!=null);
+ g+=`<circle cx="${x(li)}" cy="${y(pts[li].y)}" r="5" fill="${c}" stroke="#0e211a" stroke-width="2"/>`;
+ g+=`<g class="hv" style="display:none"><line y1="${pt}" y2="${H-pb}" stroke="#8fb0a2" stroke-dasharray="2 3"/><circle r="5" fill="${c}" stroke="#e8f3ee" stroke-width="2"/><rect rx="6" height="38" fill="#07130f" stroke="#1f3b30"/><text class="a" style="fill:#8fb0a2"></text><text class="b" style="fill:#e8f3ee;font-weight:600;font-size:13px"></text></g>`;
+ svg.innerHTML=g;
+ const hv=svg.querySelector(".hv");
+ svg.onpointermove=e=>{
+  const r=svg.getBoundingClientRect(),mxp=(e.clientX-r.left)/r.width*W;
+  let bi=-1,bd=1e9;pts.forEach((p,i)=>{if(p.y!=null){const dd=Math.abs(x(i)-mxp);if(dd<bd){bd=dd;bi=i}}});if(bi<0)return;
+  const px=x(bi),py=y(pts[bi].y),lbl=o.tick?o.tick(pts[bi].x,true):pts[bi].x,val=fmt(pts[bi].y)+(o.unit?" "+o.unit:"");
+  const bw=Math.max(lbl.length,val.length)*7+16,bx=Math.min(Math.max(px-bw/2,pl),W-pr-bw);
+  hv.style.display="";hv.querySelector("line").setAttribute("x1",px);hv.querySelector("line").setAttribute("x2",px);
+  const ci=hv.querySelector("circle");ci.setAttribute("cx",px);ci.setAttribute("cy",py);
+  const rc=hv.querySelector("rect");rc.setAttribute("x",bx);rc.setAttribute("y",2);rc.setAttribute("width",bw);
+  const a=hv.querySelector(".a"),b=hv.querySelector(".b");a.setAttribute("x",bx+8);a.setAttribute("y",16);a.textContent=lbl;b.setAttribute("x",bx+8);b.setAttribute("y",33);b.textContent=val;
+ };
+ svg.onpointerleave=()=>{hv.style.display="none"};
+}
+
+/* ===== drill-down modal ===== */
+const dlg=$("#dlg");
+function stat(a,b,cls=""){return`<div class="stat"><div class="s1">${a}</div><div class="s2 ${cls}">${b}</div></div>`}
+function openMetric(id,keep){
+ const d=DATA.find(x=>x.id===id);if(!d)return;CUR=d;
+ const pts=hist(d),k=pts.filter(p=>p.y!=null),c=change(d,pts);
+ $("#m_t").textContent=d[L];
+ $("#m_src").textContent=`${d.src} · ${d.live&&LIVE?LIVE.latest.date:d.asof}`;
+ $("#m_v").innerHTML=`${fmt(d.v)} <small>${esc(d.u)}</small> ${d.live&&LIVE?`<span class="live">${t("live")}</span>`:""}`;
+ $("#m_chg").className="chg "+tone(d,c?.v);$("#m_chg").textContent=c?`${chgTxt(c)} ${t("vsprev")}`:"";
+ let st="";
+ if(k.length>=2){
+  const f=k[0],l=k[k.length-1],ys=k.map(p=>p.y),hi=k[ys.indexOf(Math.max(...ys))],lo=k[ys.indexOf(Math.min(...ys))];
+  const c10=isPctUnit(d)?{v:l.y-f.y,pp:true}:{v:pct(l.y,f.y),pp:false};
+  st+=stat(`${t("chg10")} (${f.x}–${l.x})`,chgTxt(c10),tone(d,c10.v));
+  st+=stat(t("hi"),`${fmt(hi.y)} <small class="src">${hi.x}</small>`)+stat(t("lo"),`${fmt(lo.y)} <small class="src">${lo.x}</small>`);
+  const yrs=+l.x-+f.x;if(!isPctUnit(d)&&f.y>0&&l.y>0&&yrs>0){const g=(Math.pow(l.y/f.y,1/yrs)-1)*100;st+=stat(t("cagr"),`${g>=0?"+":""}${fmt(g)}%`,tone(d,g))}
+ }
+ $("#m_stats").innerHTML=st;
+ $("#m_hr").textContent=k.length?`${pts[0].x}–${pts[pts.length-1].x}`:"";
+ lineChart($("#m_h"),pts,{color:"#2ee59d",dots:true,zero:!isPctUnit(d)&&k.every(p=>p.y>=0)&&d.cat!=="markets",unit:d.u});
+ renderTrend(d);
+ $("#m_ex").textContent=L==="ur"?d.xu:d.xe;
+ $("#m_tbl").innerHTML=k.length?`<tr><th>${t("yr")}</th><th>${t("val")} (${esc(d.u)})</th></tr>`+pts.slice().reverse().map(p=>`<tr><td>${p.x}</td><td>${fmt(p.y)}</td></tr>`).join(""):`<tr><td>${t("nohist")}</td></tr>`;
+ if(!dlg.open)dlg.showModal();
+ if(!keep)history.replaceState(null,"","#"+d.id);
+}
+const dateTick=(s,full)=>new Intl.DateTimeFormat(loc(),full?{dateStyle:"medium"}:{day:"numeric",month:"short"}).format(new Date(s+"T00:00:00Z"));
+function renderTrend(d){
+ const svg=$("#m_l"),msg=$("#m_tm");
+ if(d.live){
+  $("#m_tt").textContent=t("lv30");
+  $("#m_upd").textContent=LIVE_AT?`${t("upd")} ${new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",timeStyle:"short"}).format(LIVE_AT)} PKT`:"";
+  if(!LIVE){svg.innerHTML=`<text x="230" y="125" text-anchor="middle">${LIVE_ERR?t("none"):t("loading")}</text>`;msg.textContent=LIVE_ERR?t("liveerr"):"";return}
+  const pts=LIVE.history.map(p=>({x:p.date,y:p[d.live]}));
+  lineChart(svg,pts,{color:"#4fb3ff",tick:dateTick,maxTicks:6,unit:d.u});
+  const last=pts[pts.length-1].y,at=n=>pts[Math.max(0,pts.length-1-n)].y;
+  const parts=[["d1",1],["d7",7],["d30",pts.length-1]].map(([lb,n])=>{const v=pct(last,at(n));return`<span class="${tone(d,v)}">${t(lb)}: ${chgTxt({v})}</span>`});
+  msg.innerHTML=parts.join(" · ");
+ }else{
+  $("#m_tt").textContent=`${t("ltrend")} · ${t("recent")}`;$("#m_upd").textContent="";
+  const k=hist(d).filter(p=>p.y!=null).slice(-3);
+  lineChart(svg,k,{color:"#f5c542",dots:true,unit:d.u});
+  let word="";if(k.length>=2){const c=change(d);const v=c?.v;word=`<b class="${tone(d,v)}">${Math.abs(v||0)<0.005?t("steady"):v>0?t("rising"):t("falling")}</b> (${chgTxt(c)}) · `}
+  msg.innerHTML=word+`<span class="src">${t("nolive")}</span>`;
+ }
+}
+function step(dir){if(!CUR)return;const list=VIEW.length?VIEW:DATA;let i=list.findIndex(x=>x.id===CUR.id);i=(i+dir+list.length)%list.length;openMetric(list[i].id)}
+$("#m_x").onclick=()=>dlg.close();
+$("#m_prev").onclick=()=>step(L==="ur"?1:-1);$("#m_next").onclick=()=>step(L==="ur"?-1:1);
+dlg.addEventListener("close",()=>{CUR=null;history.replaceState(null,"",location.pathname+location.search)});
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+dlg.addEventListener("keydown",e=>{if(e.key==="ArrowRight")step(L==="ur"?-1:1);if(e.key==="ArrowLeft")step(L==="ur"?1:-1)});
+
+/* ===== live feed (currency + precious metals) ===== */
+async function loadLive(){
+ try{
+  const r=await fetch("/api/live");if(!r.ok)throw new Error(r.status);
+  LIVE=await r.json();LIVE_ERR=false;LIVE_AT=new Date();
+  DATA.forEach(d=>{if(d.live&&LIVE.latest[d.live]!=null)d.v=LIVE.latest[d.live]});
+  if(LIVE.latest.usdpkr&&!$("#r_fx").dataset.touched)$("#r_fx").value=Math.round(LIVE.latest.usdpkr*100)/100;
+ }catch(e){LIVE_ERR=true}
+ render();calc();if(CUR&&dlg.open)openMetric(CUR.id,true);
+}
+$("#r_fx").addEventListener("input",e=>e.target.dataset.touched="1");
+
 function charts(){
  const W=400,H=220,p=34,mx=4;const x=i=>p+i*(W-2*p)/5,y=v=>H-p-v/mx*(H-2*p);
  const line=(arr,c)=>`<polyline fill="none" stroke="${c}" stroke-width="3" points="${arr.map((v,i)=>x(i)+","+y(v)).join(" ")}"/>`+arr.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="${c}"/>`).join("");
@@ -190,9 +448,11 @@ function calc(){
  $("#l_out").innerHTML=`${t("emi")}: ${pkr(e0)} → <b>${pkr(e1)}</b><br>${t("save")}: <b>${pkr(e0-e1)}</b> ${t("pm")} · ${pkr((e0-e1)*n)} ${t("tot")}`;
 }
 function exportCSV(){
- const esc=s=>'"'+String(s??"").replace(/"/g,'""')+'"';
- const rows=[["id","category","metric_en","metric_ur","value","unit","as_of","source"],...DATA.map(d=>[d.id,d.cat,d.en,d.ur,d.v,d.u,d.asof,d.src])];
- const blob=new Blob(["\ufeff"+rows.map(r=>r.map(esc).join(",")).join("\n")],{type:"text/csv;charset=utf-8"});
+ const q=s=>'"'+String(s??"").replace(/"/g,'""')+'"';
+ const years=[...new Set(DATA.flatMap(d=>hist(d).map(p=>p.x)))].sort();
+ const rows=[["id","category","metric_en","metric_ur","value","unit","as_of","source",...years],
+  ...DATA.map(d=>{const h=Object.fromEntries(hist(d).map(p=>[p.x,p.y]));return[d.id,d.cat,d.en,d.ur,d.v,d.u,d.live&&LIVE?LIVE.latest.date:d.asof,d.src,...years.map(y=>h[y])]})];
+ const blob=new Blob(["﻿"+rows.map(r=>r.map(q).join(",")).join("\n")],{type:"text/csv;charset=utf-8"});
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="pakpulse-national-metrics.csv";a.click();URL.revokeObjectURL(a.href);
 }
 function tick(){$("#clock").textContent="PKT "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"medium",hour12:false}).format(new Date())}
@@ -200,6 +460,8 @@ $("#lang").onclick=()=>{L=L==="en"?"ur":"en";localStorage.setItem("pp_lang",L);a
 $("#csv").onclick=exportCSV;$("#q").oninput=render;
 document.querySelectorAll(".box input,.box select").forEach(e=>e.oninput=calc);
 tick();setInterval(tick,1000);applyLang();
+if(location.hash.length>1)openMetric(decodeURIComponent(location.hash.slice(1)));
+loadLive();setInterval(loadLive,5*60*1000);
 </script>
 </body>
 </html>

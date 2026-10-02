@@ -121,6 +121,14 @@ footer.site-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap
 @media(max-width:560px){.dashboard-toolbar{padding:14px}.dashboard-title{align-items:flex-start;flex-direction:column}.dashboard-title p{text-align:start}.dashboard-cards{grid-template-columns:1fr}.section-heading{align-items:flex-start;flex-direction:column}.section-heading p{text-align:start}}
 
 
+/* v7 clean public dashboard */
+header,.quick-nav{display:none!important}
+.ad-slot.top-ad{display:none!important}
+.dashboard-title{align-items:center}
+.dashboard-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.dashboard-controls #clock{font-size:.78rem}
+.dashboard-controls button{font-size:.78rem;padding:7px 10px}
+@media(max-width:560px){.dashboard-controls{width:100%}.dashboard-controls #clock{flex:1}}
 /* v6 common dashboard refresh */
 :root{--bg:#08120f;--panel:#102019;--panel2:#162a22;--line:#29463a;--tx:#edf5f1;--mut:#9bb2a8;--acc:#39d89b;--acc2:#f4c95d;--bad:#ff7474;--blue:#62b8f5}
 body{background:#08120f;letter-spacing:0}
@@ -188,17 +196,11 @@ footer.site-footer{margin-top:24px;padding-top:16px}
 </head>
 <body>
 <div class="wrap">
-<div class="ad-slot top-ad" id="adTop" aria-label="Advertisement space"><div class="ad-inner"><strong>Advertisement space</strong><span>Reserved for a future sponsor or AdSense banner</span></div></div>
-<header>
- <div><h1>Pak<span>Pulse</span> 🇵🇰</h1><div class="sub" data-i="tag"></div></div>
- <div class="bar"><div id="clock"></div><button id="lang"></button><button id="csv" data-i="csv"></button></div>
-</header>
-<nav class="quick-nav" aria-label="Dashboard sections"><a href="#overview">Overview</a><a href="#tools">Citizen tools</a><a href="#markets">Markets & investment</a><a href="#services">Government services</a></nav>
 
 <section class="dashboard-toolbar" aria-label="Pakistan dashboard">
   <div class="dashboard-title">
-    <div><div class="dashboard-eyebrow">Pakistan national dashboard</div><h2>Pakistan Dashboard</h2><p>Jump between the major layers of the dashboard, then search the full indicator library below.</p></div>
-    <div class="live">LIVE DATA LAYER</div>
+    <div><div class="dashboard-eyebrow">PakPulse · Pakistan</div><h2>Pakistan Dashboard</h2><p>Simple national data, everyday money tools, markets and official services in one place.</p></div>
+    <div class="dashboard-controls"><div id="clock"></div><button id="lang"></button><button id="csv" data-i="csv"></button></div>
   </div>
   <div class="dashboard-cards">
     <a class="dashboard-card" href="#overview"><span class="dc-icon">🇵🇰</span><div><b>Overview</b><span>National pulse & KPIs</span></div></a>
@@ -246,7 +248,7 @@ footer.site-footer{margin-top:24px;padding-top:16px}
 <div class="dashboard-divider"></div><section id="tools"><div class="section-head"><div><div class="section-kicker">01 · Citizen layer</div><h2>Citizen tools</h2><p>Practical calculators for household, worker and small-business decisions.</p></div></div><div class="tool-grid">
 <div class="tool"><h3>💰 Salary take-home</h3><p>Estimate monthly take-home after a simple tax assumption.</p><label>Gross monthly PKR</label><input id="ctSalary" type="number" value="150000" min="0"><label>Tax %</label><input id="ctSalaryTax" type="number" value="5" min="0" step=".5"><div class="out" id="ctSalaryOut"></div></div>
 <div class="tool"><h3>🤲 Zakat calculator</h3><p>Simple 2.5% estimate on qualifying wealth above your entered threshold.</p><label>Qualifying wealth PKR</label><input id="ctWealth" type="number" value="500000" min="0"><label>Nisab threshold PKR</label><input id="ctNisab" type="number" value="250000" min="0"><div class="out" id="ctZakatOut"></div></div>
-<div class="tool"><h3>⛽ Fuel cost</h3><p>Estimate the cost of a daily commute or trip.</p><label>Distance per day (km)</label><input id="ctKm" type="number" value="40" min="0"><label>Vehicle efficiency (km/L)</label><input id="ctEff" type="number" value="14" min=".1"><label>Fuel price PKR/L</label><input id="ctFuel" type="number" value="255" min="0"><div class="out" id="ctFuelOut"></div></div>
+<div class="tool"><h3>⛽ Fuel cost</h3><p>Estimate the cost of a daily commute or trip.</p><label>Distance per day (km)</label><input id="ctKm" type="number" value="40" min="0"><label>Vehicle efficiency (km/L)</label><input id="ctEff" type="number" value="14" min=".1"><label>Fuel price PKR/L</label><input id="ctFuel" type="number" value="390.66" min="0"><div class="out" id="ctFuelOut"></div></div>
 <div class="tool"><h3>📈 Investment growth</h3><p>Compound-growth scenario; not investment advice.</p><label>Starting PKR</label><input id="ctInv" type="number" value="100000" min="0"><label>Annual return %</label><input id="ctRate" type="number" value="10" step=".5"><label>Years</label><input id="ctYears" type="number" value="5" min="1"><div class="out" id="ctInvOut"></div></div>
 <div class="tool"><h3>🧾 Business break-even</h3><p>Find monthly sales needed to cover fixed costs.</p><label>Fixed costs PKR</label><input id="ctFixed" type="number" value="200000" min="0"><label>Gross margin %</label><input id="ctMargin" type="number" value="30" min="1" max="100"><div class="out" id="ctBreakOut"></div></div>
 <div class="tool"><h3>🌍 Remittance converter</h3><p>See what a foreign transfer means in PKR.</p><label>Amount in USD</label><input id="ctUsd" type="number" value="1000" min="0"><label>PKR / USD</label><input id="ctFx" type="number" value="280" min="1"><div class="out" id="ctRemitOut"></div></div>
@@ -380,7 +382,7 @@ const DATA=[
 {id:"spi",cat:"essentials",v:5.0,u:"% YoY",asof:"2026-Q3",src:"PBS",good:-1,h:[2017,[2.6,1.2,5.9,13.1,13,16.7,35,25,2,5]],en:"Sensitive Price Index (SPI)",ur:"حساس قیمتوں کا اشاریہ",
  xe:"Weekly price tracker for 51 everyday items (flour, sugar, milk, vegetables). It shows what households feel first.",
  xu:"آٹا، چینی، دودھ، سبزی جیسی 51 روزمرہ اشیا کی ہفتہ وار قیمتیں۔"},
-{id:"petrol",cat:"essentials",v:255,u:"Rs/L",asof:"2026-Q3",src:"OGRA",good:-1,h:[2017,[81.5,95.2,116.6,105.7,144.8,214.8,267.3,252.1,263,255]],en:"Petrol Price",ur:"پیٹرول کی قیمت",
+{id:"petrol",cat:"essentials",v:390.66,u:"Rs/L",asof:"2026-10-02",src:"OGRA · daily",good:-1,h:[2017,[81.5,95.2,116.6,105.7,144.8,214.8,267.3,252.1,263,390.66]],en:"Petrol Price",ur:"پیٹرول کی قیمت",
  xe:"Fortnightly government-set price. It feeds into transport and food costs.",
  xu:"پندرہ روزہ سرکاری قیمت۔ یہ ٹرانسپورٹ اور کھانے پینے کی قیمتوں پر اثر ڈالتی ہے۔"},
 {id:"diesel",cat:"essentials",v:258,u:"Rs/L",asof:"2026-Q3",src:"OGRA",good:-1,h:[2017,[88,106.6,127.4,116.1,141.6,227.8,276.2,255.1,265,258]],en:"High-Speed Diesel Price",ur:"ڈیزل کی قیمت",

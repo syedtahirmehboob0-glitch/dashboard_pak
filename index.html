@@ -733,7 +733,7 @@ function spark(d){
  const ys=k.map(p=>p.y),mn=Math.min(...ys),mx=Math.max(...ys),r=mx-mn||1;
  const pts=k.map((p,i)=>`${(i/(k.length-1)*94+1).toFixed(1)},${(28-(p.y-mn)/r*26).toFixed(1)}`).join(" ");
  const c=tone(d,change(d)?.v)==="dn"?"var(--bad)":"var(--acc)";
- return``;
+ return `<svg class="spark" viewBox="0 0 96 30" role="img" aria-label="Trend sparkline" preserveAspectRatio="none"><polyline fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${pts}"/></svg>`;
 }
 function render(){
  const q=$("#q").value.trim().toLowerCase();
@@ -896,7 +896,7 @@ function citizenCalc(){
   const sal=n("ctSalary"),st=Math.max(0,n("ctSalaryTax"))/100;
   set("ctSalaryOut","Estimated take-home: <b>"+pkr(Math.max(0,sal*(1-st)))+"</b>");
   const w=n("ctWealth"),nis=n("ctNisab");
-  set("ctZakatOut",w>nis?"Estimated Zakat: <b>"+pkr((w-nis)*.025)+"</b>":"Below entered nisab: <b>Rs 0</b>");
+  set("ctZakatOut",w>=nis?"Estimated Zakat: <b>"+pkr(w*.025)+"</b>":"Below entered nisab: <b>Rs 0</b>");
   const km=n("ctKm"),eff=n("ctEff"),fuel=n("ctFuel"),daily=eff>0?km/eff*fuel:0;
   set("ctFuelOut","Daily: <b>"+pkr(daily)+"</b> · 30 days: <b>"+pkr(daily*30)+"</b>");
   const inv=n("ctInv"),rate=n("ctRate")/100,yrs=Math.max(0,n("ctYears")),fv=inv*Math.pow(1+rate,yrs);

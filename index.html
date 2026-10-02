@@ -118,7 +118,7 @@ footer.site-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap
 .section-shell{box-shadow:0 8px 28px rgba(0,0,0,.10)}
 .dashboard-divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:22px 0 2px}
 @media(max-width:900px){.dashboard-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.attractions-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.dashboard-toolbar{padding:14px}.pakistan-discover{margin-top:16px}.flag-mark{font-size:2.5rem}.attractions-grid{grid-template-columns:1fr}.dashboard-title{align-items:flex-start;flex-direction:column}.dashboard-title p{text-align:start}.dashboard-cards{grid-template-columns:1fr}.section-heading{align-items:flex-start;flex-direction:column}.section-heading p{text-align:start}}
+@media(max-width:560px){.dashboard-toolbar{padding:14px}.pakistan-cover{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:12px}.pakistan-cover img{width:100%;height:74px;object-fit:cover;border-radius:10px;display:block}.pakistan-cover img:first-child{object-position:center 45%}.flag-mark{font-size:2.5rem}.attractions-grid{grid-template-columns:1fr}.dashboard-title{align-items:flex-start;flex-direction:column}.dashboard-title p{text-align:start}.dashboard-cards{grid-template-columns:1fr}.section-heading{align-items:flex-start;flex-direction:column}.section-heading p{text-align:start}}
 
 
 /* v7 clean public dashboard */
@@ -231,7 +231,7 @@ footer.site-footer{margin-top:24px;padding-top:16px}
 
 <section class="dashboard-toolbar" aria-label="Pakistan dashboard">
   <div class="dashboard-title">
-    <div><div class="dashboard-eyebrow">🇵🇰 PakPulse · Pakistan</div><h2>Pakistan Dashboard</h2><p>Pakistan's public data, everyday tools, markets, services and places to explore.</p></div>
+    <div><div class="dashboard-eyebrow">🇵🇰 Pakistan</div><h2>Pakistan Dashboard</h2><p>Pakistan's public data, everyday tools, markets, services and places to explore.</p></div>
     <div class="dashboard-controls"><div id="clock"></div><button id="lang"></button><button id="csv" data-i="csv"></button></div>
   </div>
   <div class="dashboard-search">
@@ -239,47 +239,14 @@ footer.site-footer{margin-top:24px;padding-top:16px}
     <div class="bar" id="cats"></div>
   </div>
 
-  <div class="pakistan-discover">
-    <div class="pakistan-identity-inner">
-      <div class="flag-mark" aria-hidden="true">🇵🇰</div>
-      <div>
-        <div class="section-kicker">Pakistan</div>
-        <h3>Discover Pakistan</h3>
-        <p>Explore the country through its people, economy, public services and iconic places.</p>
-      </div>
-    </div>
-    <div class="attractions-head">
-      <div class="section-kicker">Discover Pakistan</div>
-      <h3>4 provincial highlights</h3>
-      <p>Major landmarks and destinations representing Pakistan's architecture, history and landscapes.</p>
-    </div>
-    <div class="attractions-grid province-grid">
-      <article class="attraction-card province-card">
-        <a class="attraction-photo" href="https://commons.wikimedia.org/wiki/File:Badshahi_Mosque_Lahore_%2C_Pakistan.jpg" target="_blank" rel="noopener" aria-label="Open Badshahi Mosque photo source">
-          <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Badshahi%20Mosque%20Lahore%20%2C%20Pakistan.jpg?width=900" alt="Badshahi Mosque in Lahore, Punjab" loading="lazy" decoding="async">
-        </a>
-        <div><h4>Badshahi Mosque</h4><span>Punjab · Lahore</span><p>Iconic Mughal heritage site beside Lahore Fort.</p><small class="photo-credit">Photo: Wikimedia Commons · CC BY 4.0</small></div>
-      </article>
-      <article class="attraction-card province-card">
-        <a class="attraction-photo" href="https://commons.wikimedia.org/wiki/File:Mohenjo-daro.jpg" target="_blank" rel="noopener" aria-label="Open Mohenjo-daro photo source">
-          <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Mohenjo-daro.jpg?width=900" alt="Mohenjo-daro archaeological ruins in Sindh" loading="lazy" decoding="async">
-        </a>
-        <div><h4>Mohenjo-daro</h4><span>Sindh · Larkana</span><p>Ancient Indus Valley archaeological city and heritage site.</p><small class="photo-credit">Photo: Wikimedia Commons · CC BY-SA 3.0</small></div>
-      </article>
-      <article class="attraction-card province-card">
-        <a class="attraction-photo" href="https://commons.wikimedia.org/wiki/File:Takht-i-Bahi_site.jpg" target="_blank" rel="noopener" aria-label="Open Takht-i-Bahi photo source">
-          <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Takht-i-Bahi%20site.jpg?width=900" alt="Takht-i-Bahi Buddhist ruins in Khyber Pakhtunkhwa" loading="lazy" decoding="async">
-        </a>
-        <div><h4>Takht-i-Bahi</h4><span>Khyber Pakhtunkhwa · Mardan</span><p>Ancient Buddhist monastic complex and UNESCO World Heritage Site.</p><small class="photo-credit">Photo: Wikimedia Commons · CC BY-SA 3.0</small></div>
-      </article>
-      <article class="attraction-card province-card">
-        <a class="attraction-photo" href="https://commons.wikimedia.org/wiki/File:Hingol_National_Park_%2C.jpg" target="_blank" rel="noopener" aria-label="Open Hingol National Park photo source">
-          <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Hingol%20National%20Park%20%2C.jpg?width=900" alt="Hingol National Park landscape in Balochistan" loading="lazy" decoding="async">
-        </a>
-        <div><h4>Hingol National Park</h4><span>Balochistan · Makran coast</span><p>Pakistan's largest national park, known for dramatic coastal landscapes.</p><small class="photo-credit">Photo: Wikimedia Commons · CC BY-SA 4.0</small></div>
-      </article>
-    </div>/div>
+  <div class="pakistan-cover" aria-label="Pakistan landmarks">
+    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Faisal%20Mosque%2C%20Islamabad.jpg?width=700" alt="Faisal Mosque">
+    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Minar-e-Pakistan%20v2.jpg?width=700" alt="Minar-e-Pakistan">
+    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Ziarat%20Residency.jpg?width=700" alt="Quaid-e-Azam Residency">
+    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Badshahi%20Mosque%20with%20Minar%20e%20Pakistan%20in%20the%20background.%20Lahore.jpg?width=700" alt="Badshahi Mosque">
+    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Parliament%20House%20Islamabad.jpg?width=700" alt="Parliament House">
   </div>
+div>
 </section>
 <p class="hint" data-i="tap"></p>
 <div class="grid snapshot-grid" id="grid"></div>

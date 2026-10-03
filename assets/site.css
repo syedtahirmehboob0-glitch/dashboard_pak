@@ -50,3 +50,20 @@ html{scroll-behavior:smooth}body{overflow-x:hidden}img{max-width:100%;height:aut
 .pd-form-page .pd-help-card li,.pd-form-page .pd-help-card p{color:#c9d5e0!important}
 .pd-form-page .pd-form-card button{width:auto;min-width:150px}
 @media(max-width:760px){.pd-form-page{padding-top:18px}.pd-form-page .pd-form-hero{padding:26px 20px}.pd-form-page .pd-form-hero h1{font-size:clamp(2rem,10vw,2.85rem)}.pd-form-page .pd-form-layout{gap:14px}.pd-form-page .pd-form-card button{width:100%}}
+
+/* Unified form and navigation readability — production pass */
+.pd-header{position:sticky;top:0;z-index:100;background:rgba(7,17,29,.97)!important;backdrop-filter:blur(12px);border-bottom:1px solid #26394d}
+.pd-nav{min-height:64px}.pd-brand{color:#fff!important;font-weight:850}.pd-brand span{color:var(--pd-green)!important}
+.pd-menu{gap:3px;align-items:center}.pd-menu a{color:#dbe6f0!important;font-weight:750!important}.pd-menu a:hover,.pd-menu a:focus{color:#fff!important;background:#173047!important}
+.pd-menu-btn{background:#102033!important;border:1px solid #3a5068!important;border-radius:10px!important}
+.pd-form-page{padding-top:18px}.pd-form-page .pd-breadcrumb{font-size:.9rem;line-height:1.5;margin-bottom:14px}
+.pd-form-page .pd-form-hero{background:linear-gradient(145deg,#14283d,#0a1725)!important;border:1px solid #3a526b!important}
+.pd-form-page .pd-form-hero h1{color:#fff!important;text-shadow:none!important}.pd-form-page .pd-form-hero .pd-lead{color:#e4edf5!important}
+.pd-form-page .pd-form-card,.pd-form-page .pd-help-card{background:#0b1826!important;border:1px solid #2d4358!important}
+.pd-form-page .pd-form-card h2,.pd-form-page .pd-help-card h2,.pd-form-page .pd-help-card h3{color:#fff!important}
+.pd-form-page .pd-form-card label,.pd-form-page .pd-form-card legend{color:#f5f8fb!important}
+.pd-form-page .pd-form-card input,.pd-form-page .pd-form-card select,.pd-form-page .pd-form-card textarea{background:#07111d!important;color:#fff!important;border-color:#40576e!important}
+.pd-form-page .pd-form-card input::placeholder,.pd-form-page .pd-form-card textarea::placeholder{color:#93a6b9!important}
+.pd-form-page .pd-help-card p,.pd-form-page .pd-help-card li,.pd-form-page .pd-form-card .pd-meta{color:#c6d3df!important}
+.pd-form-page .pd-form-card button,.pd-form-page .pd-action{font-weight:850!important}
+@media(max-width:760px){.pd-menu.open{top:60px;max-height:calc(100vh - 76px);overflow:auto}.pd-form-page{padding-top:12px}}

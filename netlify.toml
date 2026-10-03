@@ -1,6 +1,27 @@
 [build]
   publish = "."
 
+# Canonical extensionless routes
+[[redirects]]
+  from = "/blog"
+  to = "/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/"
+  to = "/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/blogpost"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/blogpost/"
+  to = "/blog"
+  status = 301
+
 [[headers]]
   for = "/sitemap.xml"
   [headers.values]

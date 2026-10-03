@@ -1,5 +1,7 @@
 # Canonical legacy redirects
 /blogpost /blog 301!
+/blogpost /blog 301
+/blogpost/ /blog 301
 /blogpost.html /blog 301!
 /pakistan-economy.html /pakistan-economy 301
 /pakistan-debt.html /pakistan-debt 301

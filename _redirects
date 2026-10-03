@@ -29,3 +29,34 @@
 /blog-pakistan-women-green-startups-finance-2026.html /blog-pakistan-women-green-startups-finance-2026 301
 /blog-sbp-regulatory-sandbox-fintech-2026.html /blog-sbp-regulatory-sandbox-fintech-2026 301
 # Clean URLs are served by Netlify from the matching static HTML files.
+
+# Clean canonical URL rewrites to the existing static HTML files
+/blog /blogpost.html 200
+/contact /contact.html 200
+/feedback /feedback.html 200
+/about /about.html 200
+/privacy /privacy.html 200
+/terms /terms.html 200
+/methodology /methodology.html 200
+/pakistan-economy /pakistan-economy.html 200
+/pakistan-debt /pakistan-debt.html 200
+/pakistan-inflation /pakistan-inflation.html 200
+/pakistan-dollar-rate /pakistan-dollar-rate.html 200
+/pakistan-petrol-price /pakistan-petrol-price.html 200
+/pakistan-remittances /pakistan-remittances.html 200
+/blog-pakistan-public-debt /blog-pakistan-public-debt.html 200
+/blog-pakistan-inflation /blog-pakistan-inflation.html 200
+/blog-usd-pkr-reference-rate /blog-usd-pkr-reference-rate.html 200
+/blog-pakistan-remittances /blog-pakistan-remittances.html 200
+/blog-pakistan-petrol-price /blog-pakistan-petrol-price.html 200
+/blog-read-pakistan-economic-dashboard /blog-read-pakistan-economic-dashboard.html 200
+/blog-pakistan-policy-rate-115-october-2026 /blog-pakistan-policy-rate-115-october-2026.html 200
+/blog-psx-kse100-october-2-2026 /blog-psx-kse100-october-2-2026.html 200
+/blog-pakistan-finance-monthly-economic-update-september-2026 /blog-pakistan-finance-monthly-economic-update-september-2026.html 200
+/blog-pakistan-fy2027-borrowing-plan-explained /blog-pakistan-fy2027-borrowing-plan-explained.html 200
+/blog-pakistan-tech-exports-fy2026 /blog-pakistan-tech-exports-fy2026.html 200
+/blog-pakistan-5g-rollout-2026 /blog-pakistan-5g-rollout-2026.html 200
+/blog-google-pakistan-office-digital-skills-2026 /blog-google-pakistan-office-digital-skills-2026.html 200
+/blog-pakistan-ai-china-tech-cooperation-october-2026 /blog-pakistan-ai-china-tech-cooperation-october-2026.html 200
+/blog-pakistan-women-green-startups-finance-2026 /blog-pakistan-women-green-startups-finance-2026.html 200
+/blog-sbp-regulatory-sandbox-fintech-2026 /blog-sbp-regulatory-sandbox-fintech-2026.html 200

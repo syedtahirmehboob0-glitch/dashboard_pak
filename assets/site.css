@@ -67,3 +67,5 @@ html{scroll-behavior:smooth}body{overflow-x:hidden}img{max-width:100%;height:aut
 .pd-form-page .pd-help-card p,.pd-form-page .pd-help-card li,.pd-form-page .pd-form-card .pd-meta{color:#c6d3df!important}
 .pd-form-page .pd-form-card button,.pd-form-page .pd-action{font-weight:850!important}
 @media(max-width:760px){.pd-menu.open{top:60px;max-height:calc(100vh - 76px);overflow:auto}.pd-form-page{padding-top:12px}}
+/* Commercial ad layout: reserved space, never a visible placeholder. */
+.pd-ad-slot{min-height:90px;margin:28px 0;display:flex;align-items:center;justify-content:center;overflow:hidden}.pd-ad-slot ins{width:100%;min-height:90px}

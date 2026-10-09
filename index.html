@@ -687,12 +687,12 @@ rising:"بڑھ رہا ہے",falling:"کم ہو رہا ہے",steady:"مستحکم
 tbl:"ڈیٹا ٹیبل دکھائیں",yr:"سال",val:"عدد",date:"تاریخ",nohist:"ابھی تاریخ درج نہیں۔ DATA میں سالانہ اعداد شامل کریں۔",
 disc:"اعداد و شمار ابتدائی اندازے ہیں؛ سرکاری ذرائع (SBP, PBS, PSX, PSEB, SECP, OGRA, PTA, FBR) سے تازہ کریں — index.html میں DATA ترمیم کریں۔ «لائیو» نشان والے (کرنسی اور سونا چاندی) روزانہ عالمی ریٹ سے خود تازہ ہوتے ہیں۔ کیلکولیٹر صرف اندازہ ہیں، مالی یا ٹیکس مشورہ نہیں۔"}
 };
-let L=localStorage.getItem("pakmetric_lang")||"en",CAT="all",VIEW=[],CUR=null,LIVE=null,LIVE_ERR=false,LIVE_AT=null;
+let L="en";try{L=localStorage.getItem("pakmetric_lang")==="ur"?"ur":"en"}catch{}let CAT="all",VIEW=[],CUR=null,LIVE=null,LIVE_ERR=false,LIVE_AT=null;
 const $=s=>document.querySelector(s),t=k=>T[L][k]||k;
 const loc=()=>L==="ur"?"ur-PK":"en-PK";
 const fmt=n=>n==null?"—":new Intl.NumberFormat(loc(),{maximumFractionDigits:2}).format(n);
 const fmtC=n=>n==null?"—":new Intl.NumberFormat("en",{notation:"compact",maximumFractionDigits:Math.abs(n)<10?2:1}).format(n);
-const pkr=n=>"Rs "+new Intl.NumberFormat("en-PK",{maximumFractionDigits:0}).format(n);
+const pkr=n=>"Rs "+new Intl.NumberFormat("en-PK",{maximumFractionDigits:0}).format(Number.isFinite(n)?n:0);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const pct=(a,b)=>a==null||b==null||b===0?null:(a-b)/Math.abs(b)*100;
 const isPctUnit=d=>/^%/.test(d.u);
@@ -878,7 +878,7 @@ function exportCSV(){
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="pakmetric-national-metrics.csv";a.click();URL.revokeObjectURL(a.href);
 }
 function tick(){$("#clock").textContent="PKT "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"medium",hour12:false}).format(new Date())}
-$("#lang").onclick=()=>{L=L==="en"?"ur":"en";localStorage.setItem("pakmetric_lang",L);applyLang()};
+$("#lang").onclick=()=>{L=L==="en"?"ur":"en";try{localStorage.setItem("pakmetric_lang",L)}catch{}applyLang()};
 $("#csv").onclick=exportCSV;$("#q").oninput=render;
 tick();setInterval(tick,1000);applyLang();
 if(location.hash.length>1)openMetric(decodeURIComponent(location.hash.slice(1)));
@@ -887,17 +887,17 @@ loadLive();setInterval(loadLive,5*60*1000);
 const n=id=>{const el=document.getElementById(id);const v=el?Number(el.value):0;return Number.isFinite(v)?v:0};
 function citizenCalc(){
   const set=(id,html)=>{const el=document.getElementById(id);if(el)el.innerHTML=html};
-  const sal=Math.max(0,n("ctSalary")),st=Math.min(1,Math.max(0,n("ctSalaryTax"))/100);
-  set("ctSalaryOut","Estimated take-home: <b>"+pkr(Math.max(0,sal*(1-st)))+"</b>");
-  const w=n("ctWealth"),nis=n("ctNisab");
+  const sal=Math.max(0,n("ctSalary")),st=Math.min(100,Math.max(0,n("ctSalaryTax")))/100;
+  set("ctSalaryOut","Estimated take-home: <b>"+pkr(sal*(1-st))+"</b>");
+  const w=Math.max(0,n("ctWealth")),nis=Math.max(0,n("ctNisab"));
   set("ctZakatOut",w>=nis?"Estimated Zakat: <b>"+pkr(w*.025)+"</b>":"Below entered nisab: <b>Rs 0</b>");
-  const km=n("ctKm"),eff=n("ctEff"),fuel=n("ctFuel"),daily=eff>0?km/eff*fuel:0;
+  const km=Math.max(0,n("ctKm")),eff=Math.max(.1,n("ctEff")),fuel=Math.max(0,n("ctFuel")),daily=km/eff*fuel;
   set("ctFuelOut","Daily: <b>"+pkr(daily)+"</b> · 30 days: <b>"+pkr(daily*30)+"</b>");
-  const inv=n("ctInv"),rate=n("ctRate")/100,yrs=Math.max(0,n("ctYears")),fv=inv*Math.pow(1+rate,yrs);
+  const inv=Math.max(0,n("ctInv")),rate=Math.max(-100,Math.min(1000,n("ctRate")))/100,yrs=Math.min(100,Math.max(0,n("ctYears"))),fv=inv*Math.pow(1+rate,yrs);
   set("ctInvOut","Scenario value: <b>"+pkr(fv)+"</b> · gain "+pkr(fv-inv));
-  const fixed=n("ctFixed"),margin=n("ctMargin")/100;
+  const fixed=Math.max(0,n("ctFixed")),margin=Math.min(100,Math.max(0,n("ctMargin")))/100;
   set("ctBreakOut",margin>0?"Break-even sales: <b>"+pkr(fixed/margin)+" / month</b>":"Enter a gross margin above 0%.");
-  const usd=n("ctUsd"),fx=n("ctFx");
+  const usd=Math.max(0,n("ctUsd")),fx=Math.max(0,n("ctFx"));
   set("ctRemitOut","<b>"+pkr(usd*fx)+"</b> at entered rate");
 }
 function bindCitizenTools(){

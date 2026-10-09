@@ -28,8 +28,9 @@ async function fetchDay(d: string): Promise<Point | null> {
       if (!res.ok) continue
       const json = (await res.json()) as { date: string; usd: Rates }
       const r = json.usd
-      if (!r?.pkr) continue
+      if (!r || !validDate(json.date) || !validPositiveRate(r.pkr)) continue
       const pkr = r.pkr
+      if (![r.eur, r.gbp, r.sar, r.aed, r.xau, r.xag].every(validPositiveRate)) continue
       const round = (n: number, p = 2) => Math.round(n * 10 ** p) / 10 ** p
       return {
         date: json.date,
@@ -47,6 +48,16 @@ async function fetchDay(d: string): Promise<Point | null> {
     }
   }
   return null
+}
+
+function validDate(value: unknown): value is string {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false
+  const parsed = new Date(value + "T00:00:00Z")
+  return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value
+}
+
+function validPositiveRate(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value) && value > 0
 }
 
 export default async () => {

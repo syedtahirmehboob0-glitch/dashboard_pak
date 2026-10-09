@@ -307,12 +307,12 @@ rising:"بڑھ رہا ہے",falling:"کم ہو رہا ہے",steady:"مستحکم
 tbl:"ڈیٹا ٹیبل دکھائیں",yr:"سال",val:"عدد",date:"تاریخ",nohist:"ابھی تاریخ درج نہیں۔ DATA میں سالانہ اعداد شامل کریں۔",
 disc:"اعداد و شمار ابتدائی اندازے ہیں؛ سرکاری ذرائع (SBP, PBS, PSX, PSEB, SECP, OGRA, PTA, FBR) سے تازہ کریں — index.html میں DATA ترمیم کریں۔ «لائیو» نشان والے (کرنسی اور سونا چاندی) روزانہ عالمی ریٹ سے خود تازہ ہوتے ہیں۔ کیلکولیٹر صرف اندازہ ہیں، مالی یا ٹیکس مشورہ نہیں۔"}
 };
-let L=localStorage.getItem("pp_lang")||"en",CAT="all",VIEW=[],CUR=null,LIVE=null,LIVE_ERR=false,LIVE_AT=null;
+let L="en";try{L=localStorage.getItem("pp_lang")==="ur"?"ur":"en"}catch{}let CAT="all",VIEW=[],CUR=null,LIVE=null,LIVE_ERR=false,LIVE_AT=null;
 const $=s=>document.querySelector(s),t=k=>T[L][k]||k;
 const loc=()=>L==="ur"?"ur-PK":"en-PK";
 const fmt=n=>n==null?"—":new Intl.NumberFormat(loc(),{maximumFractionDigits:2}).format(n);
 const fmtC=n=>n==null?"—":new Intl.NumberFormat("en",{notation:"compact",maximumFractionDigits:Math.abs(n)<10?2:1}).format(n);
-const pkr=n=>"Rs "+new Intl.NumberFormat("en-PK",{maximumFractionDigits:0}).format(n);
+const pkr=n=>"Rs "+new Intl.NumberFormat("en-PK",{maximumFractionDigits:0}).format(Number.isFinite(n)?n:0);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const pct=(a,b)=>a==null||b==null||b===0?null:(a-b)/Math.abs(b)*100;
 const isPctUnit=d=>/^%/.test(d.u);
@@ -481,12 +481,12 @@ function charts(){
  $("#ch2").innerHTML=RAILS.map((r,i)=>`<text x="8" y="${48+i*46}">${r.n}</text><rect x="70" y="${30+i*46}" width="${r.v*8}" height="26" rx="6" fill="${["#2ee59d","#f5c542","#4fb3ff","#ff8fa3"][i]}"/><text x="${76+r.v*8}" y="${48+i*46}" style="fill:#e8f3ee">${r.v}%</text>`).join("");
 }
 function calc(){
- const usd=+$("#r_usd").value,fx=+$("#r_fx").value,tx=+$("#r_tax").value/100,fee=+$("#r_fee").value;
+ const usd=Math.max(0,+$("#r_usd").value||0),fx=Math.max(0,+$("#r_fx").value||0),tx=Math.min(100,Math.max(0,+$("#r_tax").value||0))/100,fee=Math.min(usd,Math.max(0,+$("#r_fee").value||0));
  $("#r_out").innerHTML=`${t("gets")}: <b>${pkr((usd-fee)*fx*(1-tx))}</b> (${t("aft")})`;
- const a=+$("#i_amt").value,y=$("#i_yr").value||"2021";
+ const a=Math.max(0,+$("#i_amt").value||0),y=$("#i_yr").value||"2021";
  $("#i_out").innerHTML=`${pkr(a)} (${y}) ${t("eq")} <b>${pkr(a*CPI_FACTOR[y])}</b> ${t("tdy")}`;
- const P=+$("#l_amt").value,n=+$("#l_ten").value,emi=(r)=>{r=r/1200;return r?P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):P/n};
- const e0=emi(+$("#l_old").value),e1=emi(+$("#l_new").value);
+ const P=Math.max(0,+$("#l_amt").value||0),n=Math.max(1,+$("#l_ten").value||1),emi=(r)=>{r=Math.max(0,+r||0)/1200;return r?P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):P/n};
+ const e0=emi($("#l_old").value),e1=emi($("#l_new").value);
  $("#l_out").innerHTML=`${t("emi")}: ${pkr(e0)} → <b>${pkr(e1)}</b><br>${t("save")}: <b>${pkr(e0-e1)}</b> ${t("pm")} · ${pkr((e0-e1)*n)} ${t("tot")}`;
 }
 function exportCSV(){
@@ -498,7 +498,7 @@ function exportCSV(){
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="pakpulse-national-metrics.csv";a.click();URL.revokeObjectURL(a.href);
 }
 function tick(){$("#clock").textContent="PKT "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"medium",hour12:false}).format(new Date())}
-$("#lang").onclick=()=>{L=L==="en"?"ur":"en";localStorage.setItem("pp_lang",L);applyLang()};
+$("#lang").onclick=()=>{L=L==="en"?"ur":"en";try{localStorage.setItem("pp_lang",L)}catch{}applyLang()};
 $("#csv").onclick=exportCSV;$("#q").oninput=render;
 document.querySelectorAll(".box input,.box select").forEach(e=>e.oninput=calc);
 tick();setInterval(tick,1000);applyLang();
@@ -506,7 +506,7 @@ if(location.hash.length>1)openMetric(decodeURIComponent(location.hash.slice(1)))
 loadLive();setInterval(loadLive,5*60*1000);
 /* v2 citizen tools + official economy feed */
 const n=id=>+document.getElementById(id).value||0;
-function citizenCalc(){const sal=n("ctSalary"),st=n("ctSalaryTax")/100;$("#ctSalaryOut").innerHTML="Estimated take-home: <b>"+pkr(sal*(1-st))+"</b>";const w=n("ctWealth"),nis=n("ctNisab");$("#ctZakatOut").innerHTML=w>nis?"Estimated Zakat: <b>"+pkr((w-nis)*.025)+"</b>":"Below entered nisab: <b>Rs 0</b>";const km=n("ctKm"),eff=n("ctEff"),fuel=n("ctFuel");$("#ctFuelOut").innerHTML="Daily: <b>"+pkr(km/eff*fuel)+"</b> · 30 days: <b>"+pkr(km/eff*fuel*30)+"</b>";const inv=n("ctInv"),rate=n("ctRate")/100,yrs=n("ctYears"),fv=inv*Math.pow(1+rate,yrs);$("#ctInvOut").innerHTML="Scenario value: <b>"+pkr(fv)+"</b> · gain "+pkr(fv-inv);const fixed=n("ctFixed"),margin=n("ctMargin")/100;$("#ctBreakOut").innerHTML="Break-even sales: <b>"+pkr(margin?fixed/margin:0)+" / month</b>";const usd=n("ctUsd"),fx=n("ctFx");$("#ctRemitOut").innerHTML="<b>"+pkr(usd*fx)+"</b> at entered rate"}
+function citizenCalc(){const sal=Math.max(0,n("ctSalary")),st=Math.min(100,Math.max(0,n("ctSalaryTax")))/100;$("#ctSalaryOut").innerHTML="Estimated take-home: <b>"+pkr(sal*(1-st))+"</b>";const w=Math.max(0,n("ctWealth")),nis=Math.max(0,n("ctNisab"));$("#ctZakatOut").innerHTML=w>nis?"Estimated Zakat: <b>"+pkr((w-nis)*.025)+"</b>":"Below entered nisab: <b>Rs 0</b>";const km=Math.max(0,n("ctKm")),eff=Math.max(.1,n("ctEff")),fuel=Math.max(0,n("ctFuel"));$("#ctFuelOut").innerHTML="Daily: <b>"+pkr(km/eff*fuel)+"</b> · 30 days: <b>"+pkr(km/eff*fuel*30)+"</b>";const inv=Math.max(0,n("ctInv")),rate=Math.max(-100,n("ctRate"))/100,yrs=Math.min(100,Math.max(0,n("ctYears"))),fv=inv*Math.pow(1+rate,yrs);$("#ctInvOut").innerHTML="Scenario value: <b>"+pkr(fv)+"</b> · gain "+pkr(fv-inv);const fixed=Math.max(0,n("ctFixed")),margin=Math.min(100,Math.max(0,n("ctMargin")))/100;$("#ctBreakOut").innerHTML=margin?"Break-even sales: <b>"+pkr(fixed/margin)+" / month</b>":"Enter a margin above 0% to calculate break-even";const usd=Math.max(0,n("ctUsd")),fx=Math.max(0,n("ctFx"));$("#ctRemitOut").innerHTML="<b>"+pkr(usd*fx)+"</b> at entered rate"}
 document.querySelectorAll(".tool input").forEach(e=>e.addEventListener("input",citizenCalc));
 async function loadEconomy(){try{const r=await fetch("/api/economy");if(!r.ok)throw new Error(r.status);const d=await r.json(),m=d.market||{},i=d.investment||{};if(m.kse100!=null){$("#heroKse").textContent=fmt(m.kse100);$("#kseValue").textContent=fmt(m.kse100);$("#kseChange").textContent=(m.change>=0?"▲ ":"▼ ")+fmt(Math.abs(m.change||0))+" ("+fmt(Math.abs(m.changePct||0))+"%)";$("#kseChange").className="chg "+(m.change>=0?"up":"dn")}if(m.totalTrades!=null)$("#psxTrades").textContent=fmtC(m.totalTrades);if(m.volume!=null)$("#psxVolume").textContent=fmtC(m.volume);if(m.value!=null)$("#psxValue").textContent="Rs "+fmtC(m.value);if(i.fdiFY25JulJan!=null){$("#heroFdi").textContent="$"+fmt(i.fdiFY25JulJan/1000)+"B";$("#fdiValue").textContent="$"+fmt(i.fdiFY25JulJan)+"M"}const sec=i.sectors||{},items=[["Power",sec.power],["Financial",sec.financial],["Oil & Gas",sec.oilGas],["Construction",sec.construction],["Trade",sec.trade],["IT / Telecom",sec.itTelecom]],vals=items.filter(x=>x[1]!=null),max=Math.max(...vals.map(x=>Math.abs(x[1])),1);$("#fdiBars").innerHTML=vals.map(x=>"<div class='fdi-bar'><span>"+x[0]+"</span><span class='fdi-track'><span class='fdi-fill' style='width:"+Math.min(100,Math.abs(x[1])/max*100)+"%'></span></span><b>"+fmt(x[1])+"</b></div>").join("");if(d.macro&&d.macro.cpi!=null)$("#heroCpi").textContent=fmt(d.macro.cpi)+"%";$("#heroUpdated").textContent=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";const s=$("#economyStatus");s.className="data-status "+(d.status==="ok"?"ok":"warn");s.textContent=(d.status==="ok"?"● Official feeds connected":"● Partial feed — some official sources unavailable")+" · refreshed "+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Karachi",dateStyle:"medium",timeStyle:"short"}).format(new Date(d.fetchedAt))+" PKT";if(LIVE?.latest?.usdpkr)$("#ctFx").value=LIVE.latest.usdpkr}catch(e){$("#economyStatus").className="data-status warn";$("#economyStatus").textContent="● Official feed temporarily unavailable — showing saved dashboard data."}}
 citizenCalc();loadEconomy();setInterval(loadEconomy,10*60*1000);</script>

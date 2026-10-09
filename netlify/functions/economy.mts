@@ -5,7 +5,15 @@ const PSX = "https://dps.psx.com.pk/"
 const BOI = "https://invest.gov.pk/statistics"
 const PBS = "https://www.pbs.gov.pk/"
 
-const clean = (s: string) => s.replace(/\s+/g, " ").trim()
+const clean = (s: string) => s
+  .replace(/<(script|style|noscript)\b[^>]*>[\s\S]*?<\/\1>/gi, " ")
+  .replace(/<[^>]+>/g, " ")
+  .replace(/&nbsp;|&#160;/gi, " ")
+  .replace(/&amp;/gi, "&")
+  .replace(/&ndash;|&#8211;/gi, "–")
+  .replace(/&mdash;|&#8212;/gi, "—")
+  .replace(/&#?\w+;/g, " ")
+  .replace(/\s+/g, " ").trim()
 const num = (s: string) => {
   const n = Number(String(s).replace(/,/g, "").replace(/%/g, ""))
   return Number.isFinite(n) ? n : null
@@ -72,11 +80,14 @@ export default async () => {
   const errors: string[] = []
   const psx = psxR.status === "fulfilled" ? parsePSX(psxR.value) : (errors.push("PSX unavailable"), null)
   const boi = boiR.status === "fulfilled" ? parseBOI(boiR.value) : (errors.push("BOI unavailable"), null)
+  if (psxR.status === "fulfilled" && psx?.kse100 == null) errors.push("PSX format changed")
+  if (boiR.status === "fulfilled" && boi?.fdiFY25JulJan == null) errors.push("BOI format changed")
 
   let cpi = null
   if (pbsR.status === "fulfilled") {
     const m = clean(pbsR.value).match(/Monthly Consumer Price Index.*?(\d+(?:\.\d+)?)%/i)
     cpi = m ? num(m[1]) : null
+    if (cpi == null) errors.push("PBS format changed")
   } else errors.push("PBS unavailable")
 
   return Response.json({

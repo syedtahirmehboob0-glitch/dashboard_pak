@@ -7,7 +7,15 @@ const PBS = "https://www.pbs.gov.pk/"
 const OGRA_DAILY = "https://price.ogra.org.pk/?category=price-publications&section=daily-fuel"
 const OGRA_LEGACY = "https://ogra.org.pk/index.php/notified-petroleum-prices"
 
-const clean = (s: string) => s.replace(/\s+/g, " ").trim()
+const clean = (s: string) => s
+  .replace(/<(script|style|noscript)\b[^>]*>[\s\S]*?<\/\1>/gi, " ")
+  .replace(/<[^>]+>/g, " ")
+  .replace(/&nbsp;|&#160;/gi, " ")
+  .replace(/&amp;/gi, "&")
+  .replace(/&ndash;|&#8211;/gi, "–")
+  .replace(/&mdash;|&#8212;/gi, "—")
+  .replace(/&#?\w+;/g, " ")
+  .replace(/\s+/g, " ").trim()
 const num = (s: string) => {
   const n = Number(String(s).replace(/,/g, "").replace(/%/g, ""))
   return Number.isFinite(n) ? n : null
@@ -113,6 +121,8 @@ export default async () => {
   const errors: string[] = []
   const psx = psxR.status === "fulfilled" ? parsePSX(psxR.value) : (errors.push("PSX unavailable"), null)
   const boi = boiR.status === "fulfilled" ? parseBOI(boiR.value) : (errors.push("BOI unavailable"), null)
+  if (psxR.status === "fulfilled" && psx?.kse100 == null) errors.push("PSX format changed")
+  if (boiR.status === "fulfilled" && boi?.fdiFY25JulJan == null) errors.push("BOI format changed")
   const fuelHtml = ograR.status === "fulfilled" ? ograR.value : (ograLegacyR.status === "fulfilled" ? ograLegacyR.value : null)
   const fuel = fuelHtml ? parseFuel(fuelHtml) : null
   if (!fuel?.petrol) errors.push("OGRA petrol unavailable")

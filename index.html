@@ -417,7 +417,118 @@ dialog{background:#0d1522;border-color:#2a3a51;box-shadow:0 30px 90px rgba(0,0,0
 .imf-card{color:#edf3f8!important}.imf-card :is(p,span,small,li){color:#c1ccda!important}.imf-card b,.imf-card h3{color:#f4f7fb!important}
 #debt .debt-total,#debt .debt-card{background:#fff!important;color:#10231b!important;border-color:#dfe6e1!important;box-shadow:0 4px 14px rgba(16,35,27,.06)!important}#debt .debt-total :is(.debt-label,b,small),#debt .debt-card :is(.debt-card-title,.debt-row span,.debt-row b,.debt-note,.debt-foot,.debt-foot b){color:#263b32!important}#debt .debt-row em{color:#08734a!important}
 .gov-cap span{color:#52675d!important}.photo-credit,.photo-credit a{color:#aebfb5!important}footer.site-footer{color:#b1bfd0!important}footer.site-footer a{color:#c4d1df!important}
-</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PakDigitalDashboard","url":"https://dashboardpak.netlify.app/","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Pakistan economic, public-debt, market and citizen data dashboard using dated public institutional sources.","offers":{"@type":"Offer","price":"0","priceCurrency":"PKR"}}</script><link rel="stylesheet" href="/assets/site.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"PakDigitalDashboard","url":"https://dashboardpak.netlify.app/"}</script><meta property="og:image" content="https://dashboardpak.netlify.app/assets/og-default.png"><meta name="twitter:image" content="https://dashboardpak.netlify.app/assets/og-default.png"></head>
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PakDigitalDashboard","url":"https://dashboardpak.netlify.app/","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Pakistan economic, public-debt, market and citizen data dashboard using dated public institutional sources.","offers":{"@type":"Offer","price":"0","priceCurrency":"PKR"}}</script><link rel="stylesheet" href="/assets/site.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"PakDigitalDashboard","url":"https://dashboardpak.netlify.app/"}</script><meta property="og:image" content="https://dashboardpak.netlify.app/assets/og-default.png"><meta name="twitter:image" content="https://dashboardpak.netlify.app/assets/og-default.png"><style id="pdd-dashboard-revamp">
+/* Editorial dashboard refresh — clear surfaces, sharper hierarchy, and touch-friendly controls. */
+:root{--ui-bg:#f3f6f4;--ui-paper:#fff;--ui-ink:#16271f;--ui-muted:#60746a;--ui-line:#dce7e0;--ui-green:#08784e;--ui-green-dark:#0d3024;--ui-green-soft:#e8f4ed;--ui-gold:#efc96b;--ui-shadow:0 14px 36px rgba(22,46,34,.075);--ui-radius:20px}
+html{background:var(--ui-bg);scroll-padding-top:92px}
+body:has(#main-content){background:var(--ui-bg)!important;color:var(--ui-ink)!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif!important;font-size:16px;line-height:1.62;letter-spacing:-.005em}
+body:has(#main-content) :focus-visible{outline:3px solid #247f5c!important;outline-offset:3px!important}
+.pd-header{position:sticky!important;top:0!important;z-index:60;background:rgba(13,38,29,.96)!important;border-bottom:1px solid rgba(255,255,255,.12)!important;box-shadow:0 5px 20px rgba(13,38,29,.13);backdrop-filter:blur(16px)}
+.pd-nav{min-height:70px!important}.pd-brand{font-size:1.04rem!important;letter-spacing:-.04em;color:#fff!important}.pd-brand span{color:#79d5a8!important}.pd-menu{gap:3px!important}.pd-menu a{color:#dce9e2!important;font-size:.82rem!important;padding:8px 10px!important;border-radius:999px!important;transition:background .18s,color .18s}.pd-menu a:hover,.pd-menu a:focus-visible{background:rgba(255,255,255,.13)!important;color:white!important}.pd-menu-btn{background:#174331!important;color:#fff!important;border:1px solid rgba(255,255,255,.23)!important;border-radius:10px!important}
+#main-content.wrap{width:min(1240px,calc(100% - 48px));max-width:1240px;margin:0 auto;padding:30px 0 62px}
+#main-content h2{color:var(--ui-ink);font-size:clamp(1.35rem,2.4vw,1.8rem);line-height:1.2;letter-spacing:-.035em}
+#main-content p{line-height:1.65}
+.dashboard-toolbar{display:grid!important;grid-template-columns:minmax(0,1.4fr) minmax(280px,.85fr);grid-template-areas:"title cover" "search cover" "metrics metrics" "source source";gap:20px 28px!important;align-items:start;padding:clamp(24px,4vw,42px)!important;margin:0 0 18px!important;overflow:hidden;position:relative;background:radial-gradient(ellipse at 76% 0%,rgba(79,174,122,.31),transparent 38%),linear-gradient(135deg,#153b2b 0%,#10281f 62%,#0b2018 100%)!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:28px!important;box-shadow:0 24px 60px rgba(15,48,34,.18)!important;color:#f3f8f4!important}
+.dashboard-toolbar:before{content:"";position:absolute;width:360px;height:360px;border:1px solid rgba(179,228,195,.1);border-radius:50%;right:27%;top:-265px;pointer-events:none}
+.dashboard-title{grid-area:title;display:flex!important;justify-content:space-between;align-items:flex-start;gap:20px;position:relative;z-index:1}
+.dashboard-title>div:first-child{max-width:680px}.dashboard-eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 15px;padding:6px 10px;border:1px solid rgba(186,229,197,.3);border-radius:999px;background:rgba(235,249,239,.08);color:#bde7cb!important;font-size:.75rem;font-weight:750;letter-spacing:.1em;text-transform:uppercase}
+.dashboard-title h1{margin:0 0 12px;color:#fff!important;font-size:clamp(2.3rem,5.3vw,4.3rem)!important;line-height:.99;letter-spacing:-.065em!important;font-weight:780}
+.dashboard-title p{max-width:620px;margin:0 0 8px;color:#d8e7dd!important;font-size:clamp(1rem,1.6vw,1.14rem);line-height:1.55!important}
+.dashboard-title p.pd-updated{margin-top:15px;color:#a9c2b2!important;font-size:.82rem;letter-spacing:.01em}
+.dashboard-controls{display:flex!important;flex-wrap:wrap;justify-content:flex-end;gap:8px;min-width:160px}.dashboard-controls #clock{min-height:42px;padding:8px 11px;border:1px solid rgba(255,255,255,.18);border-radius:11px;background:rgba(0,0,0,.15);color:#dce9e2;font-size:.78rem}
+.dashboard-controls button{min-height:42px!important;padding:8px 12px!important;border:1px solid rgba(255,255,255,.25)!important;border-radius:11px!important;background:rgba(255,255,255,.09)!important;color:#f5faf6!important;font-size:.82rem!important;font-weight:700!important;transition:background .18s,transform .18s}
+.dashboard-controls button:hover{background:rgba(255,255,255,.17)!important;transform:translateY(-1px)}
+.dashboard-search{grid-area:search;position:relative;z-index:1;max-width:780px;padding-top:2px}
+.dashboard-search input#q{width:100%;min-height:50px!important;padding:12px 16px!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:13px!important;background:#f9fcfa!important;color:#18372a!important;box-shadow:0 8px 24px rgba(0,0,0,.12);font-size:.95rem!important}
+.dashboard-search input#q::placeholder{color:#6f8277!important}.dashboard-search .bar{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.dashboard-search .bar button,.dashboard-search .bar [role=button]{min-height:34px!important;padding:5px 11px!important;border:1px solid rgba(220,241,225,.25)!important;border-radius:999px!important;background:rgba(255,255,255,.08)!important;color:#e0eee5!important;font-size:.76rem!important;font-weight:650;white-space:nowrap}
+.dashboard-search .bar button:hover,.dashboard-search .bar button.on{background:#dff3e6!important;border-color:#dff3e6!important;color:#16402c!important}
+.pakistan-cover{grid-area:cover;position:relative;z-index:1;min-height:270px;height:100%;max-height:360px;align-self:stretch;overflow:hidden;border:1px solid rgba(255,255,255,.22);border-radius:20px;background:#204d39}
+.landmark-art{position:absolute!important;inset:0;margin:0!important;width:100%;height:100%;overflow:hidden;border:0!important;border-radius:inherit!important;background:#204d39}
+.landmark-art:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(0deg,rgba(7,26,17,.78),transparent);pointer-events:none}
+.landmark-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 54%;transition:transform .6s ease}.dashboard-toolbar:hover .landmark-art img{transform:scale(1.025)}
+.landmark-art figcaption{position:absolute;z-index:1;left:15px;bottom:12px;padding:5px 9px;border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(9,29,19,.48);color:#f3f8f4;font-size:.7rem;letter-spacing:.03em}
+.priority-strip{grid-area:metrics;display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:9px!important;position:relative;z-index:1}
+.priority-card{min-width:0;min-height:96px;padding:13px 14px!important;border:1px solid rgba(219,242,225,.18)!important;border-radius:15px!important;background:rgba(246,252,247,.09)!important;box-shadow:none!important;transition:transform .18s,border-color .18s,background .18s}
+.priority-card:hover{transform:translateY(-2px);border-color:rgba(190,235,202,.45)!important;background:rgba(246,252,247,.13)!important}
+.priority-card .pc-label{display:block;margin-bottom:8px;color:#bad7c3!important;font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.priority-card b{display:block;overflow-wrap:anywhere;color:#fff!important;font-size:clamp(1.05rem,1.5vw,1.35rem)!important;line-height:1.2;font-weight:760!important;font-variant-numeric:tabular-nums}.priority-card small{display:block;margin-top:7px;color:#bdd1c3!important;font-size:.7rem!important;line-height:1.4}
+.provenance-bar{grid-area:source;display:flex!important;align-items:center;flex-wrap:wrap;gap:7px!important;padding-top:14px!important;border-top:1px solid rgba(232,248,237,.15)!important;background:transparent!important;color:#bcd2c2!important;font-size:.76rem}.provenance-bar strong{margin-right:5px;color:#eff8f1!important;font-size:.76rem}.provenance-chip{padding:4px 8px!important;border:1px solid rgba(232,248,237,.18)!important;border-radius:999px!important;background:rgba(255,255,255,.06)!important;color:#d7e8dc!important;font-size:.67rem!important}
+.hint{margin:0 0 12px!important;color:#667a6e!important;font-size:.82rem!important}
+.snapshot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important;margin:0 0 34px!important}
+.card{min-width:0;min-height:158px!important;padding:17px!important;border:1px solid var(--ui-line)!important;border-radius:17px!important;background:var(--ui-paper)!important;color:var(--ui-ink)!important;box-shadow:0 4px 16px rgba(22,46,34,.035)!important;transition:transform .18s,box-shadow .18s,border-color .18s!important}
+.card:hover{transform:translateY(-3px)!important;border-color:#b8d5c4!important;box-shadow:var(--ui-shadow)!important}
+.card .k{color:#53695d!important;font-size:.83rem!important;font-weight:700;line-height:1.4}.card .v{color:#132b20!important;font-size:clamp(1.5rem,2.3vw,2rem)!important;letter-spacing:-.045em!important;line-height:1.2;font-weight:760!important}.card .v small,.card .src,.card .chg,.card .row{color:#64796d!important;font-size:.76rem!important;line-height:1.45}.card .live{color:#08784e!important}
+#main-content .overview-charts,#main-content #imf,#main-content #debt,#main-content #tools,#main-content #markets,#main-content #services,#main-content #rankings,#main-content .section-shell{margin:24px 0!important;padding:clamp(18px,3vw,28px)!important;border:1px solid var(--ui-line)!important;border-radius:var(--ui-radius)!important;background:var(--ui-paper)!important;color:var(--ui-ink)!important;box-shadow:var(--ui-shadow)!important}
+.section-heading,.section-head{display:flex!important;justify-content:space-between;align-items:flex-end!important;gap:18px;flex-wrap:wrap;margin:0 0 20px!important}
+.section-heading h2,.section-head h2{margin:4px 0 0!important;color:var(--ui-ink)!important;font-size:clamp(1.35rem,2.4vw,1.85rem)!important;letter-spacing:-.04em}.section-heading p,.section-head p{margin:5px 0 0!important;color:#63776c!important;font-size:.89rem!important;font-weight:500!important}
+.sh-kicker,.section-kicker{color:#08784e!important;font-size:.7rem!important;font-weight:800!important;letter-spacing:.12em!important;text-transform:uppercase}
+.section-note,.imf-foot{color:#5a7064!important;font-size:.8rem!important;line-height:1.6}
+.dashboard-divider{height:1px!important;margin:26px auto!important;background:linear-gradient(90deg,transparent,#cfddd3,transparent)!important}
+#main-content .two{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+#main-content .box{min-width:0;padding:16px!important;border:1px solid #e0e9e3!important;border-radius:16px!important;background:#fbfdfb!important;color:var(--ui-ink)!important;box-shadow:none!important}
+#main-content .box .k,#main-content .chartbox .k{color:#3e584a!important;font-weight:750}
+#main-content svg text{fill:#687d71!important;font-size:11px!important}
+#imf .imf-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+#imf .imf-card{min-width:0;padding:19px!important;border:1px solid #dce7e0!important;border-radius:17px!important;background:#f7faf8!important;color:var(--ui-ink)!important;box-shadow:none!important}
+#imf .imf-card.imf-main{background:linear-gradient(145deg,#123c2b,#0e2d22)!important;border-color:#123c2b!important;color:#fff!important}
+#imf .imf-card :is(.imf-label,.imf-sub,.imf-meta,.imf-split span){color:#61766a!important;font-size:.8rem;line-height:1.55}
+#imf .imf-main :is(.imf-label,.imf-sub,.imf-meta,.imf-split span){color:#d2e6d8!important}
+#imf .imf-big{margin:11px 0 8px;color:#173d2b!important;font-size:clamp(1.75rem,3vw,2.4rem)!important;font-weight:780!important;letter-spacing:-.05em;line-height:1.1}
+#imf .imf-main .imf-big{color:#fff!important}
+#imf .imf-progress{height:7px;margin:18px 0 10px;border-radius:999px;background:#dce8df;overflow:hidden}#imf .imf-main .imf-progress{background:rgba(255,255,255,.18)}
+#imf .imf-progress span{display:block;height:100%;border-radius:inherit;background:#16a56a}#imf .imf-main .imf-progress span{background:#91e1ac}
+#imf .imf-meta{display:flex;justify-content:space-between;gap:10px}
+#debt .debt-headline{gap:12px!important}#debt .debt-total,#debt .debt-card{padding:19px!important;border:1px solid var(--ui-line)!important;border-radius:17px!important;background:#fbfdfb!important;color:var(--ui-ink)!important;box-shadow:none!important}
+#debt .debt-total b{color:#123b29!important;font-size:clamp(1.7rem,3vw,2.25rem)!important;letter-spacing:-.05em}
+#debt .debt-label,#debt .debt-total small,#debt .debt-row span,#debt .debt-note,#debt .debt-foot{color:#61766b!important;line-height:1.55}
+#debt .debt-card-title{color:#173b29!important;font-size:.9rem!important;font-weight:800!important}
+#debt .debt-row{border-bottom-color:#e5ede7!important}
+#debt .debt-row b{color:#1b3025!important}.debt-bar{background:#e4ede7!important}.debt-bar span{background:linear-gradient(90deg,#0b774b,#43b878)!important}
+#debt .debt-foot{background:#f0f6f2!important;border-color:#e0e9e3!important}
+#tools .tool-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+#tools .tool{min-width:0;padding:19px!important;border:1px solid var(--ui-line)!important;border-radius:17px!important;background:#fbfdfb!important;color:var(--ui-ink)!important;box-shadow:none!important}
+#tools .tool h3{margin:0 0 7px!important;color:#173b29!important;font-size:1rem!important}
+#tools .tool p{color:#60756a!important;font-size:.82rem!important;font-weight:450!important;line-height:1.5}
+#tools .tool label{color:#3f594a!important;font-size:.77rem!important;font-weight:700!important}
+#tools .tool input,#tools .tool select{min-height:44px!important;padding:9px 11px!important;border:1px solid #ccdacf!important;border-radius:10px!important;background:#fff!important;color:#173427!important}
+#tools .tool .out{min-height:42px!important;border:1px solid #dce9df!important;border-radius:11px!important;background:#edf6f0!important;color:#173b29!important}
+#tools .calc-btn{min-height:44px!important;border-radius:10px!important;background:#08784e!important;color:#fff!important;box-shadow:0 4px 10px rgba(8,120,78,.13);transition:filter .18s,transform .18s}
+#tools .calc-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+#markets .live-board{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+#markets .market-card{padding:20px!important;border:1px solid #183c2c!important;border-radius:18px!important;background:linear-gradient(145deg,#153c2b,#102d21)!important;color:#f6faf6!important;box-shadow:none!important}
+#markets .market-card :is(.meta,.market-row,.chg){color:#c4d9cb!important}
+#markets .market-card .big{margin:9px 0;color:#fff!important;font-size:clamp(1.8rem,3.5vw,2.7rem)!important;font-weight:780;letter-spacing:-.05em}
+#markets .market-row{padding:10px 0!important;border-bottom:1px solid rgba(226,244,231,.13)!important}
+#markets .market-row b{color:#fff!important}
+.source-pill{display:inline-flex!important;align-items:center;gap:5px;margin-top:10px;padding:7px 11px!important;border:1px solid #d6e4da!important;border-radius:999px!important;background:#f2f7f3!important;color:#246044!important;font-size:.75rem!important;font-weight:750!important;text-decoration:none!important;transition:background .18s,border-color .18s}
+.source-pill:hover{background:#e4f2e8!important;border-color:#b8d9c3!important}
+#markets .market-card .source-pill{border-color:rgba(240,250,243,.22)!important;background:rgba(255,255,255,.09)!important;color:#e4f2e8!important}
+#markets .market-card .source-pill:hover{background:rgba(255,255,255,.16)!important}
+#markets .data-status{margin-top:14px;color:#60766a!important;font-size:.82rem}
+#services .gov-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+#services .gov{display:flex!important;align-items:center;gap:13px;min-height:86px;padding:15px!important;border:1px solid var(--ui-line)!important;border-radius:15px!important;background:#fbfdfb!important;color:var(--ui-ink)!important;text-decoration:none!important;box-shadow:none!important;transition:transform .18s,border-color .18s,box-shadow .18s}
+#services .gov:hover{transform:translateY(-2px);border-color:#b7d3c1!important;box-shadow:0 9px 20px rgba(22,46,34,.07)}
+#services .gov .ico{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:13px;background:#e8f4ec;font-size:1.2rem}
+#services .gov b{display:block;color:#173b29!important;font-size:.9rem}
+#services .gov span{display:block;color:#60756a!important;font-size:.76rem;line-height:1.45}
+#rankings .ranking-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:11px!important}
+#rankings .ranking-card{display:flex;min-height:154px;padding:17px!important;border:1px solid var(--ui-line)!important;border-radius:16px!important;background:#fbfdfb!important;color:var(--ui-ink)!important;box-shadow:none!important}
+#rankings .ranking-card span,#rankings .ranking-card small{color:#63776b!important;font-size:.76rem!important}
+#rankings .ranking-card b{color:#153b29!important;font-size:2rem!important;letter-spacing:-.05em}
+#rankings .ranking-card em{margin-top:5px;color:#4a6454!important;font-size:.75rem!important;line-height:1.5}
+#main-content .section-shell{border-radius:var(--ui-radius)!important}
+.dashboard-cards{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:11px!important}
+.dashboard-card{min-width:0;min-height:90px;padding:15px!important;border:1px solid var(--ui-line)!important;border-radius:15px!important;background:#fbfdfb!important;color:var(--ui-ink)!important;text-decoration:none!important;transition:transform .18s,border-color .18s,box-shadow .18s}
+.dashboard-card:hover{transform:translateY(-2px);border-color:#b7d3c1!important;box-shadow:0 10px 22px rgba(22,46,34,.07)}
+.dashboard-card .dc-icon{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border-radius:12px;background:#e8f4ec;color:#08784e!important;font-weight:800}
+.dashboard-card b{color:#173b29!important;font-size:.86rem}.dashboard-card span span{color:#64786d!important;font-size:.75rem}
+#main-content footer.site-footer{margin:28px 0 0!important;padding:22px 0!important;border-top:1px solid var(--ui-line)!important;background:transparent!important;color:#61766b!important}
+#main-content footer.site-footer a{color:#315f47!important}
+@media(max-width:1050px){.priority-strip{grid-template-columns:repeat(3,minmax(0,1fr))!important}#services .gov-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}#rankings .ranking-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.dashboard-cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:760px){#main-content.wrap{width:calc(100% - 28px);padding-top:20px}.dashboard-toolbar{grid-template-columns:1fr!important;grid-template-areas:"title" "search" "cover" "metrics" "source"!important;gap:15px!important;padding:20px!important;border-radius:22px!important}.dashboard-title{flex-direction:column!important;gap:12px!important}.dashboard-title h1{font-size:clamp(2.35rem,11vw,3.4rem)!important}.dashboard-controls{justify-content:flex-start!important}.pakistan-cover{min-height:190px;max-height:260px}.priority-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important}.priority-card{min-height:90px!important;padding:12px!important}.snapshot-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.card{min-height:135px!important;padding:14px!important}.#main-content .two,#imf .imf-grid,#tools .tool-grid,#markets .live-board{grid-template-columns:1fr!important}#services .gov-grid,#rankings .ranking-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.section-heading,.section-head{align-items:flex-start!important}.#main-content .overview-charts,#main-content #imf,#main-content #debt,#main-content #tools,#main-content #markets,#main-content #services,#main-content #rankings,#main-content .section-shell{padding:18px!important;border-radius:17px!important}}
+@media(max-width:480px){#main-content.wrap{width:calc(100% - 22px)}.dashboard-toolbar{padding:16px!important}.priority-strip{grid-template-columns:1fr 1fr!important}.priority-card b{font-size:1.04rem!important}.snapshot-grid{grid-template-columns:1fr!important}.card{min-height:0!important}.#services .gov-grid,#rankings .ranking-grid,.dashboard-cards{grid-template-columns:1fr!important}.section-head{gap:10px}.source-pill{font-size:.7rem!important}}
+@media(prefers-reduced-motion:reduce){.landmark-art img,.card,.priority-card,.dashboard-card,#services .gov{transition:none!important}}
+</style></head>
 <body><a class="skip-link" href="#main-content">Skip to main content</a><header class="pd-header"><nav class="pd-shell pd-nav" aria-label="Primary"><a class="pd-brand" href="/">PakDigital<span>Dashboard</span></a><button class="pd-menu-btn" aria-expanded="false" aria-controls="primary-nav">Menu</button><div id="primary-nav" class="pd-menu"><a href="/">Dashboard</a><a href="/pakistan-economy">Economy</a><a href="/pakistan-debt">Debt</a><a href="/pakistan-inflation">Inflation</a><a href="/pakistan-dollar-rate">USD/PKR</a><a href="/pakistan-petrol-price">Fuel</a><a href="/pakistan-remittances">Remittances</a><a href="/blog">Blog</a><a href="/about">About</a></div></nav></header>
 <main id="main-content" class="wrap">
 
@@ -426,7 +537,7 @@ dialog{background:#0d1522;border-color:#2a3a51;box-shadow:0 30px 90px rgba(0,0,0
 
 <section class="dashboard-toolbar" aria-label="Pakistan dashboard">
   <div class="dashboard-title">
-    <div><div class="dashboard-eyebrow">🇵🇰 Pakistan</div><h1>Pakistan Dashboard</h1><p>Pakistan's public data, economic signals and everyday indicators — brought together in one clear view.</p><p class="pd-updated">Dashboard reviewed 3 October 2026 · Indicator dates are shown beside the figures.</p></div>
+    <div><div class="dashboard-eyebrow">🇵🇰 Pakistan</div><h1>Pakistan Dashboard</h1><p>Pakistan's public data, economic signals and everyday indicators — brought together in one clear view.</p><p class="pd-updated">Figures are published on different schedules; check the source date shown beside each indicator.</p></div>
     <div class="dashboard-controls"><div id="clock"></div><button id="lang"></button><button id="csv" data-i="csv"></button></div>
   </div>
   <div class="dashboard-search">
@@ -439,7 +550,7 @@ dialog{background:#0d1522;border-color:#2a3a51;box-shadow:0 30px 90px rgba(0,0,0
     <div class="priority-card"><div class="pc-label">GDP growth</div><b id="priorityGdp">3.70%</b><small id="priorityGdpMeta">PBS · FY2025-26 provisional</small></div>
     <div class="priority-card"><div class="pc-label">KSE-100</div><b id="priorityKse">168,155</b><small id="priorityKseMeta">PSX · 2 Oct 2026 close</small></div>
     <div class="priority-card"><div class="pc-label">USD / PKR</div><b id="priorityUsd">Rs 277.0714 / US$</b><small id="priorityUsdMeta">SBP · 2 Oct 2026</small></div>
-    <div class="priority-card"><div class="pc-label">FX reserves</div><b id="priorityReserves">US</b>6,770.9m</b><small id="priorityReservesMeta">SBP · 25 Sep 2026</small></div>
+    <div class="priority-card"><div class="pc-label">FX reserves</div><b id="priorityReserves">US$6,770.9m</b><small id="priorityReservesMeta">SBP · 25 Sep 2026</small></div>
     <div class="priority-card"><div class="pc-label">Public debt</div><b id="priorityDebt">Rs 83.285T</b><small id="priorityDebtMeta">Finance Ministry · Mar 2026</small></div>
     <div class="priority-card"><div class="pc-label">Remittances</div><b id="priorityRemit">US$3.656B</b><small id="priorityRemitMeta">SBP · Aug 2026</small></div>
     <div class="priority-card"><div class="pc-label">Petrol</div><b id="priorityPetrol">See latest OGRA notification</b><small id="priorityPetrolMeta">OGRA · listed 2 Oct 2026 · check current OGRA notice</small></div>

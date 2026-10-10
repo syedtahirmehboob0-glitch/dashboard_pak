@@ -32,3 +32,8 @@
 /terms /terms.html 200
 /methodology /methodology.html 200
 / /index.html 200
+/sectors.html /sectors 301
+/pakistan-sectors /sectors 301
+/sectors/ /sectors.html 200
+/sectors /sectors.html 200
+/blog/index.html /blog 301
